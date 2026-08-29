@@ -231,6 +231,240 @@ export const ARCS = [
     blurb: 'A line-wide event crosses all three titles; Spider-Man briefly holds cosmic power.',
     crossover: true,
   },
+
+  /* ==================================================================== 1990s
+     Discovered by reading the StoryArc and Event fields off every issue in the
+     decade rather than from memory, then cut down to the ones that cross
+     titles or that the period is actually remembered for. The scan found 73
+     arcs; these are the eighteen worth navigating by.
+
+     The Clone Saga is listed in full at 76 issues across six titles. That is
+     not a mistake: arcs chain their issues in reading order rather than
+     linking every pair, so even this one stays readable in the focus graph.
+     ==================================================================== */
+  {
+    key: 'child-within',
+    name: "The Child Within",
+    year: 1991,
+    issues: [
+      'peter-parker-spectacular-178', 'peter-parker-spectacular-179', 'peter-parker-spectacular-180',
+      'peter-parker-spectacular-181', 'peter-parker-spectacular-182', 'peter-parker-spectacular-183',
+      'peter-parker-spectacular-184',
+    ],
+    blurb: "Harry Osborn's decline, told over seven issues of Spectacular.",
+  },
+  {
+    key: 'revenge-sinister-six',
+    name: "Revenge of the Sinister Six",
+    year: 1992,
+    issues: [
+      'spider-man-1990-18', 'spider-man-1990-19', 'spider-man-1990-20',
+      'spider-man-1990-21', 'spider-man-1990-22', 'spider-man-1990-23',
+    ],
+    blurb: "The team returns, this time over six issues of the McFarlane-launched title.",
+  },
+  {
+    key: 'invasion-spider-slayers',
+    name: "Invasion of the Spider-Slayers",
+    year: 1992,
+    issues: [
+      'amazing-spider-man-368', 'amazing-spider-man-369', 'amazing-spider-man-370',
+      'amazing-spider-man-371', 'amazing-spider-man-372', 'amazing-spider-man-373',
+    ],
+    blurb: "Smythe's machines come back in force.",
+  },
+  {
+    key: 'thirtieth-anniversary',
+    name: "30th Anniversary",
+    year: 1992,
+    issues: [
+      'peter-parker-spectacular-189', 'web-of-spider-man-90', 'amazing-spider-man-365',
+      'spider-man-1990-26',
+    ],
+    blurb: "Three titles mark thirty years with hologram covers.",
+    crossover: true,
+  },
+  {
+    key: 'maximum-carnage',
+    name: "Maximum Carnage",
+    year: 1993,
+    issues: [
+      'spider-man-unlimited-1', 'amazing-spider-man-378', 'peter-parker-spectacular-201',
+      'spider-man-1990-35', 'web-of-spider-man-101', 'amazing-spider-man-379',
+      'peter-parker-spectacular-202', 'spider-man-1990-36', 'web-of-spider-man-102',
+      'amazing-spider-man-380', 'peter-parker-spectacular-203', 'spider-man-1990-37',
+      'spider-man-unlimited-2', 'web-of-spider-man-103',
+    ],
+    blurb: "Fourteen parts across five titles. The decade's first true mega-crossover.",
+    crossover: true,
+  },
+  {
+    key: 'pursuit',
+    name: "Pursuit",
+    year: 1994,
+    issues: [
+      'peter-parker-spectacular-211', 'spider-man-1990-45', 'amazing-spider-man-389',
+      'web-of-spider-man-112',
+    ],
+    blurb: "A four-part chase running one chapter through each ongoing title.",
+    crossover: true,
+  },
+  {
+    key: 'power-and-responsibility',
+    name: "Power and Responsibility",
+    year: 1994,
+    issues: [
+      'amazing-spider-man-394', 'peter-parker-spectacular-217', 'spider-man-1990-51',
+      'web-of-spider-man-117',
+    ],
+    blurb: "The four-part opening that sets the Clone Saga in motion.",
+    crossover: true,
+  },
+  {
+    key: 'clone-saga-1990s',
+    name: "The Clone Saga",
+    year: 1994,
+    issues: [
+      'spider-man-unlimited-7', 'peter-parker-spectacular-220', 'spider-man-1990-54',
+      'spider-man-1990-55', 'spider-man-unlimited-8', 'amazing-spider-man-401',
+      'peter-parker-spectacular-224', 'spider-man-1990-58', 'spider-man-unlimited-9',
+      'web-of-spider-man-124', 'amazing-spider-man-402', 'spider-man-1990-59',
+      'web-of-spider-man-125', 'amazing-spider-man-403', 'spider-man-1990-60',
+      'web-of-spider-man-126', 'amazing-spider-man-405', 'peter-parker-spectacular-228',
+      'spider-man-1990-62', 'spider-man-unlimited-10', 'web-of-spider-man-128',
+      'amazing-spider-man-406', 'peter-parker-spectacular-229', 'spider-man-1990-63',
+      'web-of-spider-man-129', 'amazing-spider-man-407', 'peter-parker-spectacular-230',
+      'sensational-spider-man-0', 'spider-man-1990-64', 'spider-man-unlimited-11',
+      'amazing-spider-man-408', 'peter-parker-spectacular-231', 'sensational-spider-man-1',
+      'spider-man-1990-65', 'amazing-spider-man-409', 'peter-parker-spectacular-232',
+      'sensational-spider-man-2', 'spider-man-1990-66', 'amazing-spider-man-410',
+      'peter-parker-spectacular-233', 'sensational-spider-man-3', 'spider-man-1990-67',
+      'amazing-spider-man-411', 'peter-parker-spectacular-234', 'sensational-spider-man-4',
+      'spider-man-1990-68', 'spider-man-unlimited-12', 'amazing-spider-man-412',
+      'peter-parker-spectacular-235', 'sensational-spider-man-5', 'spider-man-1990-69',
+      'amazing-spider-man-413', 'peter-parker-spectacular-236', 'sensational-spider-man-6',
+      'spider-man-1990-70', 'amazing-spider-man-414', 'peter-parker-spectacular-237',
+      'sensational-spider-man-7', 'spider-man-1990-71', 'spider-man-unlimited-13',
+      'amazing-spider-man-415', 'peter-parker-spectacular-238', 'sensational-spider-man-8',
+      'spider-man-1990-72', 'amazing-spider-man-416', 'peter-parker-spectacular-239',
+      'sensational-spider-man-9', 'spider-man-1990-73', 'amazing-spider-man-417',
+      'peter-parker-spectacular-240', 'sensational-spider-man-10', 'spider-man-1990-74',
+      'amazing-spider-man-418', 'sensational-spider-man-11', 'spider-man-1990-75',
+      'spider-man-unlimited-14',
+    ],
+    blurb: "Seventy-six issues across six titles over two years. The decade's defining and most divisive storyline.",
+    crossover: true,
+  },
+  {
+    key: 'trial-of-peter-parker',
+    name: "The Trial of Peter Parker",
+    year: 1995,
+    issues: [
+      'amazing-spider-man-403', 'peter-parker-spectacular-226', 'spider-man-1990-60',
+      'web-of-spider-man-126',
+    ],
+    blurb: "A four-part crossover at the midpoint of the Clone Saga.",
+    crossover: true,
+  },
+  {
+    key: 'maximum-clonage',
+    name: "Maximum Clonage",
+    year: 1995,
+    issues: [
+      'amazing-spider-man-404', 'peter-parker-spectacular-227', 'spider-man-1990-61',
+      'web-of-spider-man-127',
+    ],
+    blurb: "The Clone Saga's own mega-crossover inside the mega-crossover.",
+    crossover: true,
+  },
+  {
+    key: 'greatest-responsibility',
+    name: "The Greatest Responsibility",
+    year: 1995,
+    issues: [
+      'amazing-spider-man-406', 'peter-parker-spectacular-229', 'spider-man-1990-63',
+    ],
+    blurb: "Where the Clone Saga was meant to end, before it was extended.",
+    crossover: true,
+  },
+  {
+    key: 'web-of-carnage',
+    name: "Web of Carnage",
+    year: 1996,
+    issues: [
+      'amazing-spider-man-410', 'peter-parker-spectacular-233', 'sensational-spider-man-3',
+      'spider-man-1990-67',
+    ],
+    blurb: "Carnage's symbiote finds a new host across four titles.",
+    crossover: true,
+  },
+  {
+    key: 'revelations',
+    name: "Revelations",
+    year: 1996,
+    issues: [
+      'peter-parker-spectacular-240', 'amazing-spider-man-418', 'sensational-spider-man-11',
+      'spider-man-1990-75',
+    ],
+    blurb: "The Clone Saga's real ending, and the return of a villain dead since 1973.",
+    crossover: true,
+  },
+  {
+    key: 'spider-hunt',
+    name: "Spider-Hunt",
+    year: 1998,
+    issues: [
+      'amazing-spider-man-432', 'peter-parker-spectacular-255', 'sensational-spider-man-25',
+      'spider-man-1990-89',
+    ],
+    blurb: "Peter is hunted across all four titles at once.",
+    crossover: true,
+  },
+  {
+    key: 'identity-crisis-1998',
+    name: "Identity Crisis",
+    year: 1998,
+    issues: [
+      'amazing-spider-man-433', 'peter-parker-spectacular-256', 'sensational-spider-man-26',
+      'spider-man-1990-90', 'amazing-spider-man-434', 'peter-parker-spectacular-257',
+      'sensational-spider-man-27', 'spider-man-1990-91', 'amazing-spider-man-435',
+      'peter-parker-spectacular-258', 'sensational-spider-man-28', 'spider-man-1990-92',
+    ],
+    blurb: "Twelve issues in which he adopts four new identities to keep working.",
+    crossover: true,
+  },
+  {
+    key: 'gathering-of-five',
+    name: "The Gathering of Five",
+    year: 1998,
+    issues: [
+      'amazing-spider-man-440', 'peter-parker-spectacular-262', 'sensational-spider-man-32',
+      'spider-man-1990-96', 'sensational-spider-man-33',
+    ],
+    blurb: "The five-part run-up to the end of volume one.",
+    crossover: true,
+  },
+  {
+    key: 'final-chapter',
+    name: "The Final Chapter",
+    year: 1998,
+    issues: [
+      'amazing-spider-man-441', 'peter-parker-spectacular-263', 'spider-man-1990-97',
+      'spider-man-1990-98',
+    ],
+    blurb: "The last arc of Amazing volume one, 441 issues in.",
+    crossover: true,
+  },
+  {
+    key: 'maximum-security',
+    name: "Maximum Security",
+    year: 2000,
+    issues: [
+      'amazing-spider-man-v2-24', 'peter-parker-spider-man-v2-24',
+    ],
+    blurb: "A line-wide event reaching the relaunched titles.",
+    crossover: true,
+  },
   {
     key: 'new-fantastic-four',
     name: 'The New Fantastic Four',
