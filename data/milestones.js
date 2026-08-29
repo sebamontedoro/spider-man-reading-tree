@@ -440,6 +440,109 @@ export const MILESTONES = [
 
   /* ============================================================== 2010s */
 
+
+  /* ================================== Debuts 2001-2020, vía fichas de personaje
+     Found by scanning all 755 issues of these two decades for {{1st}} links to
+     character pages, then reading each page's own First field and keeping only
+     those that point back at the issue they were found in. 846 debuts cleared
+     that check; these are the ones whose wiki articles are substantial enough
+     to suggest the character stuck.
+
+     Ranking by article length is a crude proxy for significance, but it is an
+     objective one, which beats me deciding from memory which 2000s characters
+     mattered. Organisations and objects that cleared the same check -- Parker
+     Industries, New U Technologies -- are left out: they are not debuts in the
+     sense this guide means.
+     ======================================================================== */
+  {
+    issue: 'amazing-spider-man-v2-30',
+    type: 'debut',
+    label: 'Morlun',
+    blurb: 'Opens the run that reframes the character\u2019s powers as something older than the spider bite. He returns to drive Spider-Verse thirteen years later.',
+  },
+  {
+    issue: 'amazing-spider-man-v2-509',
+    type: 'debut',
+    label: 'Kindred',
+    blurb: 'Two masked assassins introduced here, whose identity the books left open for sixteen years.',
+  },
+  {
+    issue: 'spectacular-spider-man-v2-15',
+    type: 'debut',
+    label: 'The Spider-Queen',
+    blurb: 'Later the engine of Spider-Island.',
+  },
+  {
+    issue: 'amazing-spider-man-v2-565',
+    type: 'debut',
+    label: 'Ana Kravinoff',
+    blurb: 'Kraven\u2019s daughter picks up the name. The family becomes a recurring threat rather than a single dead villain.',
+  },
+  {
+    issue: 'amazing-spider-man-v2-567',
+    type: 'debut',
+    label: 'Sasha Kravinoff',
+  },
+  {
+    issue: 'amazing-spider-man-v2-569',
+    type: 'debut',
+    label: 'Anti-Venom',
+    blurb: 'Eddie Brock again, inverted.',
+  },
+  {
+    issue: 'amazing-spider-man-v3-1',
+    type: 'debut',
+    label: 'Silk',
+    blurb: 'Cindy Moon, bitten by the same spider. The most substantial addition to the cast this century.',
+  },
+  {
+    issue: 'amazing-spider-man-v3-9',
+    type: 'debut',
+    label: 'Ben Reilly returns',
+    blurb: 'Nineteen years after the Clone Saga wrote him out.',
+  },
+  {
+    issue: 'amazing-spider-man-v3-10',
+    type: 'debut',
+    label: 'Spider-Punk',
+    blurb: 'One of the alternate versions Spider-Verse turned into a fixture.',
+  },
+  {
+    issue: 'amazing-spider-man-v5-16',
+    type: 'debut',
+    label: 'The Last Son of Kraven',
+  },
+
+  /* --- la rama Ultimate --- */
+  {
+    issue: 'ultimate-spider-man-14',
+    type: 'debut',
+    label: 'Gwen Stacy, retold',
+    blurb: 'The parallel line reintroduces her with a different history and a different fate.',
+  },
+  {
+    issue: 'ultimate-spider-man-33',
+    type: 'debut',
+    label: 'Venom, retold',
+    blurb: 'This continuity rebuilds the symbiote from scratch: no alien costume, no Secret Wars.',
+  },
+  {
+    issue: 'ultimate-spider-man-61',
+    type: 'debut',
+    label: 'Carnage, retold',
+  },
+  {
+    issue: 'ultimate-spider-man-98',
+    type: 'debut',
+    label: 'Ultimate Spider-Woman',
+    blurb: 'A clone of Peter, in the line that had already declined to repeat the original Clone Saga.',
+  },
+  {
+    issue: 'ultimate-comics-spider-man-1',
+    type: 'debut',
+    label: 'The Prowler, Aaron Davis',
+    blurb: 'Miles\u2019 uncle, introduced in the same issue Miles is.',
+  },
   {
     issue: 'spider-men-1',
     type: 'universe',
