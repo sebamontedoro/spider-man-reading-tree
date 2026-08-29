@@ -439,6 +439,19 @@ export const MILESTONES = [
   },
 
   /* ============================================================== 2010s */
+
+  {
+    issue: 'spider-men-1',
+    type: 'universe',
+    label: 'The two lines meet',
+    blurb: 'Twelve years after the fork, the main Peter Parker crosses into the parallel continuity and meets its Spider-Man. They separate again afterwards.',
+  },
+  {
+    issue: 'secret-wars-2015-1',
+    type: 'universe',
+    label: 'The continuities collapse into one',
+    blurb: 'The event that ends the separate line for good. Not the 1984 crossover of the same name.',
+  },
   {
     issue: 'ultimate-comics-spider-man-1',
     type: 'debut',

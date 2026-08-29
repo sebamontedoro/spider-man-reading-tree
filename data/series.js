@@ -455,6 +455,30 @@ export const SERIES = [
     segments: [{ from: 1, to: 12, startDate: '2014-07', endDate: '2015-06', startExact: true, endExact: true }],
   },
 
+
+  /* ===================================== Títulos de team-up de los 2010s
+     Both are books he headlines, so they belong here rather than in the guest
+     appearances layer — a distinction worth keeping straight, since a team-up
+     title reads very differently from a walk-on part in someone else's book.
+     ======================================================================== */
+  {
+    key: 'avenging-spider-man',
+    name: 'Avenging Spider-Man', abbr: 'AVSM', vol: 1,
+    wikiTitle: 'Avenging Spider-Man Vol 1', accent: 'mtu',
+    role: 'lead', relevance: 'notable',
+    // Known gap: this run also has a #15.1. The generator models whole numbers
+    // only, so decimal issues of this era are missing here and in Superior.
+    segments: [{ from: 1, to: 22, startDate: '2012-01', endDate: '2013-08', startExact: true, endExact: true }],
+  },
+  {
+    key: 'superior-spider-man-team-up',
+    name: 'Superior Spider-Man Team-Up', abbr: 'SUP TU', vol: 1,
+    wikiTitle: 'Superior Spider-Man Team-Up Vol 1', accent: 'superior',
+    role: 'lead', relevance: 'notable',
+    note: 'The team-up book during the run where Spider-Man was somebody else.',
+    segments: [{ from: 1, to: 12, startDate: '2013-09', endDate: '2014-06', startExact: true, endExact: true }],
+  },
+
   /* ============================================= La era del clon: miniseries
      The Clone Saga did not stay inside the four ongoing titles. Marvel spun off
      a shelf of short series around it, and a reading guide that omits them

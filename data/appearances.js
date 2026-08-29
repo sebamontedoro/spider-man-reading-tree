@@ -321,6 +321,13 @@ export const APPEARANCES = [
     note: 'Closes the six-issue stretch Ben Reilly runs through.',
   },
   {
+    id: 'new-avengers-1',
+    seriesName: 'New Avengers', seriesAbbr: 'NAV',
+    wikiTitle: 'New Avengers Vol 1', number: 1, coverDate: '2005-01',
+    note: 'He joins a team full-time for the first time, which shapes the next seven years of his appearances.',
+    keyIssue: true,
+  },
+  {
     id: 'civil-war-2',
     seriesName: 'Civil War', seriesAbbr: 'CW',
     wikiTitle: 'Civil War Vol 1', number: 2, coverDate: '2006-08',
@@ -332,6 +339,80 @@ export const APPEARANCES = [
     seriesName: 'Daredevil', seriesAbbr: 'DD',
     wikiTitle: 'Daredevil Vol 1', number: 354, coverDate: '1996-07',
     note: 'Thirty years on from their first team-up, and still a reliable pairing.',
+  },
+
+  /* ==================================================================== 2008+
+     Checked the same way as the rest: present in the issue's own appearance
+     list, or not included. Siege #1 is the clearest exclusion — a line-wide
+     event of exactly the kind he usually turns up in, and he is not in it.
+     ======================================================================== */
+  {
+    id: 'secret-invasion-1',
+    seriesName: 'Secret Invasion', seriesAbbr: 'SI',
+    wikiTitle: 'Secret Invasion Vol 1', number: 1, coverDate: '2008-06',
+    relevance: 'optional',
+  },
+  {
+    id: 'ff-1',
+    seriesName: 'FF', seriesAbbr: 'FF2',
+    wikiTitle: 'FF Vol 1', number: 1, coverDate: '2011-05',
+    note: 'He takes a seat in the Fantastic Four\u2019s replacement line-up.',
+  },
+  {
+    id: 'fear-itself-1',
+    seriesName: 'Fear Itself', seriesAbbr: 'FI',
+    wikiTitle: 'Fear Itself Vol 1', number: 1, coverDate: '2011-06',
+    relevance: 'optional',
+  },
+  {
+    id: 'avengers-vs-x-men-1',
+    seriesName: 'Avengers vs. X-Men', seriesAbbr: 'AvX',
+    wikiTitle: 'Avengers vs. X-Men Vol 1', number: 1, coverDate: '2012-06',
+    relevance: 'optional',
+  },
+  {
+    id: 'spider-men-1',
+    seriesName: 'Spider-Men', seriesAbbr: 'SMEN',
+    wikiTitle: 'Spider-Men Vol 1', number: 1, coverDate: '2012-08',
+    note: 'The two continuities meet for the first time. This issue carries Peter of the main line, and both Peter and Miles of the other.',
+    keyIssue: true,
+  },
+  {
+    id: 'spider-men-5',
+    seriesName: 'Spider-Men', seriesAbbr: 'SMEN',
+    wikiTitle: 'Spider-Men Vol 1', number: 5, coverDate: '2012-11',
+    note: 'Closes the crossing. The lines separate again and stay apart for three more years.',
+  },
+  {
+    id: 'original-sin-1',
+    seriesName: 'Original Sin', seriesAbbr: 'OS',
+    wikiTitle: 'Original Sin Vol 1', number: 1, coverDate: '2014-07',
+    relevance: 'optional',
+  },
+  {
+    id: 'secret-wars-2015-1',
+    seriesName: 'Secret Wars (2015)', seriesAbbr: 'SW15',
+    wikiTitle: 'Secret Wars Vol 1', number: 1, coverDate: '2015-07',
+    note: 'The event that collapses the separate continuities into one. Not the 1984 crossover of the same name.',
+    keyIssue: true,
+  },
+  {
+    id: 'secret-wars-2015-9',
+    seriesName: 'Secret Wars (2015)', seriesAbbr: 'SW15',
+    wikiTitle: 'Secret Wars Vol 1', number: 9, coverDate: '2016-03',
+    note: 'Its conclusion. What comes out the other side is the continuity Miles continues in.',
+  },
+  {
+    id: 'spider-men-ii-1',
+    seriesName: 'Spider-Men II', seriesAbbr: 'SMEN2',
+    wikiTitle: 'Spider-Men II Vol 1', number: 1, coverDate: '2017-09',
+    note: 'A sequel to the 2012 crossing, now that both are in the same continuity.',
+  },
+  {
+    id: 'spider-geddon-1',
+    seriesName: 'Spider-Geddon', seriesAbbr: 'SGED',
+    wikiTitle: 'Spider-Geddon Vol 1', number: 1, coverDate: '2018-12',
+    note: 'The sequel event to Spider-Verse.',
   },
 ]
 
