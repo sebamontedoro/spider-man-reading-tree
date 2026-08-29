@@ -16,7 +16,8 @@ export const DEFAULT_FILTERS = {
   keyOnly: false,
   digitalOnly: false,
   milestoneOnly: false,
-  milestoneType: null,   // 'debut' | 'death' | 'event' | 'status-quo'
+  milestoneType: null,   // 'debut' | 'death' | 'event' | 'status-quo' | 'universe'
+  universe: null,        // null shows every continuity
 }
 
 const normalize = (s) => String(s || '').toLowerCase()
@@ -48,6 +49,7 @@ export const applyFilters = (issues, f) => {
     if (f.character && !(i.firstAppearances || []).includes(f.character)) return false
     if (f.keyOnly && !i.keyIssue) return false
     if (f.digitalOnly && !i.digital) return false
+    if (f.universe && (i.universe || 'earth-616') !== f.universe) return false
     if (f.milestoneOnly && !i.milestones?.length) return false
     if (f.milestoneType && !(i.milestones || []).some((m) => m.type === f.milestoneType)) return false
     if (!matchesQuery(i, f.query)) return false
@@ -73,6 +75,7 @@ export const isFilterActive = (f) =>
       f.digitalOnly ||
       f.milestoneOnly ||
       f.milestoneType ||
+      f.universe ||
       f.yearFrom ||
       f.yearTo ||
       f.relevance.length !== DEFAULT_FILTERS.relevance.length,

@@ -14,6 +14,8 @@ function IssueCard({ issue, dimmed, selected, pathIndex, onSelect }) {
     dimmed ? 'dimmed' : '',
     selected ? 'issue--selected' : '',
     issue.keyIssue ? 'issue--key' : '',
+    // A parallel continuity gets a visibly different card, not just a colour.
+    (issue.universe && issue.universe !== 'earth-616') ? 'issue--other-universe' : '',
   ].filter(Boolean).join(' ')
 
   return (

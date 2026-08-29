@@ -1,4 +1,4 @@
-import { SERIES_LIST, CHARACTERS, YEAR_RANGE } from '../lib/dataset.js'
+import { SERIES_LIST, CHARACTERS, YEAR_RANGE, UNIVERSES } from '../lib/dataset.js'
 import { DEFAULT_FILTERS, isFilterActive } from '../lib/filters.js'
 import { ARCS_SORTED } from '../../data/arcs.js'
 import { PATHS } from '../../data/paths.js'
@@ -62,6 +62,20 @@ export default function FilterBar({
       </div>
 
       <div className="filterbar__row filterbar__row--secondary">
+        {UNIVERSES.length > 1 && (
+          <select
+            className="filterbar__select"
+            value={filters.universe || ''}
+            onChange={(e) => set({ universe: e.target.value || null })}
+            aria-label="Continuity"
+          >
+            <option value="">All continuities</option>
+            {UNIVERSES.map((u) => (
+              <option key={u.key} value={u.key}>{u.label} ({u.count})</option>
+            ))}
+          </select>
+        )}
+
         <select
           className="filterbar__select"
           value={filters.series || ''}

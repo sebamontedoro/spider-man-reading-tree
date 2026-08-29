@@ -465,6 +465,269 @@ export const ARCS = [
     blurb: "A line-wide event reaching the relaunched titles.",
     crossover: true,
   },
+
+  /* ==================================================================== 2000s
+     Same method as the previous decades: read off the StoryArc and Event fields
+     of all 441 issues, then cut to what crosses titles or defines the period.
+     The scan found 60 arcs.
+
+     The Ultimate entries at the end belong to the parallel continuity and are
+     kept separate on purpose. Its Clone Saga is not the 1994 one — it is a
+     different story with the same name, told in nine issues instead of
+     seventy-six.
+     ==================================================================== */
+  {
+    key: 'avengers-disassembled',
+    name: "Avengers Disassembled",
+    year: 2004,
+    issues: [
+      'spectacular-spider-man-v2-17', 'spectacular-spider-man-v2-18', 'spectacular-spider-man-v2-19',
+      'spectacular-spider-man-v2-20',
+    ],
+    blurb: "A line-wide event reaches the Spectacular title.",
+    crossover: true,
+  },
+  {
+    key: 'sins-past',
+    name: "Sins Past",
+    year: 2004,
+    issues: [
+      'amazing-spider-man-v2-509', 'amazing-spider-man-v2-510', 'amazing-spider-man-v2-511',
+      'amazing-spider-man-v2-512', 'amazing-spider-man-v2-513', 'amazing-spider-man-v2-514',
+    ],
+    blurb: "Retroactively rewrites Gwen Stacy's last years. Contested from the day it shipped.",
+  },
+  {
+    key: 'the-other',
+    name: "The Other: Evolve or Die",
+    year: 2005,
+    issues: [
+      'amazing-spider-man-v2-525', 'friendly-neighborhood-spider-man-1', 'marvel-knights-spider-man-19',
+      'amazing-spider-man-v2-526', 'friendly-neighborhood-spider-man-2', 'marvel-knights-spider-man-20',
+      'amazing-spider-man-v2-527', 'friendly-neighborhood-spider-man-3', 'marvel-knights-spider-man-21',
+      'amazing-spider-man-v2-528', 'friendly-neighborhood-spider-man-4', 'marvel-knights-spider-man-22',
+    ],
+    blurb: "Twelve parts across three titles, ending with a physical transformation.",
+    crossover: true,
+  },
+  {
+    key: 'war-at-home',
+    name: "The War at Home",
+    year: 2006,
+    issues: [
+      'amazing-spider-man-v2-532', 'amazing-spider-man-v2-533', 'amazing-spider-man-v2-534',
+      'amazing-spider-man-v2-535', 'amazing-spider-man-v2-536', 'amazing-spider-man-v2-537',
+      'amazing-spider-man-v2-538',
+    ],
+    blurb: "Amazing's own seven-part run through the superhero registration fight.",
+  },
+  {
+    key: 'civil-war',
+    name: "Civil War",
+    year: 2006,
+    issues: [
+      'amazing-spider-man-v2-532', 'amazing-spider-man-v2-533', 'amazing-spider-man-v2-534',
+      'friendly-neighborhood-spider-man-11', 'amazing-spider-man-v2-535', 'amazing-spider-man-v2-536',
+      'friendly-neighborhood-spider-man-12', 'friendly-neighborhood-spider-man-13', 'amazing-spider-man-v2-537',
+      'amazing-spider-man-v2-538',
+    ],
+    blurb: "He takes a public side, and unmasks on television. The consequences drive the next two years.",
+    crossover: true,
+  },
+  {
+    key: 'spider-man-unmasked',
+    name: "Spider-Man Unmasked",
+    year: 2007,
+    issues: [
+      'sensational-spider-man-v2-32', 'sensational-spider-man-v2-33', 'sensational-spider-man-v2-34',
+    ],
+    blurb: "The fallout of a secret identity given up voluntarily.",
+    crossover: true,
+  },
+  {
+    key: 'back-in-black',
+    name: "Back in Black",
+    year: 2007,
+    issues: [
+      'amazing-spider-man-v2-539', 'friendly-neighborhood-spider-man-17', 'amazing-spider-man-v2-540',
+      'friendly-neighborhood-spider-man-18', 'amazing-spider-man-v2-541', 'friendly-neighborhood-spider-man-19',
+      'friendly-neighborhood-spider-man-20', 'amazing-spider-man-v2-542', 'friendly-neighborhood-spider-man-21',
+      'friendly-neighborhood-spider-man-22', 'amazing-spider-man-v2-543', 'friendly-neighborhood-spider-man-23',
+      'sensational-spider-man-v2-40',
+    ],
+    blurb: "The black costume returns as mourning dress, across three titles.",
+    crossover: true,
+  },
+  {
+    key: 'one-more-day',
+    name: "One More Day",
+    year: 2007,
+    issues: [
+      'amazing-spider-man-v2-544', 'friendly-neighborhood-spider-man-24', 'sensational-spider-man-v2-41',
+      'amazing-spider-man-v2-545',
+    ],
+    blurb: "Four parts that undo the marriage and reset the premise. The most argued-over story in the character's history.",
+    crossover: true,
+  },
+  {
+    key: 'brand-new-day',
+    name: "Brand New Day",
+    year: 2008,
+    issues: [
+      'amazing-spider-man-v2-546', 'amazing-spider-man-v2-547', 'amazing-spider-man-v2-548',
+      'amazing-spider-man-v2-549', 'amazing-spider-man-v2-550', 'amazing-spider-man-v2-551',
+      'amazing-spider-man-v2-552', 'amazing-spider-man-v2-553', 'amazing-spider-man-v2-554',
+      'amazing-spider-man-v2-555', 'amazing-spider-man-v2-556', 'amazing-spider-man-v2-557',
+      'amazing-spider-man-v2-558', 'amazing-spider-man-v2-559', 'amazing-spider-man-v2-560',
+      'amazing-spider-man-v2-561', 'amazing-spider-man-v2-562', 'amazing-spider-man-v2-563',
+      'amazing-spider-man-v2-564',
+    ],
+    blurb: "Nineteen issues relaunching the status quo, shipping three times a month.",
+    crossover: true,
+  },
+  {
+    key: 'new-ways-to-die',
+    name: "New Ways to Die",
+    year: 2008,
+    issues: [
+      'amazing-spider-man-v2-568', 'amazing-spider-man-v2-569', 'amazing-spider-man-v2-570',
+      'amazing-spider-man-v2-571', 'amazing-spider-man-v2-572', 'amazing-spider-man-v2-573',
+    ],
+    blurb: "Norman Osborn's return to the title under the new regime.",
+  },
+  {
+    key: 'character-assassination',
+    name: "Character Assassination",
+    year: 2009,
+    issues: [
+      'amazing-spider-man-v2-584', 'amazing-spider-man-v2-585', 'amazing-spider-man-v2-586',
+      'amazing-spider-man-v2-587', 'amazing-spider-man-v2-588',
+    ],
+    blurb: "Closes the first year of the relaunch.",
+  },
+  {
+    key: 'american-son',
+    name: "American Son",
+    year: 2009,
+    issues: [
+      'amazing-spider-man-v2-595', 'amazing-spider-man-v2-596', 'amazing-spider-man-v2-597',
+      'amazing-spider-man-v2-598', 'amazing-spider-man-v2-599',
+    ],
+    blurb: "Harry Osborn caught between his father and Peter.",
+  },
+  {
+    key: 'dark-reign',
+    name: "Dark Reign",
+    year: 2009,
+    issues: [
+      'amazing-spider-man-v2-595', 'amazing-spider-man-v2-596', 'amazing-spider-man-v2-597',
+      'amazing-spider-man-v2-598', 'amazing-spider-man-v2-599',
+    ],
+    blurb: "Osborn running national security is the backdrop for a year of the book.",
+    crossover: true,
+  },
+  {
+    key: 'grim-hunt',
+    name: "Grim Hunt",
+    year: 2010,
+    issues: [
+      'amazing-spider-man-v2-634', 'amazing-spider-man-v2-635', 'amazing-spider-man-v2-636',
+      'amazing-spider-man-v2-637',
+    ],
+    blurb: "The Kravinoff family collects on twenty-three years of debt.",
+  },
+  {
+    key: 'shed',
+    name: "Shed",
+    year: 2010,
+    issues: [
+      'amazing-spider-man-v2-629', 'amazing-spider-man-v2-630', 'amazing-spider-man-v2-631',
+      'amazing-spider-man-v2-632', 'amazing-spider-man-v2-633',
+    ],
+    blurb: "The Lizard story the decade is most often pointed to.",
+  },
+  {
+    key: 'one-moment-in-time',
+    name: "One Moment in Time",
+    year: 2010,
+    issues: [
+      'amazing-spider-man-v2-638', 'amazing-spider-man-v2-639', 'amazing-spider-man-v2-640',
+      'amazing-spider-man-v2-641',
+    ],
+    blurb: "Fills in what One More Day left deliberately blank.",
+  },
+  {
+    key: 'origin-of-the-species',
+    name: "Origin of the Species",
+    year: 2010,
+    issues: [
+      'amazing-spider-man-v2-642', 'amazing-spider-man-v2-643', 'amazing-spider-man-v2-644',
+      'amazing-spider-man-v2-645', 'amazing-spider-man-v2-646',
+    ],
+    blurb: "The last arc inside this range.",
+  },
+  {
+    key: 'ultimate-carnage',
+    name: "Carnage",
+    year: 2004,
+    issues: [
+      'ultimate-spider-man-60', 'ultimate-spider-man-61', 'ultimate-spider-man-62',
+      'ultimate-spider-man-63', 'ultimate-spider-man-64',
+    ],
+    blurb: "The Ultimate line's own take, unrelated to the 1992 original.",
+  },
+  {
+    key: 'ultimate-hobgoblin',
+    name: "Hobgoblin",
+    year: 2005,
+    issues: [
+      'ultimate-spider-man-72', 'ultimate-spider-man-73', 'ultimate-spider-man-74',
+      'ultimate-spider-man-75', 'ultimate-spider-man-76', 'ultimate-spider-man-77',
+    ],
+    blurb: "Harry Osborn's turn, retold for the new continuity.",
+  },
+  {
+    key: 'ultimate-clone-saga',
+    name: "The Clone Saga",
+    year: 2006,
+    issues: [
+      'ultimate-spider-man-97', 'ultimate-spider-man-98', 'ultimate-spider-man-99',
+      'ultimate-spider-man-100', 'ultimate-spider-man-101', 'ultimate-spider-man-102',
+      'ultimate-spider-man-103', 'ultimate-spider-man-104', 'ultimate-spider-man-105',
+    ],
+    blurb: "Nine issues doing in one title what the original took seventy-six and six titles to do.",
+  },
+  {
+    key: 'ultimate-death-of-a-goblin',
+    name: "Death of a Goblin",
+    year: 2007,
+    issues: [
+      'ultimate-spider-man-112', 'ultimate-spider-man-113', 'ultimate-spider-man-114',
+      'ultimate-spider-man-115', 'ultimate-spider-man-116', 'ultimate-spider-man-117',
+    ],
+    blurb: "The Ultimate line settles its own Goblin thread.",
+  },
+  {
+    key: 'ultimate-war-of-symbiotes',
+    name: "War of the Symbiotes",
+    year: 2008,
+    issues: [
+      'ultimate-spider-man-123', 'ultimate-spider-man-124', 'ultimate-spider-man-125',
+      'ultimate-spider-man-126', 'ultimate-spider-man-127', 'ultimate-spider-man-128',
+    ],
+    blurb: "Venom and Carnage, this continuity's versions.",
+  },
+  {
+    key: 'ultimatum',
+    name: "Ultimatum",
+    year: 2008,
+    issues: [
+      'ultimate-spider-man-annual-3', 'ultimate-spider-man-129', 'ultimate-spider-man-130',
+      'ultimate-spider-man-131', 'ultimate-spider-man-132', 'ultimate-spider-man-133',
+    ],
+    blurb: "The event that ends this volume at #133.",
+    crossover: true,
+  },
   {
     key: 'new-fantastic-four',
     name: 'The New Fantastic Four',

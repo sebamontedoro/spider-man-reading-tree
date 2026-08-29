@@ -56,6 +56,13 @@ export const MILESTONE_TYPES = {
     accent: 'var(--s-spec-mag)',
     description: 'The premise of the book changes for good',
   },
+  universe: {
+    key: 'universe',
+    label: 'New continuity',
+    glyph: '⑂',
+    accent: 'var(--s-ultimate)',
+    description: 'A separate continuity begins — the tree forks here',
+  },
 }
 
 export const MILESTONES = [
@@ -391,6 +398,50 @@ export const MILESTONES = [
     type: 'status-quo',
     label: 'Volume one ends at #441',
     blurb: 'Thirty-five years and 441 issues, cancelled to make room for a renumbering.',
+  },
+
+  /* ============================================================== 2000s */
+  {
+    issue: 'amazing-spider-man-v2-500',
+    type: 'status-quo',
+    label: 'The original numbering returns',
+    blurb: 'The volume keeps its number but resumes the count it abandoned in 1998, jumping from #58 to #500.',
+  },
+  {
+    issue: 'civil-war-2',
+    type: 'status-quo',
+    label: 'He unmasks on television',
+    blurb: 'A secret kept for forty-four years, given up voluntarily. It happens in the event itself, not in his own title \u2014 the Amazing issues of these months are tie-ins running beside it.',
+  },
+  {
+    issue: 'amazing-spider-man-v2-545',
+    type: 'status-quo',
+    label: 'The marriage is undone',
+    blurb: 'One More Day trades twenty years of continuity away. The most argued-over decision in the character’s publishing history.',
+  },
+  {
+    issue: 'amazing-spider-man-v2-546',
+    type: 'status-quo',
+    label: 'Brand New Day, three times a month',
+    blurb: 'The line collapses to a single title shipping thrice monthly — more issues a year than the whole of the sixties.',
+  },
+  {
+    issue: 'amazing-spider-man-v2-600',
+    type: 'status-quo',
+    label: 'Issue 600',
+    blurb: 'Reached under the restored numbering, forty-seven years after Amazing Fantasy #15.',
+  },
+  {
+    issue: 'ultimate-spider-man-133',
+    type: 'event',
+    label: 'Ultimatum ends the Ultimate volume',
+    blurb: 'The parallel line closes its first run at #133, after nine years.',
+  },
+  {
+    issue: 'ultimate-spider-man-1',
+    type: 'universe',
+    label: 'A second Spider-Man begins',
+    blurb: 'The origin retold from scratch in a continuity of its own. Nothing before this leads into it, and nothing after it feeds back — the tree forks here and the two lines never rejoin.',
   },
   {
     issue: 'amazing-spider-man-v2-1',

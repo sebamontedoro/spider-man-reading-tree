@@ -19,7 +19,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const OUT = resolve(ROOT, 'src/generated/issues.json')
 
 const RANGE_START = '1962-01'
-const RANGE_END = '2000-12'
+const RANGE_END = '2010-12'
 
 /* -- date helpers: months since year 0, so arithmetic is plain integers ---- */
 
@@ -98,6 +98,8 @@ for (const series of SERIES) {
         yearOnly: Boolean(annual),
         dateExact,
         accent: series.accent,
+        // Defaults to the main continuity; only a parallel line declares its own.
+        universe: series.universe || 'earth-616',
         role: series.role,
         relevance: series.relevance,
         isAnnual: Boolean(annual),

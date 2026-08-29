@@ -332,6 +332,17 @@
 .issue--unlimited   { --accent: var(--s-unlimited); }
 .issue--sensational { --accent: var(--s-sensational); }
 .issue--scarlet     { --accent: var(--s-scarlet); }
+.issue--ultimate    { --accent: var(--s-ultimate); }
+
+/* A separate continuity reads as a separate line: dashed edge, tinted ground.
+   Not a decoration — it is the one visual cue that these do not share a
+   history with everything around them. */
+.issue--other-universe {
+  background: color-mix(in srgb, var(--s-ultimate) 7%, var(--paper-raised));
+  border-style: dashed;
+}
+.milestone--universe { --milestone-accent: var(--s-ultimate); }
+.detail__milestone--universe { --milestone-accent: var(--s-ultimate); }
 
 .issue__star {
   position: absolute;

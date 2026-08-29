@@ -321,6 +321,13 @@ export const APPEARANCES = [
     note: 'Closes the six-issue stretch Ben Reilly runs through.',
   },
   {
+    id: 'civil-war-2',
+    seriesName: 'Civil War', seriesAbbr: 'CW',
+    wikiTitle: 'Civil War Vol 1', number: 2, coverDate: '2006-08',
+    note: 'The unmasking happens here, in the event itself — the Amazing tie-ins run alongside it, not through it.',
+    keyIssue: true,
+  },
+  {
     id: 'daredevil-354',
     seriesName: 'Daredevil', seriesAbbr: 'DD',
     wikiTitle: 'Daredevil Vol 1', number: 354, coverDate: '1996-07',

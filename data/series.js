@@ -17,6 +17,12 @@
  * under a different page title mid-run (see peter-parker-spectacular, which
  * becomes "Spectacular Spider-Man Vol 1" from #134).
  *
+ * UNIVERSE  Defaults to 'earth-616', the main continuity. A series set in a
+ *           separate continuity carries its own value, and the tree renders it
+ *           as a distinct line rather than mixing it into the main one. The
+ *           Ultimate books are a parallel retelling, not a continuation: they
+ *           share a character, not a history.
+ *
  * ROLE      lead   — Spider-Man headlines the book
  *           guest  — he appears with narrative weight, someone else headlines
  * RELEVANCE core     — the spine of the reading tree
@@ -280,7 +286,16 @@ export const SERIES = [
     note: 'The 1998 relaunch renumbers from #1 after 441 issues.',
     segments: [
       { from: 1,  to: 13, startDate: '1999-01', endDate: '2000-01', startExact: true, endExact: true },
-      { from: 14, to: 24, startDate: '2000-02', endDate: '2000-12' },
+      { from: 14, to: 58, startDate: '2000-02', endDate: '2003-11', endExact: true },
+      // The volume keeps its number on the wiki but resumes the original count
+      // at #500. Same title, same volume, a 442-issue jump.
+      { from: 500, to: 545, startDate: '2003-12', endDate: '2008-01', startExact: true, endExact: true },
+      // Brand New Day: three issues a month, so the anchors sit close together.
+      { from: 546, to: 583, startDate: '2008-02', endDate: '2009-03', startExact: true, endExact: true },
+      { from: 584, to: 600, startDate: '2009-04', endDate: '2009-09', endExact: true },
+      { from: 601, to: 618, startDate: '2009-10', endDate: '2010-03', endExact: true },
+      { from: 619, to: 640, startDate: '2010-04', endDate: '2010-10', endExact: true },
+      { from: 641, to: 647, startDate: '2010-11', endDate: '2010-12', endExact: true },
     ],
   },
   {
@@ -295,10 +310,73 @@ export const SERIES = [
     note: 'The relaunch companion to Amazing vol. 2.',
     segments: [
       { from: 1,  to: 13, startDate: '1999-01', endDate: '2000-01', startExact: true, endExact: true },
-      { from: 14, to: 24, startDate: '2000-02', endDate: '2000-12' },
+      { from: 14, to: 57, startDate: '2000-02', endDate: '2003-08', endExact: true },
     ],
   },
 
+
+
+  /* ========================================================= 2003 → 2010 */
+  {
+    key: 'spectacular-spider-man-v2',
+    name: 'The Spectacular Spider-Man (vol. 2)',
+    abbr: 'SSM v2', vol: 2,
+    wikiTitle: 'Spectacular Spider-Man Vol 2', accent: 'ppssm',
+    role: 'lead', relevance: 'core',
+    segments: [{ from: 1, to: 27, startDate: '2003-09', endDate: '2005-06', startExact: true, endExact: true }],
+  },
+  {
+    key: 'marvel-knights-spider-man',
+    name: 'Marvel Knights: Spider-Man',
+    abbr: 'MK', vol: 1,
+    wikiTitle: 'Marvel Knights: Spider-Man Vol 1', accent: 'sm90',
+    role: 'lead', relevance: 'core',
+    note: 'Its numbering continues into Sensational Spider-Man vol. 2 at #23.',
+    segments: [{ from: 1, to: 22, startDate: '2004-06', endDate: '2006-03', startExact: true }],
+  },
+  {
+    key: 'sensational-spider-man-v2',
+    name: 'The Sensational Spider-Man (vol. 2)',
+    abbr: 'SEN v2', vol: 2,
+    wikiTitle: 'Sensational Spider-Man Vol 2', accent: 'sensational',
+    role: 'lead', relevance: 'core',
+    note: 'Picks up the Marvel Knights numbering rather than starting at #1.',
+    segments: [{ from: 23, to: 41, startDate: '2006-04', endDate: '2007-12', startExact: true, endExact: true }],
+  },
+  {
+    key: 'friendly-neighborhood-spider-man',
+    name: 'Friendly Neighborhood Spider-Man',
+    abbr: 'FNSM', vol: 1,
+    wikiTitle: 'Friendly Neighborhood Spider-Man Vol 1', accent: 'unlimited',
+    role: 'lead', relevance: 'core',
+    segments: [{ from: 1, to: 24, startDate: '2005-12', endDate: '2007-11', startExact: true, endExact: true }],
+  },
+
+  /* ===================================================== OTRO UNIVERSO
+     A separate continuity, started from scratch in 2000. Not a continuation
+     of anything above: same character, no shared history. The tree renders it
+     as its own line, which is the honest way to show it — reading it does not
+     require, and is not required by, anything in the main sequence.
+     ==================================================================== */
+  {
+    key: 'ultimate-spider-man',
+    name: 'Ultimate Spider-Man',
+    abbr: 'USM', vol: 1,
+    wikiTitle: 'Ultimate Spider-Man Vol 1', accent: 'ultimate',
+    universe: 'ultimate',
+    role: 'lead', relevance: 'core',
+    note: 'Retells the origin for a new readership, in a continuity of its own.',
+    segments: [{ from: 1, to: 133, startDate: '2000-10', endDate: '2009-08', startExact: true, endExact: true }],
+  },
+  {
+    key: 'ultimate-spider-man-annual',
+    name: 'Ultimate Spider-Man Annual',
+    abbr: 'USM ANN', vol: 1,
+    wikiTitle: 'Ultimate Spider-Man Annual Vol 1', accent: 'ultimate',
+    universe: 'ultimate',
+    role: 'lead', relevance: 'notable', isAnnual: true,
+    segments: [{ from: 1, to: 3, startDate: '2005-10', endDate: '2008-12', cadence: 'annual', startExact: true, endExact: true }],
+  },
 
   /* ============================================= La era del clon: miniseries
      The Clone Saga did not stay inside the four ongoing titles. Marvel spun off

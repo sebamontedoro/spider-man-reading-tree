@@ -59,6 +59,7 @@ const merged = [
   })),
   ...APPEARANCES.map((app) => ({
     ...APPEARANCE_DEFAULTS,
+    universe: 'earth-616',
     seriesKey: 'guest',
     ...app,
     series: app.series || 'guest',
@@ -205,6 +206,25 @@ export const MILESTONE_LIST = merged
   .flatMap((i) => i.milestones.map((m) => ({ ...m, issueRef: i })))
 
 export { MILESTONE_TYPES }
+
+/** The continuities present, each with its issue count. */
+export const UNIVERSES = (() => {
+  const counts = merged.reduce((acc, i) => {
+    const u = i.universe || 'earth-616'
+    acc[u] = (acc[u] || 0) + 1
+    return acc
+  }, {})
+  return [
+    { key: 'earth-616', label: 'Main continuity', count: counts['earth-616'] || 0 },
+    ...Object.keys(counts)
+      .filter((k) => k !== 'earth-616')
+      .map((k) => ({
+        key: k,
+        label: k === 'ultimate' ? 'Ultimate' : k,
+        count: counts[k],
+      })),
+  ].filter((u) => u.count > 0)
+})()
 
 export const STATS = {
   total: merged.length,
