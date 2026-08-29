@@ -60,10 +60,27 @@ export const ARCS = [
   },
   {
     key: 'black-suit',
-    name: 'The Black Costume',
+    name: 'The Alien Costume',
     year: 1984,
-    issues: ['amazing-spider-man-252', 'amazing-spider-man-258'],
-    blurb: 'The new costume arrives from Secret Wars, and turns out not to be cloth.',
+    // Starts in the crossover, not in his own title — the reading order only
+    // makes sense if Secret Wars #8 comes first.
+    issues: [
+      'secret-wars-8', 'amazing-spider-man-252', 'amazing-spider-man-258',
+      'amazing-spider-man-259',
+    ],
+    blurb: 'The new costume arrives from a crossover, and turns out not to be cloth.',
+    crossover: true,
+  },
+  {
+    key: 'hobgoblin-mystery',
+    name: 'The Hobgoblin',
+    year: 1983,
+    issues: [
+      'amazing-spider-man-238', 'amazing-spider-man-239', 'amazing-spider-man-244',
+      'amazing-spider-man-245', 'amazing-spider-man-249', 'amazing-spider-man-250',
+      'amazing-spider-man-251',
+    ],
+    blurb: 'A new Goblin whose identity was left open for years, by design and then by accident.',
   },
   {
     key: 'gang-war',
@@ -102,6 +119,19 @@ export const ARCS = [
     blurb: 'The symbiote returns with a host, in the run that reset the title’s commercial fortunes.',
   },
   {
+    key: 'inferno',
+    name: 'Inferno',
+    year: 1989,
+    // Tie-in issues confirmed against the Event field on each wiki page.
+    issues: [
+      'amazing-spider-man-311', 'peter-parker-spectacular-146', 'web-of-spider-man-47',
+      'amazing-spider-man-312', 'peter-parker-spectacular-147', 'web-of-spider-man-48',
+      'amazing-spider-man-313', 'peter-parker-spectacular-148',
+    ],
+    blurb: 'A line-wide event reaches all three Spider-Man titles at once.',
+    crossover: true,
+  },
+  {
     key: 'acts-of-vengeance',
     name: 'Acts of Vengeance',
     year: 1990,
@@ -112,6 +142,16 @@ export const ARCS = [
     blurb: 'A line-wide event crosses the title; Spider-Man briefly holds cosmic power.',
     crossover: true,
   },
+  {
+    key: 'new-fantastic-four',
+    name: 'The New Fantastic Four',
+    year: 1990,
+    issues: ['fantastic-four-347'],
+    blurb: 'A replacement team assembled from four of the line\u2019s biggest sellers.',
+  },
 ]
+
+/** Chronological, so the arc filter reads as a timeline rather than a grab bag. */
+export const ARCS_SORTED = [...ARCS].sort((a, b) => a.year - b.year)
 
 export const ARCS_BY_KEY = Object.fromEntries(ARCS.map((a) => [a.key, a]))

@@ -1,6 +1,6 @@
 import { SERIES_LIST, CHARACTERS, YEAR_RANGE } from '../lib/dataset.js'
 import { DEFAULT_FILTERS, isFilterActive } from '../lib/filters.js'
-import { ARCS } from '../../data/arcs.js'
+import { ARCS_SORTED } from '../../data/arcs.js'
 import { PATHS } from '../../data/paths.js'
 
 const RELEVANCE = [
@@ -80,7 +80,7 @@ export default function FilterBar({
           aria-label="Story arc"
         >
           <option value="">All arcs</option>
-          {ARCS.map((a) => (
+          {ARCS_SORTED.map((a) => (
             <option key={a.key} value={a.key}>{a.name}</option>
           ))}
         </select>

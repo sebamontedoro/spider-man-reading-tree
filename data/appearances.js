@@ -13,6 +13,37 @@
  */
 
 export const APPEARANCES = [
+  /* ------------------------------------------------------------ 1960s */
+  {
+    id: 'strange-tales-115',
+    seriesName: 'Strange Tales',
+    seriesAbbr: 'ST',
+    wikiTitle: 'Strange Tales Vol 1',
+    number: 115,
+    coverDate: '1963-12',
+    note: 'A Human Torch story that pulls Spider-Man in — the two were built to rub against each other.',
+  },
+  {
+    id: 'x-men-27',
+    seriesName: 'The X-Men',
+    seriesAbbr: 'XM',
+    wikiTitle: 'X-Men Vol 1',
+    number: 27,
+    coverDate: '1966-12',
+    relevance: 'optional',
+    note: 'A brief crossing of paths, well before the two franchises shared much.',
+  },
+  {
+    id: 'daredevil-27',
+    seriesName: 'Daredevil',
+    seriesAbbr: 'DD',
+    wikiTitle: 'Daredevil Vol 1',
+    number: 27,
+    coverDate: '1967-04',
+    note: 'A second Daredevil team-up, a year after the first.',
+  },
+
+  /* ------------------------------------------------------------ 1970s */
   {
     id: 'strange-tales-annual-2',
     seriesName: 'Strange Tales Annual',
@@ -85,6 +116,15 @@ export const APPEARANCES = [
     relevance: 'optional',
   },
   {
+    id: 'nova-12',
+    seriesName: 'Nova',
+    seriesAbbr: 'NOVA',
+    wikiTitle: 'Nova Vol 1',
+    number: 12,
+    coverDate: '1977-08',
+    note: 'A team-up with Marvel\u2019s then-new teenage hero, built on the obvious parallel.',
+  },
+  {
     id: 'fantastic-four-218',
     seriesName: 'Fantastic Four',
     seriesAbbr: 'FF',
@@ -92,6 +132,44 @@ export const APPEARANCES = [
     number: 218,
     coverDate: '1980-05',
     relevance: 'optional',
+  },
+
+  /* ------------------------------------------------------------ 1980s */
+  {
+    id: 'contest-of-champions-1',
+    seriesName: 'Marvel Super Hero Contest of Champions',
+    seriesAbbr: 'COC',
+    wikiTitle: 'Marvel Super Hero Contest of Champions Vol 1',
+    number: 1,
+    coverDate: '1982-06',
+    relevance: 'optional',
+    note: 'Marvel\u2019s first limited-series crossover. He is one of a very large cast.',
+  },
+  {
+    id: 'contest-of-champions-3',
+    seriesName: 'Marvel Super Hero Contest of Champions',
+    seriesAbbr: 'COC',
+    wikiTitle: 'Marvel Super Hero Contest of Champions Vol 1',
+    number: 3,
+    coverDate: '1982-08',
+    relevance: 'optional',
+  },
+  {
+    id: 'avengers-236',
+    seriesName: 'The Avengers',
+    seriesAbbr: 'AVN',
+    wikiTitle: 'Avengers Vol 1',
+    number: 236,
+    coverDate: '1983-10',
+    note: 'A two-parter revisiting the question of whether he belongs on a team.',
+  },
+  {
+    id: 'avengers-237',
+    seriesName: 'The Avengers',
+    seriesAbbr: 'AVN',
+    wikiTitle: 'Avengers Vol 1',
+    number: 237,
+    coverDate: '1983-11',
   },
 
   /* ------------------------------------------------- the 1984 crossover */
@@ -131,6 +209,36 @@ export const APPEARANCES = [
     number: 1,
     coverDate: '1985-07',
     relevance: 'optional',
+  },
+  {
+    id: 'secret-wars-ii-9',
+    seriesName: 'Secret Wars II',
+    seriesAbbr: 'SWII',
+    wikiTitle: 'Secret Wars II Vol 1',
+    number: 9,
+    coverDate: '1986-03',
+    relevance: 'optional',
+  },
+
+  /* ------------------------------------------------------- late eighties */
+  {
+    id: 'daredevil-270',
+    seriesName: 'Daredevil',
+    seriesAbbr: 'DD',
+    wikiTitle: 'Daredevil Vol 1',
+    number: 270,
+    coverDate: '1989-09',
+    note: 'Two decades on, the Daredevil pairing had become one of the reliable ones.',
+  },
+  {
+    id: 'fantastic-four-347',
+    seriesName: 'Fantastic Four',
+    seriesAbbr: 'FF',
+    wikiTitle: 'Fantastic Four Vol 1',
+    number: 347,
+    coverDate: '1990-12',
+    note: 'Spider-Man co-leads a stand-in Fantastic Four. The last issue in our range.',
+    keyIssue: true,
   },
 ]
 

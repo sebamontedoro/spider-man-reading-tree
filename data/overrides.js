@@ -65,6 +65,10 @@ export const OVERRIDES = {
     note: 'Published without Comics Code approval, over a story about drug use.',
     keyIssue: true,
   },
+  'amazing-spider-man-90': {
+    note: 'A death in the supporting cast that the book refuses to undo.',
+    keyIssue: true,
+  },
   'amazing-spider-man-101': { firstAppearances: ['Morbius'] },
   'amazing-spider-man-121': {
     note: 'The issue that ends the Silver Age of the book.',
@@ -76,6 +80,17 @@ export const OVERRIDES = {
     firstAppearances: ['The Punisher', 'The Jackal'],
     keyIssue: true,
   },
+  'amazing-spider-man-136': {
+    note: 'The Goblin legacy passes to the next generation, closing a decade-long thread.',
+    keyIssue: true,
+  },
+  'amazing-spider-man-149': {
+    note: 'The climax of the clone story, and a question the 1990s reopened.',
+    keyIssue: true,
+  },
+  'marvel-team-up-1': {
+    note: 'Launches the team-up book that gave him a second monthly slot for thirteen years.',
+  },
   'peter-parker-spectacular-1': {
     note: 'The second ongoing launches, giving the character a monthly B-title.',
     keyIssue: true,
@@ -85,12 +100,27 @@ export const OVERRIDES = {
   'amazing-spider-man-194': { firstAppearances: ['The Black Cat'] },
   'amazing-spider-man-238': { firstAppearances: ['The Hobgoblin'], keyIssue: true },
   'amazing-spider-man-252': {
-    note: 'The black costume arrives, brought back from a company-wide crossover.',
+    note: 'The black costume arrives, brought back from a company-wide crossover. Read Secret Wars #8 first.',
     keyIssue: true,
   },
+  'amazing-spider-man-258': {
+    note: 'The costume is identified for what it is.',
+    keyIssue: true,
+  },
+  'amazing-spider-man-259': {
+    note: 'He gives up the costume — which does not settle the matter.',
+  },
+  'amazing-spider-man-239': { note: 'Second Hobgoblin appearance, establishing him as a recurring threat.' },
+  'amazing-spider-man-251': { note: 'Closes the first Hobgoblin sequence, immediately before the costume change.' },
   'peter-parker-spectacular-107': {
     note: 'Opens the darkest story the Spectacular run attempted.',
     keyIssue: true,
+  },
+  'peter-parker-spectacular-110': {
+    note: 'Its conclusion, and the reason the arc is still recommended.',
+  },
+  'amazing-spider-man-311': {
+    note: 'The line-wide Inferno event reaches the Spider-Man titles.',
   },
   'web-of-spider-man-1': {
     note: 'The third ongoing launches into the slot Marvel Team-Up vacated.',
