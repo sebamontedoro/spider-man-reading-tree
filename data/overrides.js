@@ -23,7 +23,7 @@ export const OVERRIDES = {
   /* ------------------------------------------ the Lee / Ditko villains */
   'amazing-spider-man-1': {
     note: 'The ongoing begins. Establishes the Bugle and the money problems that drive the book.',
-    firstAppearances: ['J. Jonah Jameson', 'The Chameleon'],
+    firstAppearances: ['J. Jonah Jameson', 'The Chameleon', 'John Jameson (later Man-Wolf)'],
     keyIssue: true,
   },
   'amazing-spider-man-2': { firstAppearances: ['The Vulture', 'The Tinkerer'] },
@@ -91,10 +91,6 @@ export const OVERRIDES = {
   'marvel-team-up-1': {
     note: 'Launches the team-up book that gave him a second monthly slot for thirteen years.',
     firstAppearances: ['Misty Knight'],
-  },
-  'peter-parker-spectacular-1': {
-    note: 'The second ongoing launches, giving the character a monthly B-title.',
-    keyIssue: true,
   },
 
   /* -------------------------------------------------------------- 1980s */
@@ -173,7 +169,7 @@ export const OVERRIDES = {
     note: 'The Spider-Mobile — an editorial idea the book itself never stopped mocking.',
     firstAppearances: ['The Spider-Mobile'],
   },
-  'amazing-spider-man-135': { firstAppearances: ['Tarantula'] },
+  'amazing-spider-man-134': { firstAppearances: ['Tarantula'] },
   'amazing-spider-man-140': { firstAppearances: ['Glory Grant'] },
   'amazing-spider-man-161': { firstAppearances: ['Jigsaw'] },
   'amazing-spider-man-167': { firstAppearances: ["Will O' The Wisp"] },
@@ -190,6 +186,11 @@ export const OVERRIDES = {
   },
 
   /* ---- Peter Parker, The Spectacular Spider-Man ---- */
+  'peter-parker-spectacular-1': {
+    note: 'The second ongoing launches, giving the character a monthly B-title. Edward Lansky appears here, two issues before he becomes Lightmaster.',
+    firstAppearances: ['Edward Lansky (later Lightmaster)'],
+    keyIssue: true,
+  },
   'peter-parker-spectacular-3': { firstAppearances: ['Lightmaster'] },
   'peter-parker-spectacular-25': {
     note: 'Introduces a villain built directly out of the clone story.',
@@ -279,5 +280,30 @@ export const OVERRIDES = {
   'web-of-spider-man-32': { note: "Closes Kraven's Last Hunt." },
   'web-of-spider-man-40': {
     note: 'Opens a four-part arc, and the closest Web came to a signature story of its own.',
+  },
+
+  /* ======================================================================
+     Civilian first appearances.
+
+     Checked against the characters' own wiki pages, whose First field tracks
+     the person rather than the identity. That is a different question from
+     "when did this villain debut", and both are useful: several of these are
+     walk-on parts that only matter in hindsight.
+     ====================================================================== */
+
+  'amazing-spider-man-2': {
+    firstAppearances: ['The Vulture', 'The Tinkerer', 'Quentin Beck (later Mysterio)'],
+  },
+  'amazing-spider-man-19': {
+    note: 'Mac Gargan appears as a private investigator. He becomes the Scorpion in the next issue.',
+    firstAppearances: ['Mac Gargan (later the Scorpion)'],
+  },
+  'amazing-spider-man-25': {
+    note: 'Mary Jane appears for the first time, with her face kept out of frame for another seventeen issues.',
+    firstAppearances: ['Mary Jane Watson (face unseen)'],
+  },
+  'peter-parker-spectacular-43': {
+    note: 'Roderick Kingsley\u2019s first appearance, five years before anyone put him in the Hobgoblin suit.',
+    firstAppearances: ['Roderick Kingsley (later the Hobgoblin)'],
   },
 }
