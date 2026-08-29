@@ -327,7 +327,10 @@
 .issue--spec-mag { --accent: var(--s-spec-mag); }
 .issue--guest    { --accent: var(--s-guest); }
 .issue--reprint  { --accent: var(--s-reprint); }
-.issue--kids     { --accent: var(--s-kids); }
+.issue--kids        { --accent: var(--s-kids); }
+.issue--sm90        { --accent: var(--s-sm90); }
+.issue--unlimited   { --accent: var(--s-unlimited); }
+.issue--sensational { --accent: var(--s-sensational); }
 
 .issue__star {
   position: absolute;

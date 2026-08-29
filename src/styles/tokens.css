@@ -33,6 +33,9 @@
   --s-guest:        #4a6a2f;  /* guest appearances in other titles */
   --s-reprint:      #8b8378;  /* reprints */
   --s-kids:         #c2407e;  /* Spidey Super Stories */
+  --s-sm90:         #b8321f;  /* Spider-Man (1990, McFarlane) */
+  --s-unlimited:    #6b5b95;  /* Spider-Man Unlimited */
+  --s-sensational:  #1d7a3f;  /* Sensational Spider-Man */
 
   /* --- Relevance ------------------------------------------------------ */
   --border-core:     3px;

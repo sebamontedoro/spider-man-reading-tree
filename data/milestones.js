@@ -19,6 +19,12 @@
  *
  * One issue can carry several milestones: Amazing Fantasy #15 is both the
  * debut of Spider-Man and the death of Uncle Ben.
+ *
+ * A note on the nineties: the wiki's {{1st}} markers get unreliable from about
+ * 1991 on — Carnage's arrival in Amazing #361 is tagged as a plain appearance,
+ * and the marker sits on his host in #344 instead. So the debut entries for
+ * that decade lean on what could be checked, and the decade's backbone here is
+ * its deaths and its structural changes, both of which verified cleanly.
  */
 
 export const MILESTONE_TYPES = {
@@ -271,6 +277,90 @@ export const MILESTONES = [
     type: 'event',
     label: 'The Sinister Six return',
     blurb: 'The villain team reassembles after twenty-five years apart.',
+  },
+
+  /* ============================================================== 1990s */
+  {
+    issue: 'spider-man-1990-1',
+    type: 'status-quo',
+    label: 'A fourth ongoing, built around an artist',
+    blurb: 'Launched for McFarlane as writer-artist, and one of the best-selling comics ever printed.',
+  },
+  {
+    issue: 'amazing-spider-man-344',
+    type: 'debut',
+    label: 'Cletus Kasady appears',
+    blurb: 'The man who would become Carnage, seventeen issues before the symbiote finds him.',
+  },
+  {
+    issue: 'amazing-spider-man-361',
+    type: 'debut',
+    label: 'Carnage arrives',
+    blurb: 'The Venom symbiote spawns an offspring, and the decade gets its signature villain.',
+  },
+  {
+    issue: 'peter-parker-spectacular-200',
+    type: 'death',
+    label: 'Harry Osborn dies',
+    blurb: 'The last of the original supporting cast to take the Goblin identity, and the end of that thread.',
+  },
+  {
+    issue: 'web-of-spider-man-109',
+    type: 'death',
+    label: 'Calypso dies',
+  },
+  {
+    issue: 'spider-man-1990-48',
+    type: 'death',
+    label: 'Demogoblin dies',
+  },
+  {
+    issue: 'spider-man-1990-55',
+    type: 'death',
+    label: 'The Grim Hunter dies',
+    blurb: 'Kraven’s son, killed off two years after taking up his father’s name.',
+  },
+  {
+    issue: 'peter-parker-spectacular-221',
+    type: 'death',
+    label: 'Doctor Octopus dies',
+    blurb: 'The oldest surviving villain in the book, killed off after thirty-one years.',
+  },
+  {
+    issue: 'web-of-spider-man-118',
+    type: 'debut',
+    label: 'The Scarlet Spider',
+    blurb: 'Ben Reilly takes a costume of his own, and the Clone Saga starts in earnest.',
+  },
+  {
+    issue: 'amazing-spider-man-400',
+    type: 'death',
+    label: 'Aunt May dies — or an impostor does',
+    blurb: 'Marvel Database files the death against an impostor, which is how it was later undone.',
+  },
+  {
+    issue: 'spider-man-1990-75',
+    type: 'status-quo',
+    label: 'The Clone Saga ends',
+    blurb: 'Two years of it, resolved in the issue where the title also drops its original name.',
+  },
+  {
+    issue: 'sensational-spider-man-0',
+    type: 'status-quo',
+    label: 'Web of Spider-Man is replaced',
+    blurb: 'The rotation keeps four monthly books, but swaps one of them out.',
+  },
+  {
+    issue: 'amazing-spider-man-441',
+    type: 'status-quo',
+    label: 'Volume one ends at #441',
+    blurb: 'Thirty-five years and 441 issues, cancelled to make room for a renumbering.',
+  },
+  {
+    issue: 'amazing-spider-man-v2-1',
+    type: 'status-quo',
+    label: 'The relaunch: back to #1',
+    blurb: 'All four titles restart, and the line is cut from four books to two.',
   },
 ]
 

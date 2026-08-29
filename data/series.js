@@ -68,6 +68,8 @@ export const SERIES = [
       { from: 329, to: 335, startDate: '1990-02', endDate: '1990-07', endExact: true },
       { from: 336, to: 340, startDate: '1990-08', endDate: '1990-10', endExact: true },
       { from: 341, to: 342, startDate: '1990-11', endDate: '1990-12', startExact: true, endExact: true },
+      // Back to a steady monthly cadence for the rest of the volume.
+      { from: 343, to: 441, startDate: '1991-01', endDate: '1998-11', endExact: true },
     ],
   },
   {
@@ -82,7 +84,9 @@ export const SERIES = [
     isAnnual: true,
     note: 'Oversized yearly specials. Several carry major first appearances.',
     segments: [
-      { from: 1, to: 24, startDate: '1964-10', endDate: '1990-08', cadence: 'annual', startExact: true, endExact: true },
+      { from: 1,  to: 24, startDate: '1964-10', endDate: '1990-08', cadence: 'annual', startExact: true, endExact: true },
+      // Marvel wound the annuals down mid-decade; this line stops at #28.
+      { from: 25, to: 28, startDate: '1991-09', endDate: '1994-05', cadence: 'annual', startExact: true, endExact: true },
     ],
   },
 
@@ -153,6 +157,8 @@ export const SERIES = [
       // Marvel Database files the renamed run under a different page title.
       { from: 134, to: 171, startDate: '1988-01', endDate: '1990-12',
         wikiTitle: 'Spectacular Spider-Man Vol 1', startExact: true, endExact: true },
+      { from: 172, to: 263, startDate: '1991-01', endDate: '1998-11',
+        wikiTitle: 'Spectacular Spider-Man Vol 1', startExact: true, endExact: true },
     ],
   },
   {
@@ -170,7 +176,9 @@ export const SERIES = [
       // under the "Peter Parker" name and drops it from #8.
       { from: 1, to: 7,  startDate: '1979-12', endDate: '1987-08', cadence: 'annual',
         wikiTitle: 'Peter Parker, The Spectacular Spider-Man Annual Vol 1', startExact: true },
-      { from: 8, to: 10, startDate: '1988-11', endDate: '1990-08', cadence: 'annual',
+      { from: 8,  to: 10, startDate: '1988-11', endDate: '1990-08', cadence: 'annual',
+        startExact: true, endExact: true },
+      { from: 11, to: 14, startDate: '1991-09', endDate: '1994-06', cadence: 'annual',
         startExact: true, endExact: true },
     ],
   },
@@ -189,7 +197,8 @@ export const SERIES = [
     segments: [
       { from: 1,  to: 36, startDate: '1985-04', endDate: '1988-03', startExact: true, endExact: true },
       { from: 37, to: 69, startDate: '1988-04', endDate: '1990-10', endExact: true },
-      { from: 70, to: 71, startDate: '1990-11', endDate: '1990-12', startExact: true, endExact: true },
+      { from: 70,  to: 71,  startDate: '1990-11', endDate: '1990-12', startExact: true, endExact: true },
+      { from: 72,  to: 129, startDate: '1991-01', endDate: '1995-10', endExact: true },
     ],
   },
   {
@@ -203,7 +212,90 @@ export const SERIES = [
     relevance: 'notable',
     isAnnual: true,
     segments: [
-      { from: 1, to: 6, startDate: '1985-08', endDate: '1990-08', cadence: 'annual', endExact: true },
+      { from: 1, to: 6,  startDate: '1985-08', endDate: '1990-08', cadence: 'annual', endExact: true },
+      { from: 7, to: 10, startDate: '1991-09', endDate: '1994-06', cadence: 'annual', startExact: true, endExact: true },
+    ],
+  },
+
+
+  /* --------------------------------------------------------- 1990 → 1998 */
+  {
+    key: 'spider-man-1990',
+    name: 'Spider-Man',
+    abbr: 'SM',
+    vol: 1,
+    wikiTitle: 'Spider-Man Vol 1',
+    accent: 'sm90',
+    role: 'lead',
+    relevance: 'core',
+    note: 'Launched for McFarlane as writer-artist. Retitled Peter Parker: Spider-Man from #75.',
+    segments: [
+      { from: 1,  to: 75, startDate: '1990-08', endDate: '1996-12', startExact: true, endExact: true },
+      { from: 76, to: 98, startDate: '1997-01', endDate: '1998-11', endExact: true },
+    ],
+  },
+
+  /* --------------------------------------------------------- 1993 → 1998 */
+  {
+    key: 'spider-man-unlimited',
+    name: 'Spider-Man Unlimited',
+    abbr: 'SMU',
+    vol: 1,
+    wikiTitle: 'Spider-Man Unlimited Vol 1',
+    accent: 'unlimited',
+    role: 'lead',
+    relevance: 'notable',
+    note: 'Quarterly, oversized. Carries several chapters of the decade’s big arcs.',
+    segments: [
+      { from: 1, to: 22, startDate: '1993-05', endDate: '1998-11', startExact: true, endExact: true },
+    ],
+  },
+
+  /* --------------------------------------------------------- 1996 → 1998 */
+  {
+    key: 'sensational-spider-man',
+    name: 'The Sensational Spider-Man',
+    abbr: 'SEN',
+    vol: 1,
+    wikiTitle: 'Sensational Spider-Man Vol 1',
+    accent: 'sensational',
+    role: 'lead',
+    relevance: 'core',
+    note: 'Replaced Web of Spider-Man in the rotation. Starts at #0.',
+    segments: [
+      { from: 0, to: 33, startDate: '1996-01', endDate: '1998-11', startExact: true, endExact: true },
+    ],
+  },
+
+  /* --------------------------------------------------------- 1999 → 2000 */
+  {
+    key: 'amazing-spider-man-v2',
+    name: 'The Amazing Spider-Man (vol. 2)',
+    abbr: 'ASM v2',
+    vol: 2,
+    wikiTitle: 'Amazing Spider-Man Vol 2',
+    accent: 'asm',
+    role: 'lead',
+    relevance: 'core',
+    note: 'The 1998 relaunch renumbers from #1 after 441 issues.',
+    segments: [
+      { from: 1,  to: 13, startDate: '1999-01', endDate: '2000-01', startExact: true, endExact: true },
+      { from: 14, to: 24, startDate: '2000-02', endDate: '2000-12' },
+    ],
+  },
+  {
+    key: 'peter-parker-spider-man-v2',
+    name: 'Peter Parker: Spider-Man (vol. 2)',
+    abbr: 'PPSM v2',
+    vol: 2,
+    wikiTitle: 'Peter Parker: Spider-Man Vol 1',
+    accent: 'ppssm',
+    role: 'lead',
+    relevance: 'core',
+    note: 'The relaunch companion to Amazing vol. 2.',
+    segments: [
+      { from: 1,  to: 13, startDate: '1999-01', endDate: '2000-01', startExact: true, endExact: true },
+      { from: 14, to: 24, startDate: '2000-02', endDate: '2000-12' },
     ],
   },
 
@@ -222,6 +314,7 @@ export const SERIES = [
     segments: [
       { from: 1,   to: 241, startDate: '1964-01', endDate: '1990-09', endExact: true },
       { from: 242, to: 244, startDate: '1990-10', endDate: '1990-12', startExact: true, endExact: true },
+      { from: 245, to: 291, startDate: '1991-01', endDate: '1994-11', endExact: true },
     ],
   },
   {
