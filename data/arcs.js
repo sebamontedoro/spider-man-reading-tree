@@ -31,6 +31,13 @@ export const ARCS = [
     blurb: 'Ditko’s peak. Widely cited as the definitive Spider-Man sequence.',
   },
   {
+    key: 'six-arms',
+    name: 'The Six Arms Saga',
+    year: 1971,
+    issues: ['amazing-spider-man-100', 'amazing-spider-man-101', 'amazing-spider-man-102'],
+    blurb: 'A short body-horror detour that also launches Morbius.',
+  },
+  {
     key: 'gwen-stacy',
     name: 'The Night Gwen Stacy Died',
     year: 1973,
@@ -47,6 +54,16 @@ export const ARCS = [
       'amazing-spider-man-150', 'amazing-spider-man-151',
     ],
     blurb: 'The Jackal storyline whose consequences the 1990s would revisit at length.',
+  },
+  {
+    key: 'a-new-goblin',
+    name: 'A New Goblin',
+    year: 1978,
+    issues: [
+      'amazing-spider-man-176', 'amazing-spider-man-177', 'amazing-spider-man-178',
+      'amazing-spider-man-179', 'amazing-spider-man-180',
+    ],
+    blurb: 'A third claimant to the Goblin identity, and the end of the 1970s run of them.',
   },
   {
     key: 'jean-dewolff',

@@ -90,6 +90,7 @@ export const OVERRIDES = {
   },
   'marvel-team-up-1': {
     note: 'Launches the team-up book that gave him a second monthly slot for thirteen years.',
+    firstAppearances: ['Misty Knight'],
   },
   'peter-parker-spectacular-1': {
     note: 'The second ongoing launches, giving the character a monthly B-title.',
@@ -146,5 +147,70 @@ export const OVERRIDES = {
   'amazing-spider-man-328': {
     note: "McFarlane's last issue on the title before launching his own book.",
     keyIssue: true,
+  },
+
+  /* ======================================================================
+     The 1970s — the decade the book spends replacing its entire supporting
+     cast. First appearances below were read off the {{1st}} markers on each
+     issue's Marvel Database page rather than recalled.
+     ====================================================================== */
+
+  'amazing-spider-man-100': {
+    note: 'Opens the Six Arms Saga, a three-issue detour into body horror.',
+    keyIssue: true,
+  },
+  'amazing-spider-man-102': {
+    note: 'Closes the Six Arms Saga. Morbius comes out of it with his own career.',
+  },
+  'amazing-spider-man-113': { firstAppearances: ['Hammerhead'] },
+  'amazing-spider-man-124': {
+    note: 'Turns a long-running supporting character into a monster.',
+    firstAppearances: ['Man-Wolf'],
+  },
+  'amazing-spider-man-130': {
+    note: 'The Spider-Mobile — an editorial idea the book itself never stopped mocking.',
+    firstAppearances: ['The Spider-Mobile'],
+  },
+  'amazing-spider-man-135': { firstAppearances: ['Tarantula'] },
+  'amazing-spider-man-140': { firstAppearances: ['Glory Grant'] },
+  'amazing-spider-man-161': { firstAppearances: ['Jigsaw'] },
+  'amazing-spider-man-167': { firstAppearances: ["Will O' The Wisp"] },
+  'amazing-spider-man-172': { firstAppearances: ['Rocket Racer'] },
+  'amazing-spider-man-176': {
+    note: 'A third man takes the Goblin identity, opening a five-part arc.',
+    firstAppearances: ['Green Goblin (Bart Hamilton)'],
+  },
+  'amazing-spider-man-180': { note: 'Closes the Goblin arc and, for a while, the whole idea.' },
+  'amazing-spider-man-196': { firstAppearances: ['Debra Whitman'] },
+  'amazing-spider-man-200': {
+    note: 'The anniversary issue returns to the burglar from the origin.',
+    keyIssue: true,
+  },
+
+  /* ---- Peter Parker, The Spectacular Spider-Man ---- */
+  'peter-parker-spectacular-3': { firstAppearances: ['Lightmaster'] },
+  'peter-parker-spectacular-25': {
+    note: 'Introduces a villain built directly out of the clone story.',
+    firstAppearances: ['Carrion'],
+  },
+  'peter-parker-spectacular-27': {
+    note: 'Frank Miller pencils a Daredevil guest appearance, months before taking over that book.',
+    keyIssue: true,
+  },
+  'peter-parker-spectacular-28': { note: 'Second and last of the Miller-drawn pair.' },
+  'peter-parker-spectacular-32': { firstAppearances: ['The Iguana'] },
+
+  /* ---- Marvel Team-Up ---- */
+  'marvel-team-up-65': {
+    note: 'Captain Britain\u2019s first American appearance, in a two-parter set at a killer funfair.',
+    firstAppearances: ['Arcade'],
+    keyIssue: true,
+  },
+  'marvel-team-up-74': {
+    note: 'The Saturday Night Live cast guest-star as themselves. A genuine oddity of the run.',
+  },
+  'marvel-team-up-100': {
+    note: 'An anniversary issue that quietly introduces a character the X-Men books would take up.',
+    firstAppearances: ['Karma'],
   },
 }
