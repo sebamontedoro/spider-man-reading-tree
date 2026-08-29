@@ -78,6 +78,21 @@ Database renames runs mid-stream — both `peter-parker-spectacular` and
 `spectacular-spider-man-annual` need a per-segment `wikiTitle` for exactly this
 reason.
 
+## Deploying
+
+`scripts/deploy.sh user@host` deploys over SSH. The remote clones or updates the
+repo, builds the image and runs docker compose; nothing is copied from the
+developer machine, so what runs is exactly what is on the branch.
+
+The script refuses to touch the deploy directory if it exists and is either not
+a git checkout or a checkout of a different repository. That guard is
+deliberate — do not remove it to make a deploy "just work".
+
+The image is multi-stage: `node:22-alpine` builds, `nginx:alpine` serves. There
+is no Node in the running container. `docker/nginx.conf` caches fingerprinted
+assets for a year and explicitly refuses to cache `index.html`, without which a
+deploy strands clients on stale bundles.
+
 ## Scope
 
 Included: every issue of the titles Spider-Man headlines (Amazing Fantasy #15,
