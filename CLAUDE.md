@@ -80,6 +80,25 @@ reason.
 
 ## Deploying
 
+### The live deployment
+
+Running at **http://dell-server:8082**, deployed with:
+
+```bash
+./scripts/deploy.sh server@dell-server \
+  --dir /home/server/docker-services/spider-man \
+  --port 8082
+```
+
+Three things about that host are not the script's defaults and are worth
+remembering: the SSH user is `server` (not the local username), services live
+under `/home/server/docker-services/<name>/` by convention rather than in
+`/opt`, and port 8080 is already taken by qbittorrent. The host also runs Caddy
+as a reverse proxy on 80/443, routing `*.lan` names to `192.168.1.14:<port>`,
+so this can be given a hostname by adding one block to its Caddyfile.
+
+### The script
+
 `scripts/deploy.sh user@host` deploys over SSH. The remote clones or updates the
 repo, builds the image and runs docker compose; nothing is copied from the
 developer machine, so what runs is exactly what is on the branch.
