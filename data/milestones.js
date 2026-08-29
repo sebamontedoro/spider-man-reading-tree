@@ -293,10 +293,10 @@ export const MILESTONES = [
     blurb: 'The man who would become Carnage, seventeen issues before the symbiote finds him.',
   },
   {
-    issue: 'amazing-spider-man-361',
+    issue: 'amazing-spider-man-360',
     type: 'debut',
     label: 'Carnage arrives',
-    blurb: 'The Venom symbiote spawns an offspring, and the decade gets its signature villain.',
+    blurb: 'A cameo first — his full appearance is the following issue. The symbiote spawns an offspring and the decade gets its villain.',
   },
   {
     issue: 'peter-parker-spectacular-200',
@@ -327,10 +327,22 @@ export const MILESTONES = [
     blurb: 'The oldest surviving villain in the book, killed off after thirty-one years.',
   },
   {
-    issue: 'web-of-spider-man-118',
+    issue: 'spider-man-1990-52',
     type: 'debut',
     label: 'The Scarlet Spider',
-    blurb: 'Ben Reilly takes a costume of his own, and the Clone Saga starts in earnest.',
+    blurb: 'Ben Reilly takes a costume and a name of his own, nineteen years after first appearing as a clone.',
+  },
+  {
+    issue: 'web-of-spider-man-117',
+    type: 'debut',
+    label: 'Judas Traveller',
+    blurb: 'The figure the Clone Saga was built around, arriving as it begins.',
+  },
+  {
+    issue: 'web-of-spider-man-119',
+    type: 'debut',
+    label: 'Kaine',
+    blurb: 'The clone that came out wrong, and the saga\u2019s most durable creation.',
   },
   {
     issue: 'amazing-spider-man-400',
@@ -349,6 +361,30 @@ export const MILESTONES = [
     type: 'status-quo',
     label: 'Web of Spider-Man is replaced',
     blurb: 'The rotation keeps four monthly books, but swaps one of them out.',
+  },
+  {
+    issue: 'spider-man-1990-47',
+    type: 'debut',
+    label: 'The Grim Hunter',
+    blurb: 'Kraven\u2019s son takes up his father\u2019s name, eight years after his death.',
+  },
+  {
+    issue: 'spider-man-unlimited-1',
+    type: 'debut',
+    label: 'Shriek',
+    blurb: 'Introduced in the quarterly, and central to Maximum Carnage a year later.',
+  },
+  {
+    issue: 'web-of-spider-man-86',
+    type: 'debut',
+    label: 'Demogoblin',
+    blurb: 'The Hobgoblin\u2019s demon half, split off into its own villain.',
+  },
+  {
+    issue: 'amazing-scarlet-spider-1',
+    type: 'debut',
+    label: 'A second Scarlet Spider',
+    blurb: 'A government-made impostor, launched in one of the four Scarlet Spider titles.',
   },
   {
     issue: 'amazing-spider-man-441',

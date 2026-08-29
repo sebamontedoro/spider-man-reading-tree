@@ -299,6 +299,105 @@ export const SERIES = [
     ],
   },
 
+
+  /* ============================================= La era del clon: miniseries
+     The Clone Saga did not stay inside the four ongoing titles. Marvel spun off
+     a shelf of short series around it, and a reading guide that omits them
+     leaves gaps mid-story. Discovered by querying the wiki's own category for
+     the event rather than from memory, which is also how the collections and
+     omnibuses were kept out: those reprint, they do not continue.
+
+     Deliberately excluded: New Warriors #61-67, Green Goblin #3 and Daredevil
+     #354 carry chapters but are other characters' books — they belong in
+     data/appearances.js if they are ever added.
+     ======================================================================== */
+  {
+    key: 'web-of-scarlet-spider', name: 'Web of Scarlet Spider', abbr: 'WSS', vol: 1,
+    wikiTitle: 'Web of Scarlet Spider Vol 1', accent: 'scarlet',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 4, startDate: '1995-11', endDate: '1996-02', startExact: true, endExact: true }],
+  },
+  {
+    key: 'scarlet-spider', name: 'Scarlet Spider', abbr: 'SS', vol: 1,
+    wikiTitle: 'Scarlet Spider Vol 1', accent: 'scarlet',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 2, startDate: '1995-11', endDate: '1995-12', startExact: true, endExact: true }],
+  },
+  {
+    key: 'amazing-scarlet-spider', name: 'The Amazing Scarlet Spider', abbr: 'ASS', vol: 1,
+    wikiTitle: 'Amazing Scarlet Spider Vol 1', accent: 'scarlet',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 2, startDate: '1995-11', endDate: '1995-12', startExact: true, endExact: true }],
+  },
+  {
+    key: 'spectacular-scarlet-spider', name: 'The Spectacular Scarlet Spider', abbr: 'SSS2', vol: 1,
+    wikiTitle: 'Spectacular Scarlet Spider Vol 1', accent: 'scarlet',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 2, startDate: '1995-11', endDate: '1995-12', startExact: true, endExact: true }],
+  },
+  {
+    key: 'scarlet-spider-unlimited', name: 'Scarlet Spider Unlimited', abbr: 'SSU', vol: 1,
+    wikiTitle: 'Scarlet Spider Unlimited Vol 1', accent: 'scarlet',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 1, startDate: '1995-11', endDate: '1995-11', startExact: true, endExact: true }],
+  },
+  {
+    key: 'lost-years', name: 'Spider-Man: The Lost Years', abbr: 'LY', vol: 1,
+    wikiTitle: 'Spider-Man: The Lost Years Vol 1', accent: 'scarlet',
+    role: 'lead', relevance: 'notable',
+    note: 'Ben Reilly’s missing years. #0 shipped after #3, so the timeline places it in 1996.',
+    segments: [{ from: 0, to: 3, startDate: '1995-08', endDate: '1995-10' }],
+  },
+  {
+    key: 'final-adventure', name: 'Spider-Man: The Final Adventure', abbr: 'FA', vol: 1,
+    wikiTitle: 'Spider-Man: The Final Adventure Vol 1', accent: 'scarlet',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 4, startDate: '1995-12', endDate: '1996-03', startExact: true, endExact: true }],
+  },
+  {
+    key: 'redemption', name: 'Spider-Man: Redemption', abbr: 'RED', vol: 1,
+    wikiTitle: 'Spider-Man: Redemption Vol 1', accent: 'scarlet',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 4, startDate: '1996-09', endDate: '1996-12', startExact: true, endExact: true }],
+  },
+  {
+    key: 'funeral-for-an-octopus', name: 'Spider-Man: Funeral for an Octopus', abbr: 'FFO', vol: 1,
+    wikiTitle: 'Spider-Man: Funeral for an Octopus Vol 1', accent: 'unlimited',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 3, startDate: '1995-03', endDate: '1995-05', startExact: true, endExact: true }],
+  },
+  {
+    key: 'spider-man-team-up', name: 'Spider-Man Team-Up', abbr: 'SMTU', vol: 1,
+    wikiTitle: 'Spider-Man Team-Up Vol 1', accent: 'mtu',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 5, startDate: '1995-12', endDate: '1996-12', startExact: true, endExact: true }],
+  },
+  {
+    key: 'maximum-clonage-alpha', name: 'Spider-Man: Maximum Clonage Alpha', abbr: 'MCA', vol: 1,
+    wikiTitle: 'Spider-Man: Maximum Clonage Alpha Vol 1', accent: 'scarlet',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 1, startDate: '1995-08', endDate: '1995-08', startExact: true, endExact: true }],
+  },
+  {
+    key: 'maximum-clonage-omega', name: 'Spider-Man: Maximum Clonage Omega', abbr: 'MCO', vol: 1,
+    wikiTitle: 'Spider-Man: Maximum Clonage Omega Vol 1', accent: 'scarlet',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 1, startDate: '1995-08', endDate: '1995-08', startExact: true, endExact: true }],
+  },
+  {
+    key: 'clone-journal', name: 'Spider-Man: The Clone Journal', abbr: 'CJ', vol: 1,
+    wikiTitle: 'Spider-Man The Clone Journal Vol 1', accent: 'scarlet',
+    role: 'lead', relevance: 'optional',
+    segments: [{ from: 1, to: 1, startDate: '1995-03', endDate: '1995-03', startExact: true, endExact: true }],
+  },
+  {
+    key: 'osborn-journals', name: 'Osborn Journals', abbr: 'OJ', vol: 1,
+    wikiTitle: 'Osborn Journals Vol 1', accent: 'sm90',
+    role: 'lead', relevance: 'notable',
+    note: 'Fills in what Norman Osborn was doing during the years he was believed dead.',
+    segments: [{ from: 1, to: 1, startDate: '1997-02', endDate: '1997-02', startExact: true, endExact: true }],
+  },
+
   /* ------------------------------------------- Optional / hidden by default */
   {
     key: 'marvel-tales',

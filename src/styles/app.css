@@ -331,6 +331,7 @@
 .issue--sm90        { --accent: var(--s-sm90); }
 .issue--unlimited   { --accent: var(--s-unlimited); }
 .issue--sensational { --accent: var(--s-sensational); }
+.issue--scarlet     { --accent: var(--s-scarlet); }
 
 .issue__star {
   position: absolute;
