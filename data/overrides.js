@@ -115,6 +115,7 @@ export const OVERRIDES = {
   'amazing-spider-man-251': { note: 'Closes the first Hobgoblin sequence, immediately before the costume change.' },
   'peter-parker-spectacular-107': {
     note: 'Opens the darkest story the Spectacular run attempted.',
+    firstAppearances: ['The Sin-Eater'],
     keyIssue: true,
   },
   'peter-parker-spectacular-110': {
@@ -136,12 +137,13 @@ export const OVERRIDES = {
     keyIssue: true,
   },
   'amazing-spider-man-298': {
-    note: 'McFarlane starts as regular artist.',
+    note: 'McFarlane starts as regular artist, and the new villain gets a brief first look.',
+    firstAppearances: ['Venom (cameo)', 'The Life Foundation'],
     keyIssue: true,
   },
   'amazing-spider-man-300': {
     note: "Venom's first full appearance, and the best-known issue of the era.",
-    firstAppearances: ['Venom'],
+    firstAppearances: ['Venom (full appearance)'],
     keyIssue: true,
   },
   'amazing-spider-man-328': {
@@ -212,5 +214,70 @@ export const OVERRIDES = {
   'marvel-team-up-100': {
     note: 'An anniversary issue that quietly introduces a character the X-Men books would take up.',
     firstAppearances: ['Karma'],
+  },
+
+  /* ======================================================================
+     The 1980s — three ongoing titles running at once, so the decade is as
+     much about crossovers as about individual issues. First appearances
+     again read off the {{1st}} markers rather than recalled.
+     ====================================================================== */
+
+  'amazing-spider-man-209': { firstAppearances: ['Calypso'] },
+  'amazing-spider-man-210': { firstAppearances: ['Madame Web'] },
+  'amazing-spider-man-212': { firstAppearances: ['Hydro-Man'] },
+  'amazing-spider-man-222': { firstAppearances: ['Speed Demon'] },
+  'amazing-spider-man-245': {
+    note: 'A decoy Hobgoblin, planted to keep the identity question open.',
+    firstAppearances: ['Hobgoblin (Lefty Donovan)'],
+  },
+  'amazing-spider-man-248': {
+    note: 'A short back-up story about a boy who collects the comic. Frequently named the best single issue of the run.',
+    keyIssue: true,
+  },
+  'amazing-spider-man-283': { firstAppearances: ['Mongoose'] },
+  'amazing-spider-man-295': {
+    note: 'Opens a three-title crossover, run immediately after Kraven\u2019s Last Hunt.',
+  },
+  'amazing-spider-man-309': { firstAppearances: ['Styx', 'Stone'] },
+  'amazing-spider-man-320': {
+    note: 'Opens a six-part thriller, drawn at the peak of the McFarlane run.',
+  },
+  'amazing-spider-man-329': {
+    note: 'Closes the Acts of Vengeance tie-ins with a brief and enormous power upgrade.',
+    firstAppearances: ['Tri-Sentinel'],
+  },
+  'amazing-spider-man-334': {
+    note: 'The Sinister Six reassemble after twenty-five years apart.',
+    keyIssue: true,
+  },
+  'amazing-spider-man-340': { firstAppearances: ['Femme Fatales'] },
+  'amazing-spider-man-341': {
+    note: 'Opens the last arc inside this guide\u2019s range.',
+  },
+  'amazing-spider-man-342': {
+    note: 'The last Spider-Man issue of 1990, and where this tree stops.',
+  },
+
+  /* ---- Spectacular ---- */
+  'peter-parker-spectacular-86': {
+    note: 'A lighter one-off from the month Marvel handed its titles to the assistant editors.',
+  },
+  'peter-parker-spectacular-111': { note: 'Secret Wars II reaches the Spectacular title.' },
+  'peter-parker-spectacular-117': {
+    note: 'The Spectacular half of a crossover otherwise running through Web.',
+  },
+  'peter-parker-spectacular-133': { note: 'The Spectacular chapter of the Mad Dog Ward crossover.' },
+  'peter-parker-spectacular-134': {
+    note: 'The run returns to the villain from its best-remembered story. Also where the title drops the Peter Parker name.',
+  },
+
+  /* ---- Web of Spider-Man ---- */
+  'web-of-spider-man-6': { note: 'Secret Wars II reaches the newest of the three titles.' },
+  'web-of-spider-man-16': {
+    note: 'Opens the first Web arc to pull another title into it.',
+  },
+  'web-of-spider-man-32': { note: "Closes Kraven's Last Hunt." },
+  'web-of-spider-man-40': {
+    note: 'Opens a four-part arc, and the closest Web came to a signature story of its own.',
   },
 }

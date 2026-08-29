@@ -149,14 +149,86 @@ export const ARCS = [
     crossover: true,
   },
   {
+    key: 'missing-in-action',
+    name: 'Missing in Action',
+    year: 1986,
+    // Ordered by cover date across the two titles it runs through.
+    issues: [
+      'web-of-spider-man-16', 'peter-parker-spectacular-117',
+      'web-of-spider-man-17', 'web-of-spider-man-18',
+    ],
+    blurb: 'An early Web of Spider-Man arc that reaches across into Spectacular.',
+    crossover: true,
+  },
+  {
+    key: 'mad-dog-ward',
+    name: 'Life in the Mad Dog Ward',
+    year: 1987,
+    issues: [
+      'amazing-spider-man-295', 'peter-parker-spectacular-133', 'web-of-spider-man-33',
+    ],
+    blurb: 'A three-title crossover run immediately after Kraven\u2019s Last Hunt.',
+    crossover: true,
+  },
+  {
+    key: 'sin-eater-through-hell',
+    name: 'Sin-Eater Through Hell',
+    year: 1988,
+    issues: [
+      'peter-parker-spectacular-134', 'peter-parker-spectacular-135',
+      'peter-parker-spectacular-136',
+    ],
+    blurb: 'The Spectacular run returns to the villain from its best-remembered story.',
+  },
+  {
+    key: 'cult-of-love',
+    name: 'Cult of Love',
+    year: 1988,
+    issues: [
+      'web-of-spider-man-40', 'web-of-spider-man-41',
+      'web-of-spider-man-42', 'web-of-spider-man-43',
+    ],
+    blurb: 'A four-part Web arc, and the closest that title got to a signature story.',
+  },
+  {
+    key: 'assassin-nation-plot',
+    name: 'The Assassin Nation Plot',
+    year: 1989,
+    issues: [
+      'amazing-spider-man-320', 'amazing-spider-man-321', 'amazing-spider-man-322',
+      'amazing-spider-man-323', 'amazing-spider-man-324', 'amazing-spider-man-325',
+    ],
+    blurb: 'A six-part political thriller, drawn at the height of the McFarlane run.',
+  },
+  {
+    key: 'return-of-the-sinister-six',
+    name: 'Return of the Sinister Six',
+    year: 1990,
+    issues: [
+      'amazing-spider-man-334', 'amazing-spider-man-335', 'amazing-spider-man-336',
+      'amazing-spider-man-337', 'amazing-spider-man-338', 'amazing-spider-man-339',
+    ],
+    blurb: 'The villain team reassembles after twenty-five years away.',
+  },
+  {
+    key: 'powerless',
+    name: 'Powerless',
+    year: 1990,
+    issues: ['amazing-spider-man-341', 'amazing-spider-man-342'],
+    blurb: 'The last arc inside our range, and the last two issues of 1990.',
+  },
+  {
     key: 'acts-of-vengeance',
     name: 'Acts of Vengeance',
     year: 1990,
     issues: [
-      'amazing-spider-man-326', 'amazing-spider-man-327',
-      'amazing-spider-man-328', 'amazing-spider-man-329',
+      'peter-parker-spectacular-158', 'peter-parker-spectacular-159',
+      'web-of-spider-man-59', 'amazing-spider-man-326', 'amazing-spider-man-327',
+      'peter-parker-spectacular-160', 'web-of-spider-man-60',
+      'amazing-spider-man-328', 'web-of-spider-man-61', 'amazing-spider-man-329',
+      'web-of-spider-man-64', 'web-of-spider-man-65',
     ],
-    blurb: 'A line-wide event crosses the title; Spider-Man briefly holds cosmic power.',
+    blurb: 'A line-wide event crosses all three titles; Spider-Man briefly holds cosmic power.',
     crossover: true,
   },
   {
