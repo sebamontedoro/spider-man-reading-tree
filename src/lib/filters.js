@@ -15,6 +15,8 @@ export const DEFAULT_FILTERS = {
   query: '',
   keyOnly: false,
   digitalOnly: false,
+  milestoneOnly: false,
+  milestoneType: null,   // 'debut' | 'death' | 'event' | 'status-quo'
 }
 
 const normalize = (s) => String(s || '').toLowerCase()
@@ -46,6 +48,8 @@ export const applyFilters = (issues, f) => {
     if (f.character && !(i.firstAppearances || []).includes(f.character)) return false
     if (f.keyOnly && !i.keyIssue) return false
     if (f.digitalOnly && !i.digital) return false
+    if (f.milestoneOnly && !i.milestones?.length) return false
+    if (f.milestoneType && !(i.milestones || []).some((m) => m.type === f.milestoneType)) return false
     if (!matchesQuery(i, f.query)) return false
     return true
   })
@@ -67,6 +71,8 @@ export const isFilterActive = (f) =>
       f.query ||
       f.keyOnly ||
       f.digitalOnly ||
+      f.milestoneOnly ||
+      f.milestoneType ||
       f.yearFrom ||
       f.yearTo ||
       f.relevance.length !== DEFAULT_FILTERS.relevance.length,

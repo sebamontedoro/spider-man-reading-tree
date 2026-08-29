@@ -546,3 +546,161 @@
   font-size: var(--t-meta);
   color: var(--ink-soft);
 }
+
+/* -- milestones ---------------------------------------------------------- */
+
+/* A story beat, given a row of its own. These deliberately interrupt the
+   compact grid: they are what makes the timeline read as a story. */
+.milestone {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  align-items: start;
+  gap: var(--sp-3);
+  width: 100%;
+  margin-top: var(--sp-2);
+  padding: var(--sp-3);
+  text-align: left;
+  background: var(--paper-raised);
+  border: var(--rule) solid var(--ink);
+  border-left: 6px solid var(--milestone-accent, var(--ink));
+  box-shadow: var(--shadow-panel);
+  transition: transform var(--fast) var(--ease), box-shadow var(--fast) var(--ease);
+}
+
+.milestone:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lift);
+}
+
+.milestone--selected {
+  background: var(--ink);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lift);
+}
+.milestone--selected .milestone__label,
+.milestone--selected .milestone__glyph { color: var(--paper); }
+.milestone--selected .milestone__blurb,
+.milestone--selected .milestone__issue { color: var(--paper-deep); }
+
+.milestone--debut       { --milestone-accent: var(--blue); }
+.milestone--death       { --milestone-accent: var(--red-deep); }
+.milestone--event       { --milestone-accent: var(--s-mtu); }
+.milestone--status-quo  { --milestone-accent: var(--s-spec-mag); }
+
+.milestone__glyph {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--milestone-accent);
+  border: var(--rule) solid var(--milestone-accent);
+  background: var(--paper);
+}
+
+.milestone__body { min-width: 0; }
+
+.milestone__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-bottom: 3px;
+}
+
+.milestone__type {
+  font-family: var(--font-display);
+  font-size: var(--t-micro);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--milestone-accent);
+}
+
+.milestone__issue {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+.milestone__label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.milestone__blurb {
+  display: block;
+  margin-top: 3px;
+  font-size: var(--t-meta);
+  line-height: 1.45;
+  color: var(--ink-faint);
+}
+
+.month__content { padding: var(--sp-3); min-width: 0; }
+.month__content .month__issues { padding: 0; }
+
+/* Legend in the filter bar. */
+.ms-legend { display: flex; gap: var(--sp-3); flex-wrap: wrap; align-items: center; }
+.ms-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--t-meta);
+  color: var(--ink-faint);
+}
+.ms-legend__glyph {
+  display: grid;
+  place-items: center;
+  width: 18px; height: 18px;
+  font-size: 11px;
+  border: 1.5px solid currentColor;
+}
+
+@media (max-width: 700px) {
+  .milestone { grid-template-columns: 1fr; }
+  .milestone__glyph { display: none; }
+}
+
+.filterbar__row--legend { padding-top: 2px; }
+.ms-legend__item {
+  background: none;
+  border: none;
+  padding: 2px 4px;
+  cursor: pointer;
+}
+.ms-legend__item--on {
+  background: var(--paper-raised);
+  outline: var(--rule) solid currentColor;
+}
+
+.detail__milestones { margin-bottom: var(--sp-4); }
+.detail__milestone {
+  padding: var(--sp-3);
+  margin-bottom: var(--sp-2);
+  background: var(--paper-raised);
+  border: var(--rule) solid var(--ink);
+  border-left: 6px solid var(--milestone-accent, var(--ink));
+}
+.detail__milestone--debut      { --milestone-accent: var(--blue); }
+.detail__milestone--death      { --milestone-accent: var(--red-deep); }
+.detail__milestone--event      { --milestone-accent: var(--s-mtu); }
+.detail__milestone--status-quo { --milestone-accent: var(--s-spec-mag); }
+.detail__ms-head {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--t-micro);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--milestone-accent);
+  margin-bottom: 3px;
+}
+.detail__ms-label { font-family: var(--font-display); font-size: 17px; color: var(--ink); }
+.detail__ms-blurb { margin: 4px 0 0; font-size: var(--t-meta); color: var(--ink-faint); }

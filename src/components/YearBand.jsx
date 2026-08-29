@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import IssueCard from './IssueCard.jsx'
+import MilestoneRow from './MilestoneRow.jsx'
 
 const MONTHS = ['', 'JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE',
   'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER']
@@ -47,20 +48,39 @@ export default function YearBand({
               <div className="month__rail">
                 <span className="month__name">{MONTHS[month]}</span>
               </div>
-              <div className="month__issues">
-                {issues.map((issue) => (
-                  <IssueCard
-                    key={issue.id}
-                    issue={issue}
-                    dimmed={
-                      !visibleIds.has(issue.id) ||
-                      (pathActive && !pathOrder.has(issue.id))
-                    }
-                    selected={selectedId === issue.id}
-                    pathIndex={pathOrder.get(issue.id)}
-                    onSelect={onSelect}
-                  />
-                ))}
+              <div className="month__content">
+                <div className="month__issues">
+                  {issues.map((issue) => (
+                    <IssueCard
+                      key={issue.id}
+                      issue={issue}
+                      dimmed={
+                        !visibleIds.has(issue.id) ||
+                        (pathActive && !pathOrder.has(issue.id))
+                      }
+                      selected={selectedId === issue.id}
+                      pathIndex={pathOrder.get(issue.id)}
+                      onSelect={onSelect}
+                    />
+                  ))}
+                </div>
+
+                {/* Milestones sit below the month's issues, full width. */}
+                {issues.flatMap((issue) =>
+                  (issue.milestones || []).map((m, n) => (
+                    <MilestoneRow
+                      key={`${issue.id}-ms-${n}`}
+                      milestone={m}
+                      issue={issue}
+                      dimmed={
+                        !visibleIds.has(issue.id) ||
+                        (pathActive && !pathOrder.has(issue.id))
+                      }
+                      selected={selectedId === issue.id}
+                      onSelect={onSelect}
+                    />
+                  )),
+                )}
               </div>
             </div>
           ))}

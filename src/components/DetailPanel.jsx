@@ -1,5 +1,6 @@
 import { linksFor } from '../lib/links.js'
 import { ARCS_BY_KEY } from '../../data/arcs.js'
+import { MILESTONE_TYPES } from '../../data/milestones.js'
 import FocusGraph from './FocusGraph.jsx'
 
 const MONTHS = ['', 'January', 'February', 'March', 'April', 'May', 'June',
@@ -35,6 +36,26 @@ export default function DetailPanel({ issue, byId, onSelect, onClose }) {
       </div>
 
       <div className="detail__body">
+        {issue.milestones?.length > 0 && (
+          <div className="detail__milestones">
+            {issue.milestones.map((m, i) => {
+              const t = MILESTONE_TYPES[m.type] || MILESTONE_TYPES.debut
+              return (
+                <div
+                  key={i}
+                  className={`detail__milestone detail__milestone--${m.type}`}
+                >
+                  <span className="detail__ms-head">
+                    <span aria-hidden="true">{t.glyph}</span> {t.label}
+                  </span>
+                  <strong className="detail__ms-label">{m.label}</strong>
+                  {m.blurb && <p className="detail__ms-blurb">{m.blurb}</p>}
+                </div>
+              )
+            })}
+          </div>
+        )}
+
         {issue.note && <p className="detail__note">{issue.note}</p>}
 
         {!issue.digital && (

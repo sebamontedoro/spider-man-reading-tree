@@ -2,6 +2,7 @@ import { SERIES_LIST, CHARACTERS, YEAR_RANGE } from '../lib/dataset.js'
 import { DEFAULT_FILTERS, isFilterActive } from '../lib/filters.js'
 import { ARCS_SORTED } from '../../data/arcs.js'
 import { PATHS } from '../../data/paths.js'
+import { MILESTONE_TYPES } from '../../data/milestones.js'
 
 const RELEVANCE = [
   { key: 'core', label: 'Core' },
@@ -134,6 +135,14 @@ export default function FilterBar({
             Key issues
           </button>
           <button
+            className={`chip ${filters.milestoneOnly ? 'chip--on' : ''}`}
+            onClick={() => set({ milestoneOnly: !filters.milestoneOnly, milestoneType: null })}
+            aria-pressed={filters.milestoneOnly}
+            title="Only issues carrying a story milestone"
+          >
+            Milestones
+          </button>
+          <button
             className={`chip ${filters.digitalOnly ? 'chip--on' : ''}`}
             onClick={() => set({ digitalOnly: !filters.digitalOnly })}
             aria-pressed={filters.digitalOnly}
@@ -141,6 +150,31 @@ export default function FilterBar({
           >
             Readable now
           </button>
+        </span>
+      </div>
+
+      <div className="filterbar__row filterbar__row--legend">
+        <span className="ms-legend">
+          {Object.values(MILESTONE_TYPES).map((t) => {
+            const on = filters.milestoneType === t.key
+            return (
+              <button
+                key={t.key}
+                className={`ms-legend__item ${on ? 'ms-legend__item--on' : ''}`}
+                style={{ color: on ? t.accent : undefined }}
+                onClick={() =>
+                  set({ milestoneType: on ? null : t.key, milestoneOnly: false })
+                }
+                aria-pressed={on}
+                title={t.description}
+              >
+                <i className="ms-legend__glyph" style={{ color: t.accent }}>
+                  {t.glyph}
+                </i>
+                {t.label}
+              </button>
+            )
+          })}
         </span>
       </div>
     </div>

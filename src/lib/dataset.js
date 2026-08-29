@@ -7,6 +7,7 @@
  *   4. data/overrides.js           corrections + notes  (wins over 2 and 3)
  *   5. data/appearances.js         guest spots          (not generable)
  *   6. data/arcs.js                arcs and crossovers  (adds connections)
+ *   7. data/milestones.js          the story beats      (drives the timeline)
  *
  * Layers 1 and 2 are both machine-produced and disposable — 1 from our own
  * generator, 2 from `npm run verify:dates`. Layers 3 to 5 are hand-curated, and
@@ -20,6 +21,7 @@ import marvelUnlimited from '../../data/marvel-unlimited.json'
 import { OVERRIDES } from '../../data/overrides.js'
 import { APPEARANCES, APPEARANCE_DEFAULTS } from '../../data/appearances.js'
 import { ARCS } from '../../data/arcs.js'
+import { MILESTONES, MILESTONES_BY_ISSUE, MILESTONE_TYPES } from '../../data/milestones.js'
 import { SERIES } from '../../data/series.js'
 
 /* -- 1 + 2 + 3 + 4: build the issue list ---------------------------------- */
@@ -116,6 +118,15 @@ for (const run of runs.values()) {
   })
 }
 
+/* -- 7: milestones -------------------------------------------------------- */
+
+// Attached rather than merged: an issue can carry several, and the timeline
+// renders each one as its own row.
+for (const [id, list] of Object.entries(MILESTONES_BY_ISSUE)) {
+  const issue = byId.get(id)
+  if (issue) issue.milestones = list
+}
+
 /* -- ordering ------------------------------------------------------------- */
 
 const monthIndex = (ym) => {
@@ -188,8 +199,16 @@ export const YEAR_RANGE = [
   merged.length ? Number(merged[merged.length - 1].coverDate.slice(0, 4)) : 1990,
 ]
 
+/** Milestones that resolved to a real issue, in chronological order. */
+export const MILESTONE_LIST = merged
+  .filter((i) => i.milestones?.length)
+  .flatMap((i) => i.milestones.map((m) => ({ ...m, issueRef: i })))
+
+export { MILESTONE_TYPES }
+
 export const STATS = {
   total: merged.length,
+  milestones: MILESTONE_LIST.length,
   exactDates: merged.filter((i) => i.dateExact).length,
   keyIssues: merged.filter((i) => i.keyIssue).length,
   guest: merged.filter((i) => i.role === 'guest').length,
