@@ -1,0 +1,48 @@
+/* ==========================================================================
+   Halftone texture.
+
+   Deliberately restricted: backgrounds and year headers only, never behind
+   dense text. With ~1500 cards on screen the dot pattern competes with
+   reading, so anything carrying copy stays flat.
+   ========================================================================== */
+
+/* Fine dot field — the page ground. Very low contrast on purpose. */
+.halftone-ground {
+  background-color: var(--paper);
+  background-image: radial-gradient(var(--ink) 0.5px, transparent 0.6px);
+  background-size: 5px 5px;
+  background-position: 0 0;
+  opacity: 1;
+}
+.halftone-ground::before { content: none; }
+
+/* Coarse red dots — year band headers. */
+.halftone-red {
+  background-color: var(--red);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.28) 1.4px, transparent 1.5px);
+  background-size: 7px 7px;
+}
+
+/* Coarse blue dots — secondary bands, panel headers. */
+.halftone-blue {
+  background-color: var(--blue);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.28) 1.4px, transparent 1.5px);
+  background-size: 7px 7px;
+}
+
+/* Diagonal ben-day ruling — used sparingly as a divider fill. */
+.halftone-rule {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--ink) 0 1px,
+    transparent 1px 5px
+  );
+}
+
+/* Dimmed state for issues filtered out or off the selected reading path.
+   Desaturates rather than hiding, so the shape of the timeline survives. */
+.dimmed {
+  opacity: 0.22;
+  filter: saturate(0.15);
+  transition: opacity var(--slow) var(--ease), filter var(--slow) var(--ease);
+}

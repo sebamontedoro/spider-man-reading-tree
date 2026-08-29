@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Design tokens — comic register: saturated red/blue, heavy blacks, cream stock.
+   Every colour lives here so the whole page can be retuned from one file.
+   ========================================================================== */
+
+:root {
+  /* --- Surfaces ------------------------------------------------------- */
+  --paper:          #f2e9d5;  /* newsprint cream, the page ground */
+  --paper-deep:     #e6d9be;  /* recessed bands (year headers, rails) */
+  --paper-raised:   #fbf6ea;  /* cards sitting above the ground */
+  --panel:          #fffdf7;  /* detail panel, dialogs */
+
+  /* --- Ink ------------------------------------------------------------ */
+  --ink:            #14110f;  /* panel borders, headings */
+  --ink-soft:       #45403a;  /* body copy */
+  --ink-faint:      #7d746a;  /* metadata, captions */
+  --ink-ghost:      #b3aa9c;  /* placeholder, disabled */
+
+  /* --- Brand ---------------------------------------------------------- */
+  --red:            #cf1d24;
+  --red-deep:       #96131a;
+  --blue:           #1b40b0;
+  --blue-deep:      #122a76;
+  --gold:           #f0b323;
+
+  /* --- Series accents (border colour on each issue card) -------------- */
+  --s-origin:       #14110f;  /* Amazing Fantasy — the root */
+  --s-asm:          #cf1d24;  /* Amazing Spider-Man */
+  --s-ppssm:        #1b40b0;  /* Peter Parker, Spectacular Spider-Man */
+  --s-mtu:          #7226a8;  /* Marvel Team-Up */
+  --s-web:          #0d7a6b;  /* Web of Spider-Man */
+  --s-spec-mag:     #d4630f;  /* Spectacular Spider-Man magazine */
+  --s-guest:        #4a6a2f;  /* guest appearances in other titles */
+  --s-reprint:      #8b8378;  /* reprints */
+  --s-kids:         #c2407e;  /* Spidey Super Stories */
+
+  /* --- Relevance ------------------------------------------------------ */
+  --border-core:     3px;
+  --border-notable:  2px;
+  --border-optional: 1px;
+
+  /* --- Geometry ------------------------------------------------------- */
+  --rule:           2px;      /* standard panel rule */
+  --rule-heavy:     4px;      /* year band, panel edges */
+  --radius:         0px;      /* comic panels have square corners */
+  --shadow-panel:   3px 3px 0 var(--ink);
+  --shadow-lift:    5px 5px 0 var(--ink);
+
+  /* --- Spacing -------------------------------------------------------- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+
+  /* --- Type ----------------------------------------------------------- */
+  --font-display: 'SF Pro Display', 'SF Pro', -apple-system, system-ui, sans-serif;
+  --font-text:    'SF Pro Text', 'SF Pro', -apple-system, system-ui, sans-serif;
+  --font-mono:    'SFMono Nerd Font', ui-monospace, 'SF Mono', monospace;
+
+  --t-year:   clamp(48px, 7vw, 96px);
+  --t-number: 28px;
+  --t-title:  17px;
+  --t-body:   14px;
+  --t-meta:   12px;
+  --t-micro:  10px;
+
+  /* --- Layout --------------------------------------------------------- */
+  --rail-w:   132px;          /* left gutter holding the month label */
+  --panel-w:  392px;          /* detail panel */
+  --bar-h:    64px;           /* filter bar */
+
+  /* --- Motion --------------------------------------------------------- */
+  --ease: cubic-bezier(0.2, 0, 0.1, 1);
+  --fast: 120ms;
+  --slow: 260ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --fast: 0ms; --slow: 0ms; }
+}

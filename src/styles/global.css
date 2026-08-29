@@ -1,0 +1,86 @@
+/* ==========================================================================
+   Global reset + base typography.
+
+   Fonts: SF Pro is installed system-wide (~/.local/share/fonts/SF-Pro/), so we
+   reference the families by name and let fontconfig resolve the weight. We do
+   NOT bundle the files — the full set is 137 MB. If this is ever published,
+   subset the variable SF-Pro.ttf and add real @font-face rules here.
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-family: var(--font-text);
+  font-size: var(--t-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+a { color: var(--blue); text-decoration-thickness: 2px; text-underline-offset: 2px; }
+a:hover { color: var(--red); }
+
+button, input, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+button { cursor: pointer; }
+
+:focus-visible {
+  outline: var(--rule) solid var(--blue);
+  outline-offset: 2px;
+}
+
+::selection { background: var(--gold); color: var(--ink); }
+
+/* Scrollbars, tuned to the paper ground -------------------------------- */
+* { scrollbar-color: var(--ink-faint) transparent; scrollbar-width: thin; }
+*::-webkit-scrollbar { width: 12px; height: 12px; }
+*::-webkit-scrollbar-thumb {
+  background: var(--ink-faint);
+  border: 3px solid var(--paper);
+}
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* Shared primitives ----------------------------------------------------- */
+
+/* A comic panel: square corners, heavy black rule, hard offset shadow. */
+.panel-box {
+  background: var(--paper-raised);
+  border: var(--rule) solid var(--ink);
+  box-shadow: var(--shadow-panel);
+}
+
+/* Small all-caps label, the workhorse for metadata. */
+.label {
+  font-family: var(--font-display);
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
