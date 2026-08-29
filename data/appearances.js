@@ -237,8 +237,94 @@ export const APPEARANCES = [
     wikiTitle: 'Fantastic Four Vol 1',
     number: 347,
     coverDate: '1990-12',
-    note: 'Spider-Man co-leads a stand-in Fantastic Four. The last issue in our range.',
+    note: 'Spider-Man co-leads a stand-in Fantastic Four.',
     keyIssue: true,
+  },
+
+  /* ==================================================================== 1990s
+     Every entry below was checked by looking for the character in the issue's
+     own appearance list, not by assuming an event tie-in included him. That
+     mattered: the Onslaught tie-ins in Fantastic Four and Incredible Hulk do
+     not have him, and neither do half the issues of Infinity Gauntlet and
+     Infinity War, despite all of them being filed under events he took part in.
+
+     It also cut the other way. New Warriors #62-67 contains no Peter Parker at
+     all, and searching for him alone would have dropped six legitimate issues:
+     in 1995 the man in the suit was Ben Reilly.
+     ======================================================================== */
+  {
+    id: 'infinity-gauntlet-1',
+    seriesName: 'The Infinity Gauntlet', seriesAbbr: 'IG',
+    wikiTitle: 'Infinity Gauntlet Vol 1', number: 1, coverDate: '1991-07',
+    note: 'The decade opens with a cosmic event that sweeps up most of the line.',
+  },
+  {
+    id: 'infinity-gauntlet-4',
+    seriesName: 'The Infinity Gauntlet', seriesAbbr: 'IG',
+    wikiTitle: 'Infinity Gauntlet Vol 1', number: 4, coverDate: '1991-10',
+    relevance: 'optional',
+  },
+  {
+    id: 'infinity-gauntlet-6',
+    seriesName: 'The Infinity Gauntlet', seriesAbbr: 'IG',
+    wikiTitle: 'Infinity Gauntlet Vol 1', number: 6, coverDate: '1991-12',
+    note: 'He is absent from #5 \u2014 the event does not keep him on the board throughout.',
+  },
+  {
+    id: 'infinity-war-1',
+    seriesName: 'Infinity War', seriesAbbr: 'IW',
+    wikiTitle: 'Infinity War Vol 1', number: 1, coverDate: '1992-06',
+    note: 'He appears in the first three issues only.',
+    relevance: 'optional',
+  },
+  {
+    id: 'venom-lethal-protector-1',
+    seriesName: 'Venom: Lethal Protector', seriesAbbr: 'VLP',
+    wikiTitle: 'Venom: Lethal Protector Vol 1', number: 1, coverDate: '1993-02',
+    note: 'Venom gets his own book, and Spider-Man is in all six issues of it.',
+    keyIssue: true,
+  },
+  {
+    id: 'venom-lethal-protector-6',
+    seriesName: 'Venom: Lethal Protector', seriesAbbr: 'VLP',
+    wikiTitle: 'Venom: Lethal Protector Vol 1', number: 6, coverDate: '1993-07',
+  },
+  {
+    id: 'infinity-crusade-1',
+    seriesName: 'Infinity Crusade', seriesAbbr: 'IC',
+    wikiTitle: 'Infinity Crusade Vol 1', number: 1, coverDate: '1993-06',
+    relevance: 'optional',
+  },
+  {
+    id: 'infinity-crusade-6',
+    seriesName: 'Infinity Crusade', seriesAbbr: 'IC',
+    wikiTitle: 'Infinity Crusade Vol 1', number: 6, coverDate: '1993-11',
+    relevance: 'optional',
+  },
+  {
+    id: 'spider-man-jackal-files-1',
+    seriesName: 'Spider-Man: The Jackal Files', seriesAbbr: 'JF',
+    wikiTitle: 'Spider-Man: The Jackal Files Vol 1', number: 1, coverDate: '1995-08',
+    note: 'A Clone Saga reference one-shot. Both Peter and Ben appear in it.',
+  },
+  {
+    id: 'new-warriors-62',
+    seriesName: 'The New Warriors', seriesAbbr: 'NW',
+    wikiTitle: 'New Warriors Vol 1', number: 62, coverDate: '1995-08',
+    note: 'The Clone Saga reaches another team\u2019s book. The Spider-Man here is Ben Reilly, not Peter.',
+    keyIssue: true,
+  },
+  {
+    id: 'new-warriors-67',
+    seriesName: 'The New Warriors', seriesAbbr: 'NW',
+    wikiTitle: 'New Warriors Vol 1', number: 67, coverDate: '1996-01',
+    note: 'Closes the six-issue stretch Ben Reilly runs through.',
+  },
+  {
+    id: 'daredevil-354',
+    seriesName: 'Daredevil', seriesAbbr: 'DD',
+    wikiTitle: 'Daredevil Vol 1', number: 354, coverDate: '1996-07',
+    note: 'Thirty years on from their first team-up, and still a reliable pairing.',
   },
 ]
 
