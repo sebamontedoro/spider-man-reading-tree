@@ -14,6 +14,7 @@ export const DEFAULT_FILTERS = {
   character: null,
   query: '',
   keyOnly: false,
+  digitalOnly: false,
 }
 
 const normalize = (s) => String(s || '').toLowerCase()
@@ -44,6 +45,7 @@ export const applyFilters = (issues, f) => {
     if (f.arc && !(i.arcs || []).includes(f.arc)) return false
     if (f.character && !(i.firstAppearances || []).includes(f.character)) return false
     if (f.keyOnly && !i.keyIssue) return false
+    if (f.digitalOnly && !i.digital) return false
     if (!matchesQuery(i, f.query)) return false
     return true
   })
@@ -64,6 +66,7 @@ export const isFilterActive = (f) =>
       f.character ||
       f.query ||
       f.keyOnly ||
+      f.digitalOnly ||
       f.yearFrom ||
       f.yearTo ||
       f.relevance.length !== DEFAULT_FILTERS.relevance.length,

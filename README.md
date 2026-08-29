@@ -14,6 +14,9 @@ Built with Vite and React. No backend, no tracking, no dependencies at runtime.
 
 **1109 issues · 1106 with verified cover dates · 24 story arcs · 58 characters indexed · 7 reading paths**
 
+Every issue links out to where you can read or look it up, and the guide tells
+you which ones have a digital edition — 700 of the 793 issues worth reading do.
+
 | | |
 |---|---|
 | Titles he headlines | Amazing Fantasy #15, Amazing Spider-Man, Peter Parker/Spectacular, Marvel Team-Up, Web of Spider-Man, and their annuals |
@@ -34,7 +37,7 @@ Other scripts:
 
 ```bash
 npm run build:data     # regenerate the dataset skeleton
-npm run verify:dates   # refresh cover dates from Marvel Database (network)
+npm run verify:wiki    # refresh dates and Marvel ids from the wiki (network)
 npm run build          # build:data + production build
 ```
 
@@ -69,11 +72,12 @@ Five layers, merged at load time by `src/lib/dataset.js`:
 |---|-------|------|--------------|
 | 1 | Generated runs | `src/generated/issues.json` | **Never** |
 | 2 | Verified cover dates | `data/cover-dates.json` | **Never** |
-| 3 | Corrections & notes | `data/overrides.js` | Yes |
-| 4 | Guest appearances | `data/appearances.js` | Yes |
-| 5 | Arcs & crossovers | `data/arcs.js` | Yes |
+| 3 | Marvel issue ids | `data/marvel-unlimited.json` | **Never** |
+| 4 | Corrections & notes | `data/overrides.js` | Yes |
+| 5 | Guest appearances | `data/appearances.js` | Yes |
+| 6 | Arcs & crossovers | `data/arcs.js` | Yes |
 
-Layers 1 and 2 are machine-produced and disposable. Layers 3–5 are hand-curated
+Layers 1–3 are machine-produced and disposable. Layers 4–6 are hand-curated
 and always win. That split means the skeleton can be regenerated or re-verified
 at any time without losing written work.
 

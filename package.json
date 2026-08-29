@@ -8,7 +8,7 @@
     "build": "npm run build:data && vite build",
     "preview": "vite preview",
     "build:data": "node scripts/build-dataset.mjs",
-    "verify:dates": "node scripts/verify-dates.mjs"
+    "verify:wiki": "node scripts/verify-wiki.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

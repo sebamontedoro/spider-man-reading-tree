@@ -3,9 +3,10 @@
  *
  *   1. src/generated/issues.json   the expanded runs    (never hand-edited)
  *   2. data/cover-dates.json       real dates from the wiki  (wins over 1)
- *   3. data/overrides.js           corrections + notes  (wins over 2)
- *   4. data/appearances.js         guest spots          (not generable)
- *   5. data/arcs.js                arcs and crossovers  (adds connections)
+ *   3. data/marvel-unlimited.json  Marvel issue ids, for direct read links
+ *   4. data/overrides.js           corrections + notes  (wins over 2 and 3)
+ *   5. data/appearances.js         guest spots          (not generable)
+ *   6. data/arcs.js                arcs and crossovers  (adds connections)
  *
  * Layers 1 and 2 are both machine-produced and disposable — 1 from our own
  * generator, 2 from `npm run verify:dates`. Layers 3 to 5 are hand-curated, and
@@ -15,6 +16,7 @@
 
 import generated from '../generated/issues.json'
 import coverDates from '../../data/cover-dates.json'
+import marvelUnlimited from '../../data/marvel-unlimited.json'
 import { OVERRIDES } from '../../data/overrides.js'
 import { APPEARANCES, APPEARANCE_DEFAULTS } from '../../data/appearances.js'
 import { ARCS } from '../../data/arcs.js'
@@ -38,8 +40,21 @@ const withVerifiedDate = (iss) => {
   }
 }
 
+/**
+ * Marvel's own catalogue id, where the issue has one. Its absence is itself
+ * useful information: roughly a third of the tree has no digital edition, and
+ * the reader deserves to know that before planning a run.
+ */
+const withDigital = (iss) => {
+  const id = marvelUnlimited[iss.id]
+  return id ? { ...iss, marvelId: id, digital: true } : { ...iss, digital: false }
+}
+
 const merged = [
-  ...generated.map((iss) => ({ ...withVerifiedDate(iss), ...(OVERRIDES[iss.id] || {}) })),
+  ...generated.map((iss) => ({
+    ...withDigital(withVerifiedDate(iss)),
+    ...(OVERRIDES[iss.id] || {}),
+  })),
   ...APPEARANCES.map((app) => ({
     ...APPEARANCE_DEFAULTS,
     seriesKey: 'guest',
@@ -178,4 +193,13 @@ export const STATS = {
   exactDates: merged.filter((i) => i.dateExact).length,
   keyIssues: merged.filter((i) => i.keyIssue).length,
   guest: merged.filter((i) => i.role === 'guest').length,
+  digital: merged.filter((i) => i.digital).length,
+  // Availability across the material actually worth reading, which is the
+  // number that matters — reprints drag the headline figure down misleadingly.
+  digitalCore: (() => {
+    const core = merged.filter(
+      (i) => i.relevance !== 'optional' && !i.isReprint && !i.outOfContinuity,
+    )
+    return { available: core.filter((i) => i.digital).length, total: core.length }
+  })(),
 }

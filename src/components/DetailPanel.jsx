@@ -37,6 +37,13 @@ export default function DetailPanel({ issue, byId, onSelect, onClose }) {
       <div className="detail__body">
         {issue.note && <p className="detail__note">{issue.note}</p>}
 
+        {!issue.digital && (
+          <p className="detail__nodigital">
+            No digital edition found. Try a library service such as Hoopla or
+            Libby, or a collected edition.
+          </p>
+        )}
+
         <div className="detail__nav">
           <button disabled={!prev} onClick={() => prev && onSelect(prev.to)}>
             ← Previous

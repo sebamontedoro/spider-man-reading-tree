@@ -13,7 +13,7 @@ Vite + React, no backend. UI and content are in English.
 npm install
 npm run dev            # http://localhost:5173
 npm run build:data     # regenerate the dataset skeleton
-npm run verify:dates   # refresh cover dates from Marvel Database (network)
+npm run verify:wiki    # refresh dates and Marvel ids from the wiki (network)
 npm run build          # build:data + production build
 ```
 
@@ -25,12 +25,13 @@ The single most important thing to understand about this codebase:
 |---|-------|------|--------------|
 | 1 | Generated runs | `src/generated/issues.json` | **Never** |
 | 2 | Verified cover dates | `data/cover-dates.json` | **Never** |
-| 3 | Corrections & notes | `data/overrides.js` | Yes |
-| 4 | Guest appearances | `data/appearances.js` | Yes |
-| 5 | Arcs & crossovers | `data/arcs.js` | Yes |
+| 3 | Marvel issue ids | `data/marvel-unlimited.json` | **Never** |
+| 4 | Corrections & notes | `data/overrides.js` | Yes |
+| 5 | Guest appearances | `data/appearances.js` | Yes |
+| 6 | Arcs & crossovers | `data/arcs.js` | Yes |
 
-Layers 1 and 2 are both machine-produced and disposable — 1 from
-`npm run build:data`, 2 from `npm run verify:dates`. **Editing either directly
+Layers 1–3 are machine-produced and disposable — 1 from `npm run build:data`,
+2 and 3 from a single `npm run verify:wiki` crawl. **Editing either directly
 loses your work on the next run.** Layers 3 to 5 are hand-curated and always
 win. `src/lib/dataset.js` merges all five at load time.
 
@@ -50,9 +51,10 @@ Team-Up started bimonthly and drifted three months by #75. Anchors fix both.
 
 ### Verified dates override the estimates
 
-`npm run verify:dates` looks every issue up on Marvel Database and writes the
-real cover dates to `data/cover-dates.json`, which layers over the generated
-estimates. The wiki API takes 50 page titles per request, so the whole dataset
+`npm run verify:wiki` looks every issue up on Marvel Database and writes both
+the real cover dates and Marvel's catalogue ids. Both come out of one crawl —
+they live on the same page, and fetching twice would be gratuitous load on
+someone else's wiki. The wiki API takes 50 page titles per request, so the whole dataset
 costs about twenty calls.
 
 **1106 of 1109 issues now carry a verified date.** The three that do not are
@@ -69,8 +71,8 @@ was off by five years.
 Useful flags:
 
 ```bash
-npm run verify:dates -- --missing                   # only unverified issues
-npm run verify:dates -- --only=marvel-tales         # one series
+npm run verify:wiki -- --missing                   # only unverified issues
+npm run verify:wiki -- --only=marvel-tales         # one series
 ```
 
 If a series comes back entirely unresolved, its `wikiTitle` is wrong. Marvel
@@ -111,6 +113,22 @@ The image is multi-stage: `node:22-alpine` builds, `nginx:alpine` serves. There
 is no Node in the running container. `docker/nginx.conf` caches fingerprinted
 assets for a year and explicitly refuses to cache `index.html`, without which a
 deploy strands clients on stale bundles.
+
+## Digital availability
+
+`data/marvel-unlimited.json` maps issue ids to Marvel's own catalogue id, which
+is what turns the Marvel link from a fuzzy site search into a direct one. Its
+absence is information too, and the UI shows it: a quiet dot beside the date
+means there is a digital edition, and the detail panel says so when there is
+not.
+
+706 of 1085 generated issues have one. That headline figure is misleading on
+its own — it is dragged down by the 301 reprint and out-of-continuity issues,
+none of which have a digital edition. Across the material actually worth
+reading it is **700 of 793**, and Amazing Spider-Man is complete.
+
+Do not read a missing id as "unavailable anywhere": it means Marvel has no
+digital catalogue entry, not that no edition exists.
 
 ## Scope
 

@@ -1,16 +1,22 @@
 #!/usr/bin/env node
 /**
- * Replaces estimated cover dates with real ones, read from Marvel Database.
+ * Pulls per-issue facts from Marvel Database and writes them as verified layers.
  *
- * The generator interpolates dates between anchors, which is good but not
- * exact. This script looks every issue up and writes the verified dates to
- * data/cover-dates.json, which src/lib/dataset.js layers over the generated
- * values. Anything it cannot confirm is simply left out, so the estimate stands
- * and the UI keeps marking it with a "~".
+ * Two things come out of a single crawl, because both live in the same page and
+ * fetching twice would be gratuitous load on someone else's wiki:
  *
- *   npm run verify:dates            all issues
- *   npm run verify:dates -- --only=amazing-spider-man-annual,marvel-tales
- *   npm run verify:dates -- --missing       only issues not already verified
+ *   data/cover-dates.json       real cover dates, replacing the generator's
+ *                               interpolated estimates
+ *   data/marvel-unlimited.json  Marvel's own issue id, which is what makes a
+ *                               direct "read it here" link possible
+ *
+ * Both are layered over the generated dataset by src/lib/dataset.js. Anything
+ * that cannot be confirmed is simply left out: the date estimate stands and
+ * keeps its "~", and the issue is shown as having no known digital edition.
+ *
+ *   npm run verify:wiki            all issues
+ *   npm run verify:wiki -- --only=amazing-spider-man-annual,marvel-tales
+ *   npm run verify:wiki -- --missing       only issues not already verified
  *
  * The wiki API accepts 50 page titles per request, so the whole dataset costs
  * about twenty calls. Be a good citizen: the delay between batches stays.
@@ -23,6 +29,7 @@ import { fileURLToPath } from 'node:url'
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const ISSUES = resolve(ROOT, 'src/generated/issues.json')
 const OUT = resolve(ROOT, 'data/cover-dates.json')
+const OUT_MU = resolve(ROOT, 'data/marvel-unlimited.json')
 
 const API = 'https://marvel.fandom.com/api.php'
 const BATCH = 50
@@ -93,6 +100,7 @@ async function fetchBatch(titles) {
 
 const issues = JSON.parse(readFileSync(ISSUES, 'utf8'))
 const existing = existsSync(OUT) ? JSON.parse(readFileSync(OUT, 'utf8')) : {}
+const existingMU = existsSync(OUT_MU) ? JSON.parse(readFileSync(OUT_MU, 'utf8')) : {}
 
 let targets = issues
 if (only) targets = targets.filter((i) => only.includes(i.series))
@@ -102,6 +110,8 @@ console.log(`\n  Verifying ${targets.length} cover dates against Marvel Database
 console.log(`  ${Math.ceil(targets.length / BATCH)} requests, ~${DELAY_MS}ms apart\n`)
 
 const verified = { ...existing }
+const unlimited = { ...existingMU }
+let withMU = 0
 let found = 0
 let missing = 0
 let changed = 0
@@ -136,6 +146,14 @@ for (let i = 0; i < targets.length; i += BATCH) {
       continue
     }
 
+    // Marvel's own catalogue id for the issue. Its presence is what lets the
+    // detail panel link straight to the issue instead of a fuzzy site search.
+    const muId = field(text, 'MarvelUnlimitedID')
+    if (muId && /^\d+$/.test(muId)) {
+      unlimited[issue.id] = Number(muId)
+      withMU++
+    }
+
     // Annuals and some specials carry a year with no month. Keep the generated
     // month in that case rather than inventing one, but trust the year.
     const finalMonth = month || Number(issue.coverDate.split('-')[1])
@@ -155,11 +173,13 @@ for (let i = 0; i < targets.length; i += BATCH) {
 }
 
 writeFileSync(OUT, JSON.stringify(verified, null, 0) + '\n')
+writeFileSync(OUT_MU, JSON.stringify(unlimited, null, 0) + '\n')
 
 console.log(`\n`)
-console.log(`  verified    ${found}`)
-console.log(`  unresolved  ${missing}`)
-console.log(`  changed     ${changed}`)
+console.log(`  dates verified   ${found}`)
+console.log(`  unresolved       ${missing}`)
+console.log(`  changed          ${changed}`)
+console.log(`  digital edition  ${withMU} of ${targets.length} have a Marvel issue id`)
 
 if (notFound.length) {
   console.log(`\n  Unresolved (estimate retained):`)
@@ -187,4 +207,5 @@ if (deltas.length) {
   console.log(`   worst          ${Math.max(...deltas)} months off`)
 }
 
-console.log(`\n  → ${OUT}\n`)
+console.log(`\n  → ${OUT}`)
+console.log(`  → ${OUT_MU}\n`)

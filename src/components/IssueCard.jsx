@@ -21,7 +21,10 @@ function IssueCard({ issue, dimmed, selected, pathIndex, onSelect }) {
       className={cls}
       onClick={() => onSelect(issue.id)}
       aria-pressed={selected}
-      title={`${issue.seriesName} #${issue.number}`}
+      title={
+        `${issue.seriesName} #${issue.number}` +
+        (issue.digital ? ' · available digitally' : ' · no digital edition')
+      }
     >
       {pathIndex ? <span className="issue__step">{pathIndex}</span> : null}
 
@@ -29,7 +32,9 @@ function IssueCard({ issue, dimmed, selected, pathIndex, onSelect }) {
       <span className="issue__number">{issue.number}</span>
 
       <span className="issue__date">
-        {/* A tilde marks an estimated cover date — see data/series.js. */}
+        {/* A dot marks an issue with a digital edition; a tilde marks an
+            estimated cover date — see data/series.js. */}
+        {issue.digital && <i className="issue__digital" aria-hidden="true" />}
         {issue.dateExact ? '' : '~'}{date}
       </span>
 

@@ -521,3 +521,28 @@
   .month { grid-template-columns: 1fr; }
   .month__rail { border-right: none; border-bottom: var(--rule) solid var(--ink); }
 }
+
+/* -- digital availability ------------------------------------------------ */
+
+/* A small filled dot beside the date: present means there is a digital
+   edition. Deliberately quiet — it is a hint while scanning, not a badge. */
+.issue__digital {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 4px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: var(--s-web);
+}
+
+.issue--selected .issue__digital { background: var(--gold); }
+
+.detail__nodigital {
+  margin: 0 0 var(--sp-4);
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--paper-deep);
+  border-left: var(--rule-heavy) solid var(--ink-faint);
+  font-size: var(--t-meta);
+  color: var(--ink-soft);
+}

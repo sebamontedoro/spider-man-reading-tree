@@ -52,7 +52,8 @@ export default function App() {
               {YEAR_RANGE[0]}&ndash;{YEAR_RANGE[1]}
             </span>
             <span className="masthead__stats">
-              {STATS.total} issues · {STATS.keyIssues} key · {STATS.guest} guest appearances
+              {STATS.total} issues · {STATS.keyIssues} key ·{' '}
+              {STATS.digitalCore.available}/{STATS.digitalCore.total} readable digitally
             </span>
           </div>
         </div>

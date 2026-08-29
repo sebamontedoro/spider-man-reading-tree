@@ -133,6 +133,14 @@ export default function FilterBar({
           >
             Key issues
           </button>
+          <button
+            className={`chip ${filters.digitalOnly ? 'chip--on' : ''}`}
+            onClick={() => set({ digitalOnly: !filters.digitalOnly })}
+            aria-pressed={filters.digitalOnly}
+            title="Only issues with a digital edition on Marvel Unlimited"
+          >
+            Readable now
+          </button>
         </span>
       </div>
     </div>
