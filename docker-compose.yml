@@ -6,6 +6,10 @@ services:
     image: spider-man-reading-tree:latest
     container_name: spider-man-reading-tree
     restart: unless-stopped
+    # Joined to the shared proxy network so Caddy can reach it by container
+    # name, the way the other services on this host are wired.
+    networks:
+      - docker-services
     # Override with SPIDERMAN_PORT in the environment or a .env file.
     ports:
       - "${SPIDERMAN_PORT:-8080}:80"
@@ -15,3 +19,9 @@ services:
       timeout: 3s
       retries: 3
       start_period: 5s
+
+networks:
+  docker-services:
+    # Created by the host's own docker-services stack; we only attach to it.
+    external: true
+    name: ${SPIDERMAN_NETWORK:-docker-services_default}
