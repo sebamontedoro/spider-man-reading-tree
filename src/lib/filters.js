@@ -57,12 +57,32 @@ export const applyFilters = (issues, f) => {
   })
 }
 
-/** Ids on the selected reading path, in route order. Empty when none is active. */
-export const resolvePath = (path, issues) => {
+/**
+ * Ids on the selected reading path, in route order.
+ *
+ * A path can be built three ways, and may combine them:
+ *   match   a predicate over every issue
+ *   arcs    arc keys, expanded to their issues — lets a path be assembled from
+ *           storylines already curated elsewhere instead of a list of ids
+ *   issues  explicit ids, for the bits no arc covers
+ *
+ * The result is de-duplicated and returned in cover-date order, which for a
+ * path spanning decades and several titles is the only order that reads.
+ */
+export const resolvePath = (path, issues, arcsByKey = {}) => {
   if (!path) return []
-  if (path.issues) return path.issues
-  if (path.match) return issues.filter(path.match).map((i) => i.id)
-  return []
+
+  const ids = new Set()
+  if (path.match) for (const i of issues) if (path.match(i)) ids.add(i.id)
+  if (path.arcs) {
+    for (const key of path.arcs) {
+      for (const id of arcsByKey[key]?.issues || []) ids.add(id)
+    }
+  }
+  if (path.issues) for (const id of path.issues) ids.add(id)
+
+  const order = new Map(issues.map((i, n) => [i.id, n]))
+  return [...ids].filter((id) => order.has(id)).sort((a, b) => order.get(a) - order.get(b))
 }
 
 export const isFilterActive = (f) =>

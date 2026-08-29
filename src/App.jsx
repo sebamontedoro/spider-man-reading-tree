@@ -3,6 +3,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { ISSUES, ISSUE_BY_ID, TIMELINE, STATS, YEAR_RANGE } from './lib/dataset.js'
 import { DEFAULT_FILTERS, applyFilters, resolvePath } from './lib/filters.js'
 import { PATHS_BY_KEY } from '../data/paths.js'
+import { ARCS_BY_KEY } from '../data/arcs.js'
 
 import FilterBar from './components/FilterBar.jsx'
 import Timeline from './components/Timeline.jsx'
@@ -26,7 +27,7 @@ export default function App() {
 
   // Position along the active reading path, used to number the route.
   const pathOrder = useMemo(() => {
-    const ids = resolvePath(path, ISSUES)
+    const ids = resolvePath(path, ISSUES, ARCS_BY_KEY)
     return new Map(ids.map((id, i) => [id, i + 1]))
   }, [path])
 
