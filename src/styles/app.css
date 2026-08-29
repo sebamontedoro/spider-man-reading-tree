@@ -333,6 +333,8 @@
 .issue--sensational { --accent: var(--s-sensational); }
 .issue--scarlet     { --accent: var(--s-scarlet); }
 .issue--ultimate    { --accent: var(--s-ultimate); }
+.issue--superior    { --accent: var(--s-superior); }
+.issue--miles       { --accent: var(--s-miles); }
 
 /* A separate continuity reads as a separate line: dashed edge, tinted ground.
    Not a decoration — it is the one visual cue that these do not share a

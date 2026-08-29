@@ -437,6 +437,44 @@ export const MILESTONES = [
     label: 'Ultimatum ends the Ultimate volume',
     blurb: 'The parallel line closes its first run at #133, after nine years.',
   },
+
+  /* ============================================================== 2010s */
+  {
+    issue: 'ultimate-comics-spider-man-1',
+    type: 'debut',
+    label: 'Miles Morales takes the name',
+    blurb: 'A different Spider-Man in the parallel line, after that continuity killed its own Peter Parker.',
+  },
+  {
+    issue: 'amazing-spider-man-v2-700',
+    type: 'status-quo',
+    label: 'Amazing ends at #700',
+    blurb: 'Fourteen years after the relaunch, the restored numbering runs out and Peter loses his own book.',
+  },
+  {
+    issue: 'superior-spider-man-1',
+    type: 'status-quo',
+    label: 'Someone else is Spider-Man',
+    blurb: 'Doctor Octopus in Peter\u2019s body, for thirty-three issues. The book commits to it rather than treating it as a stunt.',
+  },
+  {
+    issue: 'miles-morales-ultimate-12',
+    type: 'universe',
+    label: 'The Ultimate line ends',
+    blurb: 'Fifteen years after it forked, the parallel continuity closes — and its Spider-Man survives it.',
+  },
+  {
+    issue: 'spider-man-miles-v2-1',
+    type: 'universe',
+    label: 'The two lines converge',
+    blurb: 'Miles continues in the main continuity. The fork opened in 2000 does not reopen: one line simply ends and its character crosses over.',
+  },
+  {
+    issue: 'amazing-spider-man-v4-801',
+    type: 'status-quo',
+    label: 'Legacy numbering reaches 801',
+    blurb: 'The count is restored again, then retired again — the fourth renumbering in twenty years.',
+  },
   {
     issue: 'ultimate-spider-man-1',
     type: 'universe',

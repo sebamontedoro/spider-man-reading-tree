@@ -296,6 +296,7 @@ export const SERIES = [
       { from: 601, to: 618, startDate: '2009-10', endDate: '2010-03', endExact: true },
       { from: 619, to: 640, startDate: '2010-04', endDate: '2010-10', endExact: true },
       { from: 641, to: 647, startDate: '2010-11', endDate: '2010-12', endExact: true },
+      { from: 648, to: 700, startDate: '2011-01', endDate: '2013-02', endExact: true },
     ],
   },
   {
@@ -376,6 +377,82 @@ export const SERIES = [
     universe: 'ultimate',
     role: 'lead', relevance: 'notable', isAnnual: true,
     segments: [{ from: 1, to: 3, startDate: '2005-10', endDate: '2008-12', cadence: 'annual', startExact: true, endExact: true }],
+  },
+
+
+  /* ========================================================= 2013 → 2020 */
+  {
+    key: 'superior-spider-man',
+    name: 'The Superior Spider-Man', abbr: 'SUP', vol: 1,
+    wikiTitle: 'Superior Spider-Man Vol 1', accent: 'superior',
+    role: 'lead', relevance: 'core',
+    note: 'Someone else is Spider-Man for thirty-three issues, and the book does not pretend otherwise.',
+    segments: [{ from: 1, to: 33, startDate: '2013-03', endDate: '2014-11', startExact: true, endExact: true }],
+  },
+  {
+    key: 'amazing-spider-man-v3',
+    name: 'The Amazing Spider-Man (vol. 3)', abbr: 'ASM v3', vol: 3,
+    wikiTitle: 'Amazing Spider-Man Vol 3', accent: 'asm',
+    role: 'lead', relevance: 'core',
+    segments: [{ from: 1, to: 18, startDate: '2014-06', endDate: '2015-07', startExact: true, endExact: true }],
+  },
+  {
+    key: 'amazing-spider-man-v4',
+    name: 'The Amazing Spider-Man (vol. 4)', abbr: 'ASM v4', vol: 4,
+    wikiTitle: 'Amazing Spider-Man Vol 4', accent: 'asm',
+    role: 'lead', relevance: 'core',
+    note: 'Runs #1-32, then switches to legacy numbering and finishes at #801.',
+    segments: [
+      { from: 1,   to: 32,  startDate: '2015-12', endDate: '2017-11', startExact: true, endExact: true },
+      { from: 789, to: 801, startDate: '2017-12', endDate: '2018-08', startExact: true, endExact: true },
+    ],
+  },
+  {
+    key: 'amazing-spider-man-v5',
+    name: 'The Amazing Spider-Man (vol. 5)', abbr: 'ASM v5', vol: 5,
+    wikiTitle: 'Amazing Spider-Man Vol 5', accent: 'asm',
+    role: 'lead', relevance: 'core',
+    segments: [{ from: 1, to: 51, startDate: '2018-09', endDate: '2020-12', startExact: true, endExact: true }],
+  },
+
+  /* ===================================== Miles Morales, en la línea principal
+     After the 2015 crossover folded the Ultimate line into the main one, Miles
+     continues here. Same character, different continuity from where he began —
+     which is why his Ultimate books below carry a different universe.
+     ======================================================================== */
+  {
+    key: 'spider-man-miles-v2',
+    name: 'Spider-Man (Miles Morales)', abbr: 'SM-M', vol: 2,
+    wikiTitle: 'Spider-Man Vol 2', accent: 'miles',
+    role: 'lead', relevance: 'core',
+    segments: [{ from: 1, to: 21, startDate: '2016-04', endDate: '2017-12', startExact: true, endExact: true }],
+  },
+  {
+    key: 'miles-morales-spider-man',
+    name: 'Miles Morales: Spider-Man', abbr: 'MM', vol: 1,
+    wikiTitle: 'Miles Morales: Spider-Man Vol 1', accent: 'miles',
+    role: 'lead', relevance: 'core',
+    segments: [{ from: 1, to: 19, startDate: '2019-02', endDate: '2020-12', startExact: true, endExact: true }],
+  },
+
+  /* ================================= La rama Ultimate, segunda generación */
+  {
+    key: 'ultimate-comics-spider-man',
+    name: 'Ultimate Comics Spider-Man', abbr: 'UCSM', vol: 1,
+    wikiTitle: 'Ultimate Comics Spider-Man Vol 1', accent: 'miles',
+    universe: 'ultimate',
+    role: 'lead', relevance: 'core',
+    note: 'A new Spider-Man in the parallel line: Miles Morales.',
+    segments: [{ from: 1, to: 28, startDate: '2011-11', endDate: '2013-12', startExact: true, endExact: true }],
+  },
+  {
+    key: 'miles-morales-ultimate',
+    name: 'Miles Morales: Ultimate Spider-Man', abbr: 'MMU', vol: 1,
+    wikiTitle: 'Miles Morales: Ultimate Spider-Man Vol 1', accent: 'miles',
+    universe: 'ultimate',
+    role: 'lead', relevance: 'core',
+    note: 'The last Ultimate Spider-Man book. The line ends with its twelfth issue.',
+    segments: [{ from: 1, to: 12, startDate: '2014-07', endDate: '2015-06', startExact: true, endExact: true }],
   },
 
   /* ============================================= La era del clon: miniseries

@@ -728,6 +728,234 @@ export const ARCS = [
     blurb: "The event that ends this volume at #133.",
     crossover: true,
   },
+
+  /* ==================================================================== 2010s
+     Read off the StoryArc and Event fields of all 280 issues of the decade.
+     The scan found 43 arcs; these are the twenty-one worth navigating by.
+
+     Spider-Verse is the one the universe model was waiting for: it gathers
+     versions of the character from continuities that otherwise never touch.
+     The Ultimate entries at the end stay on their own side of the fork.
+     ==================================================================== */
+  {
+    key: 'spider-island',
+    name: "Spider-Island",
+    year: 2011,
+    issues: [
+      'amazing-spider-man-v2-659', 'amazing-spider-man-v2-660', 'amazing-spider-man-v2-662',
+      'amazing-spider-man-v2-663', 'amazing-spider-man-v2-664', 'amazing-spider-man-v2-665',
+      'amazing-spider-man-v2-666', 'amazing-spider-man-v2-667', 'amazing-spider-man-v2-668',
+      'amazing-spider-man-v2-669', 'amazing-spider-man-v2-670', 'amazing-spider-man-v2-671',
+      'amazing-spider-man-v2-672', 'amazing-spider-man-v2-673',
+    ],
+    blurb: "Manhattan gets his powers, all of it at once. Fourteen parts.",
+    crossover: true,
+  },
+  {
+    key: 'ends-of-the-earth',
+    name: "Ends of the Earth",
+    year: 2012,
+    issues: [
+      'amazing-spider-man-v2-682', 'amazing-spider-man-v2-683', 'amazing-spider-man-v2-684',
+      'amazing-spider-man-v2-685', 'amazing-spider-man-v2-686', 'amazing-spider-man-v2-687',
+    ],
+    blurb: "Doctor Octopus, dying, makes his last play global.",
+  },
+  {
+    key: 'dying-wish',
+    name: "Dying Wish",
+    year: 2013,
+    issues: [
+      'amazing-spider-man-v2-698', 'amazing-spider-man-v2-699', 'amazing-spider-man-v2-700',
+    ],
+    blurb: "The three issues that close volume two and hand the book to somebody else.",
+  },
+  {
+    key: 'my-own-worst-enemy',
+    name: "My Own Worst Enemy",
+    year: 2013,
+    issues: [
+      'superior-spider-man-1', 'superior-spider-man-2', 'superior-spider-man-3',
+      'superior-spider-man-4', 'superior-spider-man-5',
+    ],
+    blurb: "Octavius takes the role seriously, which is what makes the run work.",
+  },
+  {
+    key: 'necessary-evil',
+    name: "Necessary Evil",
+    year: 2013,
+    issues: [
+      'superior-spider-man-17', 'superior-spider-man-18', 'superior-spider-man-19',
+    ],
+    blurb: "The Superior run at its least comfortable.",
+  },
+  {
+    key: 'darkest-hours',
+    name: "Darkest Hours",
+    year: 2014,
+    issues: [
+      'superior-spider-man-22', 'superior-spider-man-23', 'superior-spider-man-24',
+      'superior-spider-man-25',
+    ],
+    blurb: "The arrangement starts coming apart.",
+  },
+  {
+    key: 'parker-luck',
+    name: "Parker Luck",
+    year: 2014,
+    issues: [
+      'amazing-spider-man-v3-1', 'amazing-spider-man-v3-2', 'amazing-spider-man-v3-3',
+      'amazing-spider-man-v3-4', 'amazing-spider-man-v3-5', 'amazing-spider-man-v3-6',
+    ],
+    blurb: "Peter picks his own book back up after a year away from it.",
+  },
+  {
+    key: 'spider-verse',
+    name: "Spider-Verse",
+    year: 2014,
+    issues: [
+      'superior-spider-man-32', 'superior-spider-man-33', 'amazing-spider-man-v3-7',
+      'amazing-spider-man-v3-8', 'amazing-spider-man-v3-9', 'amazing-spider-man-v3-10',
+      'amazing-spider-man-v3-11', 'amazing-spider-man-v3-12', 'amazing-spider-man-v3-13',
+      'amazing-spider-man-v3-14', 'amazing-spider-man-v3-15',
+    ],
+    blurb: "Every Spider-Man from every continuity, hunted at once. The event the universe model exists for.",
+    crossover: true,
+  },
+  {
+    key: 'worldwide',
+    name: "Worldwide",
+    year: 2015,
+    issues: [
+      'amazing-spider-man-v4-1', 'amazing-spider-man-v4-2', 'amazing-spider-man-v4-3',
+      'amazing-spider-man-v4-4', 'amazing-spider-man-v4-5',
+    ],
+    blurb: "Parker Industries goes global, and so does the book.",
+  },
+  {
+    key: 'clone-conspiracy',
+    name: "Dead No More: The Clone Conspiracy",
+    year: 2016,
+    issues: [
+      'amazing-spider-man-v4-16', 'amazing-spider-man-v4-17', 'amazing-spider-man-v4-18',
+      'amazing-spider-man-v4-19', 'amazing-spider-man-v4-20', 'amazing-spider-man-v4-21',
+      'amazing-spider-man-v4-22', 'amazing-spider-man-v4-23', 'amazing-spider-man-v4-24',
+    ],
+    blurb: "Twenty years on, the clone premise returns on purpose rather than by accident.",
+    crossover: true,
+  },
+  {
+    key: 'civil-war-ii',
+    name: "Civil War II",
+    year: 2016,
+    issues: [
+      'spider-man-miles-v2-6', 'spider-man-miles-v2-7', 'spider-man-miles-v2-8',
+      'spider-man-miles-v2-9', 'spider-man-miles-v2-10',
+    ],
+    blurb: "The second registration fight reaches Miles rather than Peter.",
+    crossover: true,
+  },
+  {
+    key: 'secret-empire',
+    name: "Secret Empire",
+    year: 2017,
+    issues: [
+      'amazing-spider-man-v4-29', 'amazing-spider-man-v4-30', 'amazing-spider-man-v4-31',
+    ],
+    blurb: "A line-wide event passes through the title.",
+    crossover: true,
+  },
+  {
+    key: 'osborn-identity',
+    name: "The Osborn Identity",
+    year: 2017,
+    issues: [
+      'amazing-spider-man-v4-25', 'amazing-spider-man-v4-26', 'amazing-spider-man-v4-27',
+      'amazing-spider-man-v4-28',
+    ],
+    blurb: "Norman Osborn without the Goblin, which turns out to be worse.",
+  },
+  {
+    key: 'fall-of-parker',
+    name: "Fall of Parker",
+    year: 2017,
+    issues: [
+      'amazing-spider-man-v4-789', 'amazing-spider-man-v4-790', 'amazing-spider-man-v4-791',
+    ],
+    blurb: "Parker Industries collapses and the status quo resets again.",
+  },
+  {
+    key: 'go-down-swinging',
+    name: "Go Down Swinging",
+    year: 2018,
+    issues: [
+      'amazing-spider-man-v4-797', 'amazing-spider-man-v4-798', 'amazing-spider-man-v4-799',
+      'amazing-spider-man-v4-800',
+    ],
+    blurb: "The last arc of volume four, and of that creative run.",
+  },
+  {
+    key: 'back-to-basics',
+    name: "Back to Basics",
+    year: 2018,
+    issues: [
+      'amazing-spider-man-v5-1', 'amazing-spider-man-v5-2', 'amazing-spider-man-v5-3',
+      'amazing-spider-man-v5-4', 'amazing-spider-man-v5-5',
+    ],
+    blurb: "Volume five opens by putting everything back where it was.",
+  },
+  {
+    key: 'hunted',
+    name: "Hunted",
+    year: 2019,
+    issues: [
+      'amazing-spider-man-v5-16', 'amazing-spider-man-v5-17', 'amazing-spider-man-v5-18',
+      'amazing-spider-man-v5-19', 'amazing-spider-man-v5-20', 'amazing-spider-man-v5-21',
+      'amazing-spider-man-v5-22', 'amazing-spider-man-v5-23',
+    ],
+    blurb: "Kraven's family again, thirty-two years after the first hunt.",
+  },
+  {
+    key: 'sins-rising',
+    name: "Sins Rising",
+    year: 2020,
+    issues: [
+      'amazing-spider-man-v5-45', 'amazing-spider-man-v5-46', 'amazing-spider-man-v5-47',
+      'amazing-spider-man-v5-48', 'amazing-spider-man-v5-49',
+    ],
+    blurb: "The last arc inside this range.",
+  },
+  {
+    key: 'ultimate-prowler',
+    name: "Prowler",
+    year: 2012,
+    issues: [
+      'ultimate-comics-spider-man-6', 'ultimate-comics-spider-man-7', 'ultimate-comics-spider-man-8',
+      'ultimate-comics-spider-man-9', 'ultimate-comics-spider-man-10', 'ultimate-comics-spider-man-11',
+      'ultimate-comics-spider-man-12',
+    ],
+    blurb: "Miles' second year, in the parallel continuity.",
+  },
+  {
+    key: 'ultimate-united-we-stand',
+    name: "United We Stand",
+    year: 2012,
+    issues: [
+      'ultimate-comics-spider-man-15', 'ultimate-comics-spider-man-16', 'ultimate-comics-spider-man-17',
+      'ultimate-comics-spider-man-18',
+    ],
+    blurb: "The Ultimate line's own crossover reaches his book.",
+  },
+  {
+    key: 'ultimate-venom-war',
+    name: "Venom War",
+    year: 2013,
+    issues: [
+      'ultimate-comics-spider-man-19', 'ultimate-comics-spider-man-20', 'ultimate-comics-spider-man-21',
+      'ultimate-comics-spider-man-22',
+    ],
+    blurb: "That continuity settles its own symbiote thread.",
+  },
   {
     key: 'new-fantastic-four',
     name: 'The New Fantastic Four',

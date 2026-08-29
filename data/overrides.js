@@ -306,4 +306,10 @@ export const OVERRIDES = {
     note: 'Roderick Kingsley\u2019s first appearance, five years before anyone put him in the Hobgoblin suit.',
     firstAppearances: ['Roderick Kingsley (later the Hobgoblin)'],
   },
+
+  'superior-spider-man-27': {
+    note: 'Shipped as #27.NOW, not #27 — Marvel used decimal numbering for jumping-on points in this period, so there is no plain #27 to look for.',
+    coverDate: '2014-04',
+    dateExact: true,
+  },
 }
