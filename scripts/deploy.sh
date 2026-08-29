@@ -21,6 +21,7 @@ DIR="${SPIDERMAN_DIR:-/opt/spider-man-reading-tree}"
 BRANCH="${SPIDERMAN_BRANCH:-main}"
 REPO="${SPIDERMAN_REPO:-}"
 ACTION="deploy"
+CONTAINER="spider-man-reading-tree"
 
 # ---- output -----------------------------------------------------------------
 
@@ -216,26 +217,43 @@ ok "container up"
 
 step "Verifying"
 
+# The compose file may or may not publish a host port: behind a reverse proxy on
+# a shared network there is nothing to publish, so probe from inside the
+# container instead of assuming a host port exists.
+PUBLISHED=$(rsh "docker port '$CONTAINER' 80 2>/dev/null | head -1" || true)
+
 HEALTHY=""
 for _ in $(seq 1 20); do
-  if rsh "curl -fsS -o /dev/null http://localhost:$PORT/" 2>/dev/null; then
-    HEALTHY="yes"; break
+  if [ -n "$PUBLISHED" ]; then
+    rsh "curl -fsS -o /dev/null http://localhost:$PORT/" 2>/dev/null && { HEALTHY="host"; break; }
+  else
+    rsh "docker exec '$CONTAINER' wget -qO- http://127.0.0.1/ >/dev/null 2>&1" && { HEALTHY="container"; break; }
   fi
   sleep 2
 done
 
 if [ -z "$HEALTHY" ]; then
-  warn "the container is running but did not answer on port $PORT within 40s"
+  warn "the container is running but did not answer within 40s"
   warn "check the logs:  $0 $REMOTE --logs"
   exit 1
 fi
 
-# Confirm it is actually our page and not something else already on that port.
-if rsh "curl -fsS http://localhost:$PORT/" 2>/dev/null | grep -q "Spider"; then
+# Confirm it is actually our page, not something else bound to that port.
+if [ "$HEALTHY" = "host" ]; then
+  BODY=$(rsh "curl -fsS http://localhost:$PORT/" 2>/dev/null || true)
+else
+  BODY=$(rsh "docker exec '$CONTAINER' wget -qO- http://127.0.0.1/" 2>/dev/null || true)
+fi
+
+if printf '%s' "$BODY" | grep -q "Spider"; then
   ok "serving the reading tree"
 else
-  warn "port $PORT answers, but the response does not look like this app"
+  warn "it answers, but the response does not look like this app"
 fi
 
 HOST_ONLY="${REMOTE#*@}"
-printf '\n%sDeployed.%s  http://%s:%s\n\n' "$GREEN$BOLD" "$OFF" "$HOST_ONLY" "$PORT"
+if [ -n "$PUBLISHED" ]; then
+  printf '\n%sDeployed.%s  http://%s:%s\n\n' "$GREEN$BOLD" "$OFF" "$HOST_ONLY" "$PORT"
+else
+  printf '\n%sDeployed.%s  no host port published \u2014 reachable through the proxy on the shared network.\n\n' "$GREEN$BOLD" "$OFF"
+fi

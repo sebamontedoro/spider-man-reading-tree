@@ -10,9 +10,11 @@ services:
     # name, the way the other services on this host are wired.
     networks:
       - docker-services
-    # Override with SPIDERMAN_PORT in the environment or a .env file.
-    ports:
-      - "${SPIDERMAN_PORT:-8080}:80"
+    # No host port is published: the proxy on the shared network reaches the
+    # container directly by name. Uncomment to expose it on the host as well,
+    # e.g. when running without a proxy in front.
+    # ports:
+    #   - "${SPIDERMAN_PORT:-8080}:80"
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
       interval: 30s
