@@ -11,9 +11,10 @@ Vite + React, no backend. UI and content are in English.
 
 ```bash
 npm install
-npm run dev          # http://localhost:5173
-npm run build:data   # regenerate the dataset
-npm run build        # build:data + production build
+npm run dev            # http://localhost:5173
+npm run build:data     # regenerate the dataset skeleton
+npm run verify:dates   # refresh cover dates from Marvel Database (network)
+npm run build          # build:data + production build
 ```
 
 ## The four data layers
@@ -23,14 +24,15 @@ The single most important thing to understand about this codebase:
 | # | Layer | File | Hand-edited? |
 |---|-------|------|--------------|
 | 1 | Generated runs | `src/generated/issues.json` | **Never** |
-| 2 | Corrections & notes | `data/overrides.js` | Yes |
-| 3 | Guest appearances | `data/appearances.js` | Yes |
-| 4 | Arcs & crossovers | `data/arcs.js` | Yes |
+| 2 | Verified cover dates | `data/cover-dates.json` | **Never** |
+| 3 | Corrections & notes | `data/overrides.js` | Yes |
+| 4 | Guest appearances | `data/appearances.js` | Yes |
+| 5 | Arcs & crossovers | `data/arcs.js` | Yes |
 
-`src/generated/issues.json` is disposable output, rebuilt from scratch by
-`scripts/build-dataset.mjs` on every `npm run build:data`. **Editing it directly
-loses your work on the next build.** Everything curated lives in `data/` and is
-merged over the generated layer at runtime by `src/lib/dataset.js`.
+Layers 1 and 2 are both machine-produced and disposable — 1 from
+`npm run build:data`, 2 from `npm run verify:dates`. **Editing either directly
+loses your work on the next run.** Layers 3 to 5 are hand-curated and always
+win. `src/lib/dataset.js` merges all five at load time.
 
 To correct one issue — a wrong date, a missing first appearance, a note — add it
 to `data/overrides.js` keyed by its id. Ids are `<series-key>-<number>`, e.g.
@@ -46,13 +48,35 @@ This is not incidental. The Amazing Spider-Man went semi-monthly in 1988, so a
 naive "+1 month per issue" model lands its 1990 issues eight months late. Marvel
 Team-Up started bimonthly and drifted three months by #75. Anchors fix both.
 
-Anchor dates carrying `startExact` / `endExact` were checked against Marvel
-Database. Issues generated *between* anchors are estimates, ship with
-`dateExact: false`, and the UI marks them with a leading `~`. Spot checks against
-real data currently land most interpolated dates exactly on the month.
+### Verified dates override the estimates
 
-To improve accuracy anywhere, add another anchor segment — it costs one lookup
-and immediately tightens every issue around it.
+`npm run verify:dates` looks every issue up on Marvel Database and writes the
+real cover dates to `data/cover-dates.json`, which layers over the generated
+estimates. The wiki API takes 50 page titles per request, so the whole dataset
+costs about twenty calls.
+
+**1106 of 1109 issues now carry a verified date.** The three that do not are
+annuals the wiki dates by year alone; there we keep the generated month and
+trust the year. Anything unresolved simply keeps its estimate and stays marked
+with a leading `~` in the UI.
+
+The anchors in `data/series.js` still matter — they are what the tree falls back
+on for any issue the wiki cannot resolve, and they were worth getting right:
+before verification, the anchored estimates were exact for 96% of Amazing
+Spider-Man and 90% of Spectacular, but only 2% of Marvel Tales, where one issue
+was off by five years.
+
+Useful flags:
+
+```bash
+npm run verify:dates -- --missing                   # only unverified issues
+npm run verify:dates -- --only=marvel-tales         # one series
+```
+
+If a series comes back entirely unresolved, its `wikiTitle` is wrong. Marvel
+Database renames runs mid-stream — both `peter-parker-spectacular` and
+`spectacular-spider-man-annual` need a per-segment `wikiTitle` for exactly this
+reason.
 
 ## Scope
 

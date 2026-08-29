@@ -166,7 +166,12 @@ export const SERIES = [
     relevance: 'notable',
     isAnnual: true,
     segments: [
-      { from: 1, to: 10, startDate: '1979-08', endDate: '1990-08', cadence: 'annual', endExact: true },
+      // Same title split as the parent series: the wiki files the early annuals
+      // under the "Peter Parker" name and drops it from #8.
+      { from: 1, to: 7,  startDate: '1979-12', endDate: '1987-08', cadence: 'annual',
+        wikiTitle: 'Peter Parker, The Spectacular Spider-Man Annual Vol 1', startExact: true },
+      { from: 8, to: 10, startDate: '1988-11', endDate: '1990-08', cadence: 'annual',
+        startExact: true, endExact: true },
     ],
   },
 

@@ -1,25 +1,45 @@
 /**
- * Merges the four data layers into one queryable dataset, once, at module load.
+ * Merges the data layers into one queryable dataset, once, at module load.
  *
- *   1. src/generated/issues.json   the expanded runs   (never hand-edited)
- *   2. data/overrides.js           corrections + notes (wins over 1)
- *   3. data/appearances.js         guest spots         (not generable)
- *   4. data/arcs.js                arcs and crossovers (adds connections)
+ *   1. src/generated/issues.json   the expanded runs    (never hand-edited)
+ *   2. data/cover-dates.json       real dates from the wiki  (wins over 1)
+ *   3. data/overrides.js           corrections + notes  (wins over 2)
+ *   4. data/appearances.js         guest spots          (not generable)
+ *   5. data/arcs.js                arcs and crossovers  (adds connections)
  *
- * Layer 1 is disposable; everything else is curation. That split is what lets
- * us regenerate the skeleton without losing hand-written work.
+ * Layers 1 and 2 are both machine-produced and disposable — 1 from our own
+ * generator, 2 from `npm run verify:dates`. Layers 3 to 5 are hand-curated, and
+ * always win. That ordering is what lets us regenerate or re-verify the
+ * skeleton without ever losing written work.
  */
 
 import generated from '../generated/issues.json'
+import coverDates from '../../data/cover-dates.json'
 import { OVERRIDES } from '../../data/overrides.js'
 import { APPEARANCES, APPEARANCE_DEFAULTS } from '../../data/appearances.js'
 import { ARCS } from '../../data/arcs.js'
 import { SERIES } from '../../data/series.js'
 
-/* -- 1 + 2 + 3: build the issue list -------------------------------------- */
+/* -- 1 + 2 + 3 + 4: build the issue list ---------------------------------- */
+
+/**
+ * A verified date replaces the interpolated one and clears the estimate flag.
+ * `monthKnown` is false for issues the wiki dates by year alone (some annuals),
+ * where we keep the generated month but trust the year.
+ */
+const withVerifiedDate = (iss) => {
+  const v = coverDates[iss.id]
+  if (!v) return iss
+  return {
+    ...iss,
+    coverDate: v.coverDate,
+    dateExact: v.monthKnown !== false,
+    yearOnly: iss.yearOnly && v.monthKnown === false,
+  }
+}
 
 const merged = [
-  ...generated.map((iss) => ({ ...iss, ...(OVERRIDES[iss.id] || {}) })),
+  ...generated.map((iss) => ({ ...withVerifiedDate(iss), ...(OVERRIDES[iss.id] || {}) })),
   ...APPEARANCES.map((app) => ({
     ...APPEARANCE_DEFAULTS,
     seriesKey: 'guest',
@@ -34,7 +54,7 @@ const merged = [
 
 const byId = new Map(merged.map((i) => [i.id, i]))
 
-/* -- 4: arcs contribute both membership and connections ------------------- */
+/* -- 5: arcs contribute both membership and connections ------------------- */
 
 for (const arc of ARCS) {
   const present = arc.issues.filter((id) => byId.has(id))
