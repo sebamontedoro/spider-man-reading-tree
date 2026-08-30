@@ -30,9 +30,22 @@ export default function YearBand({
     return () => io.disconnect()
   }, [near])
 
-  // Reserve the height the cards will take, so scrolling doesn't jump as
-  // bands mount. Rough but stable: rows of cards per month.
-  const placeholderHeight = months.length * 96
+  // Reserve roughly the height the cards will take. A flat per-month guess was
+  // fine on a wide screen and badly short on a phone, where three cards fit a
+  // row instead of eight — which is what made long jumps land in the wrong
+  // year. Estimating from the actual issue count and viewport keeps the
+  // correction small.
+  const placeholderHeight = (() => {
+    const width = typeof window === 'undefined' ? 1100 : Math.min(window.innerWidth, 1180)
+    const perRow = Math.max(2, Math.floor((width - 160) / 116))
+    const ROW = 66
+    const HEADER = 34
+    return months.reduce((h, m) => {
+      const rows = Math.ceil(m.issues.length / perRow)
+      const milestones = m.issues.reduce((n, i) => n + (i.milestones?.length || 0), 0)
+      return h + HEADER + rows * ROW + milestones * 104
+    }, 0)
+  })()
 
   return (
     <section className="year" ref={ref} id={`year-${year}`}>
