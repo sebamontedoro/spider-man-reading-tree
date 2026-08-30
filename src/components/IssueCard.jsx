@@ -20,6 +20,7 @@ function IssueCard({ issue, dimmed, selected, pathIndex, onSelect }) {
 
   return (
     <button
+      id={`issue-${issue.id}`}
       className={cls}
       onClick={() => onSelect(issue.id)}
       aria-pressed={selected}

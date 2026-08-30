@@ -1,9 +1,11 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { ISSUES, ISSUE_BY_ID, TIMELINE, STATS, YEAR_RANGE } from './lib/dataset.js'
 import { DEFAULT_FILTERS, applyFilters, resolvePath } from './lib/filters.js'
 import { PATHS_BY_KEY } from '../data/paths.js'
 import { ARCS_BY_KEY } from '../data/arcs.js'
+
+import { scrollToIssue } from './lib/scrollToIssue.js'
 
 import FilterBar from './components/FilterBar.jsx'
 import Timeline from './components/Timeline.jsx'
@@ -30,6 +32,25 @@ export default function App() {
     const ids = resolvePath(path, ISSUES, ARCS_BY_KEY)
     return new Map(ids.map((id, i) => [id, i + 1]))
   }, [path])
+
+  // Picking an arc should take you to where it starts, not leave you wherever
+  // you happened to be scrolled. Only fires on a change, so re-rendering for
+  // any other reason does not yank the page around.
+  const lastArc = useRef(null)
+  useEffect(() => {
+    if (filters.arc === lastArc.current) return
+    lastArc.current = filters.arc
+    if (!filters.arc) return
+
+    const arc = ARCS_BY_KEY[filters.arc]
+    if (!arc) return
+    const first = arc.issues
+      .map((id) => ISSUE_BY_ID.get(id))
+      .filter(Boolean)
+      .sort((a, b) => a.coverDate.localeCompare(b.coverDate))[0]
+
+    if (first) scrollToIssue(first)
+  }, [filters.arc])
 
   const selected = selectedId ? ISSUE_BY_ID.get(selectedId) : null
 

@@ -722,3 +722,18 @@
 }
 .detail__ms-label { font-family: var(--font-display); font-size: 17px; color: var(--ink); }
 .detail__ms-blurb { margin: 4px 0 0; font-size: var(--t-meta); color: var(--ink-faint); }
+
+/* A card just scrolled to. Brief and obvious: after a smooth scroll across
+   sixty years of timeline you need to see which one you landed on. */
+@keyframes issue-landed {
+  0%   { box-shadow: 0 0 0 0 var(--gold); }
+  15%  { box-shadow: 0 0 0 7px var(--gold); }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.issue--landed {
+  animation: issue-landed 2s var(--ease);
+  z-index: 5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .issue--landed { animation: none; outline: 3px solid var(--gold); }
+}
