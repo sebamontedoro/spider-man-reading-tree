@@ -412,7 +412,10 @@ export const SERIES = [
     name: 'The Amazing Spider-Man (vol. 5)', abbr: 'ASM v5', vol: 5,
     wikiTitle: 'Amazing Spider-Man Vol 5', accent: 'asm',
     role: 'lead', relevance: 'core',
-    segments: [{ from: 1, to: 51, startDate: '2018-09', endDate: '2020-12', startExact: true, endExact: true }],
+    segments: [
+      { from: 1,  to: 51, startDate: '2018-09', endDate: '2020-12', startExact: true, endExact: true },
+      { from: 52, to: 93, startDate: '2021-01', endDate: '2022-05', endExact: true },
+    ],
   },
 
   /* ===================================== Miles Morales, en la línea principal
@@ -432,7 +435,10 @@ export const SERIES = [
     name: 'Miles Morales: Spider-Man', abbr: 'MM', vol: 1,
     wikiTitle: 'Miles Morales: Spider-Man Vol 1', accent: 'miles',
     role: 'lead', relevance: 'core',
-    segments: [{ from: 1, to: 19, startDate: '2019-02', endDate: '2020-12', startExact: true, endExact: true }],
+    segments: [
+      { from: 1,  to: 19, startDate: '2019-02', endDate: '2020-12', startExact: true, endExact: true },
+      { from: 20, to: 42, startDate: '2021-01', endDate: '2022-11', endExact: true },
+    ],
   },
 
   /* ================================= La rama Ultimate, segunda generación */
@@ -477,6 +483,60 @@ export const SERIES = [
     role: 'lead', relevance: 'notable',
     note: 'The team-up book during the run where Spider-Man was somebody else.',
     segments: [{ from: 1, to: 12, startDate: '2013-09', endDate: '2014-06', startExact: true, endExact: true }],
+  },
+
+
+  /* ========================================================= 2019 → 2026 */
+  {
+    key: 'superior-spider-man-v2',
+    name: 'The Superior Spider-Man (vol. 2)', abbr: 'SUP v2', vol: 2,
+    wikiTitle: 'Superior Spider-Man Vol 2', accent: 'superior',
+    role: 'lead', relevance: 'notable',
+    note: 'A twelve-issue return to the premise, five years after the original run.',
+    segments: [{ from: 1, to: 12, startDate: '2019-02', endDate: '2019-12', startExact: true, endExact: true }],
+  },
+  {
+    key: 'amazing-spider-man-v6',
+    name: 'The Amazing Spider-Man (vol. 6)', abbr: 'ASM v6', vol: 6,
+    wikiTitle: 'Amazing Spider-Man Vol 6', accent: 'asm',
+    role: 'lead', relevance: 'core',
+    segments: [{ from: 1, to: 70, startDate: '2022-06', endDate: '2025-05', startExact: true, endExact: true }],
+  },
+  {
+    key: 'spider-man-v4',
+    name: 'Spider-Man (vol. 4)', abbr: 'SM v4', vol: 4,
+    wikiTitle: 'Spider-Man Vol 4', accent: 'sm90',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 11, startDate: '2022-12', endDate: '2023-10', startExact: true, endExact: true }],
+  },
+  {
+    key: 'miles-morales-spider-man-v2',
+    name: 'Miles Morales: Spider-Man (vol. 2)', abbr: 'MM v2', vol: 2,
+    wikiTitle: 'Miles Morales: Spider-Man Vol 2', accent: 'miles',
+    role: 'lead', relevance: 'core',
+    segments: [{ from: 1, to: 35, startDate: '2023-02', endDate: '2025-09', startExact: true, endExact: true }],
+  },
+  {
+    key: 'superior-spider-man-v3',
+    name: 'The Superior Spider-Man (vol. 3)', abbr: 'SUP v3', vol: 3,
+    wikiTitle: 'Superior Spider-Man Vol 3', accent: 'superior',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 8, startDate: '2024-01', endDate: '2024-08', startExact: true, endExact: true }],
+  },
+
+  /* ============================================== UNA TERCERA CONTINUIDAD
+     A second Ultimate line, started in 2024 and unrelated to the 2000 one
+     beyond the name. Its own universe key, so the tree forks again rather than
+     folding it in with a continuity that ended in 2015.
+     ==================================================================== */
+  {
+    key: 'ultimate-spider-man-2024',
+    name: 'Ultimate Spider-Man (2024)', abbr: 'USM24', vol: 3,
+    wikiTitle: 'Ultimate Spider-Man Vol 3', accent: 'ultimate2',
+    universe: 'ultimate-6160',
+    role: 'lead', relevance: 'core',
+    note: 'A Peter Parker who reaches middle age before becoming Spider-Man. Shares nothing with the 2000 line but the label.',
+    segments: [{ from: 1, to: 24, startDate: '2024-03', endDate: '2026-02', startExact: true, endExact: true }],
   },
 
   /* ============================================= La era del clon: miniseries

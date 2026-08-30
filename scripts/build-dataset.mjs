@@ -19,7 +19,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const OUT = resolve(ROOT, 'src/generated/issues.json')
 
 const RANGE_START = '1962-01'
-const RANGE_END = '2020-12'
+const RANGE_END = '2026-12'
 
 /* -- date helpers: months since year 0, so arithmetic is plain integers ---- */
 

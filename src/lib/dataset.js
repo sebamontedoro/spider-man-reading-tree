@@ -266,7 +266,10 @@ export const UNIVERSES = (() => {
       .filter((k) => k !== 'earth-616')
       .map((k) => ({
         key: k,
-        label: k === 'ultimate' ? 'Ultimate' : k,
+        label:
+          k === 'ultimate' ? 'Ultimate (2000)'
+          : k === 'ultimate-6160' ? 'Ultimate (2024)'
+          : k,
         count: counts[k],
       })),
   ].filter((u) => u.count > 0)

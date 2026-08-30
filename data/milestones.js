@@ -559,6 +559,31 @@ export const MILESTONES = [
     label: 'Ultimate Spider-Woman',
     blurb: 'A clone of Peter, in the line that had already declined to repeat the original Clone Saga.',
   },
+
+  /* ============================================================== 2020s */
+  {
+    issue: 'superior-spider-man-v2-1',
+    type: 'status-quo',
+    label: 'The Superior premise returns',
+    blurb: 'Twelve issues revisiting the arrangement, five years after the original run closed it.',
+  },
+  {
+    issue: 'amazing-spider-man-v5-93',
+    type: 'status-quo',
+    label: 'Volume five ends at #93',
+  },
+  {
+    issue: 'amazing-spider-man-v6-1',
+    type: 'status-quo',
+    label: 'Volume six, the sixth renumbering',
+    blurb: 'The sixth time the flagship restarts its count in twenty-four years.',
+  },
+  {
+    issue: 'ultimate-spider-man-2024-1',
+    type: 'universe',
+    label: 'A third continuity begins',
+    blurb: 'A second line called Ultimate, sharing nothing with the 2000 one but the name. Its Peter Parker reaches middle age before becoming Spider-Man at all.',
+  },
   {
     issue: 'ultimate-comics-spider-man-1',
     type: 'debut',
@@ -577,6 +602,31 @@ export const MILESTONES = [
     type: 'universe',
     label: 'The continuities collapse into one',
     blurb: 'The event that ends the separate line for good. Not the 1984 crossover of the same name.',
+  },
+
+  /* ============================================================== 2020s */
+  {
+    issue: 'superior-spider-man-v2-1',
+    type: 'status-quo',
+    label: 'The Superior premise returns',
+    blurb: 'Twelve issues revisiting the arrangement, five years after the original run closed it.',
+  },
+  {
+    issue: 'amazing-spider-man-v5-93',
+    type: 'status-quo',
+    label: 'Volume five ends at #93',
+  },
+  {
+    issue: 'amazing-spider-man-v6-1',
+    type: 'status-quo',
+    label: 'Volume six, the sixth renumbering',
+    blurb: 'The sixth time the flagship restarts its count in twenty-four years.',
+  },
+  {
+    issue: 'ultimate-spider-man-2024-1',
+    type: 'universe',
+    label: 'A third continuity begins',
+    blurb: 'A second line called Ultimate, sharing nothing with the 2000 one but the name. Its Peter Parker reaches middle age before becoming Spider-Man at all.',
   },
   {
     issue: 'ultimate-comics-spider-man-1',
