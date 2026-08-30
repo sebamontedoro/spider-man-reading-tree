@@ -1,4 +1,7 @@
+import { useCallback, useEffect, useRef, useState } from 'react'
+
 import { linksFor } from '../lib/links.js'
+import { useMediaQuery, PHONE } from '../lib/useMediaQuery.js'
 import { ARCS_BY_KEY } from '../../data/arcs.js'
 import { MILESTONE_TYPES } from '../../data/milestones.js'
 import FocusGraph from './FocusGraph.jsx'
@@ -12,7 +15,44 @@ const formatDate = (issue) => {
   return `${MONTHS[Number(m)]} ${y}`
 }
 
+/** Where the sheet rests: mostly open, or nearly full. */
+const PEEK = 0.38   // fraction of the viewport left showing the timeline
+const FULL = 0.06
+
 export default function DetailPanel({ issue, byId, onSelect, onClose }) {
+  const isPhone = useMediaQuery(PHONE)
+  const [offset, setOffset] = useState(null)   // null = resting at PEEK
+  const drag = useRef(null)
+  const sheetRef = useRef(null)
+
+  // A new issue resets the sheet to its resting height, so tapping a
+  // neighbouring card does not leave it wherever it was dragged.
+  useEffect(() => { setOffset(null) }, [issue?.id])
+
+  const onPointerDown = useCallback((e) => {
+    if (!isPhone) return
+    const h = window.innerHeight
+    drag.current = { startY: e.clientY, startOffset: offset ?? h * PEEK }
+    e.currentTarget.setPointerCapture?.(e.pointerId)
+  }, [isPhone, offset])
+
+  const onPointerMove = useCallback((e) => {
+    if (!drag.current) return
+    const h = window.innerHeight
+    const next = drag.current.startOffset + (e.clientY - drag.current.startY)
+    setOffset(Math.max(h * FULL, Math.min(next, h)))
+  }, [])
+
+  const onPointerUp = useCallback(() => {
+    if (!drag.current) return
+    const h = window.innerHeight
+    const resting = offset ?? h * PEEK
+    drag.current = null
+    // Dragged most of the way down: treat it as a dismissal.
+    if (resting > h * 0.72) { onClose(); return }
+    setOffset(resting < h * (PEEK - 0.1) ? h * FULL : null)
+  }, [offset, onClose])
+
   if (!issue) return null
 
   const links = linksFor(issue)
@@ -23,7 +63,25 @@ export default function DetailPanel({ issue, byId, onSelect, onClose }) {
   const next = (issue.connections || []).find((c) => c.type === 'continues' && c.dir === 'forward')
 
   return (
-    <aside className="detail" aria-label="Issue detail">
+    <aside
+      ref={sheetRef}
+      className={`detail ${isPhone ? 'detail--sheet' : ''}`}
+      aria-label="Issue detail"
+      style={isPhone && offset !== null ? { top: `${offset}px` } : undefined}
+    >
+      {isPhone && (
+        <div
+          className="detail__grip"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerUp}
+          role="separator"
+          aria-label="Drag to resize, or drag down to close"
+        >
+          <i />
+        </div>
+      )}
       <div className="detail__head halftone-blue">
         <button className="detail__close" onClick={onClose} aria-label="Close">×</button>
         <span className="label detail__kicker">{issue.seriesName}</span>

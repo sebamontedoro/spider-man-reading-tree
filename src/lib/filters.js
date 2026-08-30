@@ -85,6 +85,30 @@ export const resolvePath = (path, issues, arcsByKey = {}) => {
   return [...ids].filter((id) => order.has(id)).sort((a, b) => order.get(a) - order.get(b))
 }
 
+/**
+ * How many filters are narrowing the view right now.
+ *
+ * Shown on the button that collapses the filter bar on a phone. Without it,
+ * filtering silently is the easiest mistake to make in this interface — the
+ * timeline just looks emptier than you remember.
+ */
+export const countActiveFilters = (f) => {
+  let n = 0
+  if (f.series) n++
+  if (f.arc) n++
+  if (f.character) n++
+  if (f.query) n++
+  if (f.universe) n++
+  if (f.keyOnly) n++
+  if (f.digitalOnly) n++
+  if (f.milestoneOnly) n++
+  if (f.milestoneType) n++
+  if (f.yearFrom || f.yearTo) n++
+  // Relevance counts only when it differs from the default set.
+  if (f.relevance.length !== DEFAULT_FILTERS.relevance.length) n++
+  return n
+}
+
 export const isFilterActive = (f) =>
   Boolean(
     f.series ||

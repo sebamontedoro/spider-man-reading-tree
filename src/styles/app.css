@@ -737,3 +737,195 @@
 @media (prefers-reduced-motion: reduce) {
   .issue--landed { animation: none; outline: 3px solid var(--gold); }
 }
+
+/* ==========================================================================
+   TELÉFONO
+   Not a narrower desktop: the hierarchy changes. The timeline keeps the screen,
+   the fourteen filter controls collapse behind one button that says how many
+   are active, and the detail arrives as a sheet that leaves the timeline
+   visible above it — in a tree of 2661 issues, losing your place costs more
+   than the extra room a full takeover would buy.
+   ========================================================================== */
+
+/* --- the button that replaces the filter bar --- */
+.sheet-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px;
+  background: var(--paper-raised);
+  border: var(--rule) solid var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--t-micro);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.sheet-open--on { background: var(--ink); color: var(--paper); }
+
+.sheet-open__count {
+  display: grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  background: var(--red);
+  color: #fff;
+  border-radius: 9px;
+  font-size: 11px;
+}
+
+/* --- the filter sheet --- */
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(20, 17, 15, 0.45);
+  display: flex;
+  align-items: flex-end;
+}
+
+.sheet {
+  width: 100%;
+  max-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border-top: var(--rule-heavy) solid var(--ink);
+  animation: sheet-rise 220ms var(--ease);
+}
+@keyframes sheet-rise { from { transform: translateY(100%); } }
+@media (prefers-reduced-motion: reduce) { .sheet { animation: none; } }
+
+.sheet__grip {
+  display: grid;
+  place-items: center;
+  padding: 8px 0 4px;
+  touch-action: none;
+}
+.sheet__grip::before,
+.detail__grip i {
+  content: '';
+  display: block;
+  width: 44px;
+  height: 5px;
+  background: var(--ink-ghost);
+  border-radius: 3px;
+}
+
+.sheet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-4) var(--sp-3);
+  border-bottom: var(--rule) solid var(--ink);
+  font-family: var(--font-display);
+}
+.sheet__close {
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  padding: 8px 16px;
+  font-family: var(--font-display);
+  font-size: var(--t-micro);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sheet__body {
+  overflow-y: auto;
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+/* Inside the sheet the rows stack instead of flowing side by side. */
+.sheet__body .filterbar__row { flex-direction: column; align-items: stretch; gap: var(--sp-3); }
+.sheet__body .filterbar__select,
+.sheet__body .filterbar__search input { width: 100%; }
+.sheet__body .filterbar__toggles { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.sheet__body .chip { flex: 1 1 auto; padding: 10px 12px; }
+.sheet__reset { width: 100%; padding: 12px; }
+
+/* --- the detail as a draggable sheet --- */
+.detail--sheet {
+  top: 38vh;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  border-left: none;
+  border-top: var(--rule-heavy) solid var(--ink);
+  box-shadow: 0 -6px 0 rgba(20, 17, 15, 0.12);
+  transition: top 180ms var(--ease);
+}
+.detail--sheet .detail__grip {
+  display: grid;
+  place-items: center;
+  padding: 8px 0 4px;
+  background: var(--panel);
+  touch-action: none;
+  cursor: grab;
+}
+.detail--sheet .detail__close { top: 6px; right: 8px; }
+
+@media (max-width: 760px) {
+  /* Masthead gives up most of its height; the range and stats fold under. */
+  .masthead__inner { padding: var(--sp-3) var(--sp-4); gap: var(--sp-2); }
+  .masthead__title { font-size: 26px; }
+  .masthead__subtitle { font-size: 0.44em; letter-spacing: 0.16em; }
+  .masthead__range { text-align: left; }
+  .masthead__years { font-size: 15px; display: inline; margin-right: var(--sp-2); }
+  .masthead__stats { font-size: 11px; }
+
+  .filterbar--compact {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--sp-2);
+    padding: var(--sp-2) var(--sp-3);
+  }
+  .filterbar--compact .filterbar__search { flex: 1 1 auto; min-width: 0; }
+  .filterbar--compact .filterbar__search input { width: 100%; padding: 9px 10px; }
+
+  .timeline__track { padding: 0 var(--sp-3) var(--sp-8); }
+
+  /* The year rail is a desktop affordance; on a phone it fights the thumb. */
+  .timeline__jump { display: none; }
+
+  .year { padding-top: var(--sp-4); }
+  .year__header { padding: var(--sp-2) var(--sp-3); gap: var(--sp-3); }
+  .year__number { font-size: 34px; }
+
+  /* Month label becomes a header strip above its issues. */
+  .month { grid-template-columns: 1fr; }
+  .month__rail {
+    border-right: none;
+    border-bottom: var(--rule) solid var(--ink);
+    padding: 6px var(--sp-3);
+  }
+  .month__content { padding: var(--sp-2); }
+  .month__issues { gap: 6px; }
+
+  /* Cards stay a grid, sized so three fit and each is still a tap target. */
+  .issue {
+    flex: 1 1 30%;
+    min-width: 92px;
+    min-height: 58px;
+    padding: 8px 10px 7px;
+  }
+  .issue__number { font-size: 24px; }
+  /* Hover transforms are meaningless on touch and cause paint churn. */
+  .issue:hover { transform: none; box-shadow: none; }
+
+  .milestone { grid-template-columns: 1fr; gap: var(--sp-2); }
+  .milestone__glyph { display: none; }
+  .milestone__label { font-size: 17px; }
+  .milestone:hover { transform: none; box-shadow: var(--shadow-panel); }
+
+  .detail__body { padding: var(--sp-3) var(--sp-4) var(--sp-8); }
+  .detail__number { font-size: 36px; }
+  .focusgraph__scroll { max-width: 100%; }
+}

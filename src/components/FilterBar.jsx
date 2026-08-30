@@ -1,5 +1,8 @@
+import { useState } from 'react'
+
 import { SERIES_LIST, CHARACTERS, YEAR_RANGE, UNIVERSES } from '../lib/dataset.js'
-import { DEFAULT_FILTERS, isFilterActive } from '../lib/filters.js'
+import { DEFAULT_FILTERS, isFilterActive, countActiveFilters } from '../lib/filters.js'
+import { useMediaQuery, PHONE } from '../lib/useMediaQuery.js'
 import { ARCS_SORTED } from '../../data/arcs.js'
 import { PATHS } from '../../data/paths.js'
 import { MILESTONE_TYPES } from '../../data/milestones.js'
@@ -13,6 +16,10 @@ const RELEVANCE = [
 export default function FilterBar({
   filters, onChange, pathKey, onPathChange, shownCount, totalCount,
 }) {
+  const isPhone = useMediaQuery(PHONE)
+  const [sheetOpen, setSheetOpen] = useState(false)
+
+  const activeCount = countActiveFilters(filters)
   const set = (patch) => onChange({ ...filters, ...patch })
 
   const toggleRelevance = (key) => {
@@ -25,42 +32,42 @@ export default function FilterBar({
   const reset = () => {
     onChange(DEFAULT_FILTERS)
     onPathChange(null)
+    setSheetOpen(false)
   }
 
-  return (
-    <div className="filterbar">
-      <div className="filterbar__row">
-        <label className="filterbar__search">
-          <span className="sr-only">Search issues</span>
-          <input
-            type="search"
-            placeholder="Search a series, issue number, character or arc…"
-            value={filters.query}
-            onChange={(e) => set({ query: e.target.value })}
-          />
-        </label>
+  const search = (
+    <label className="filterbar__search">
+      <span className="sr-only">Search issues</span>
+      <input
+        type="search"
+        placeholder={isPhone ? 'Search…' : 'Search a series, issue number, character or arc…'}
+        value={filters.query}
+        onChange={(e) => set({ query: e.target.value })}
+      />
+    </label>
+  )
 
-        <select
-          className="filterbar__select"
-          value={pathKey || ''}
-          onChange={(e) => onPathChange(e.target.value || null)}
-          aria-label="Reading path"
-        >
-          <option value="">Reading path — none</option>
-          {PATHS.map((p) => (
-            <option key={p.key} value={p.key}>{p.name}</option>
-          ))}
-        </select>
+  const pathSelect = (
+    <select
+      className="filterbar__select"
+      value={pathKey || ''}
+      onChange={(e) => onPathChange(e.target.value || null)}
+      aria-label="Reading path"
+    >
+      <option value="">Reading path — none</option>
+      {PATHS.map((p) => (
+        <option key={p.key} value={p.key}>{p.name}</option>
+      ))}
+    </select>
+  )
 
-        <span className="filterbar__count">
-          <strong>{shownCount}</strong> of {totalCount}
-        </span>
-
-        {(isFilterActive(filters) || pathKey) && (
-          <button className="filterbar__reset" onClick={reset}>Reset</button>
-        )}
-      </div>
-
+  /**
+   * Defined once, rendered inline on a wide screen and inside the sheet on a
+   * phone. Sharing the markup is what stops the two layouts drifting apart as
+   * filters get added — there is only one place to add them.
+   */
+  const controls = (
+    <>
       <div className="filterbar__row filterbar__row--secondary">
         {UNIVERSES.length > 1 && (
           <select
@@ -191,6 +198,80 @@ export default function FilterBar({
           })}
         </span>
       </div>
+    </>
+  )
+
+  /* -- phone: search stays out, everything else moves into a sheet --------- */
+
+  if (isPhone) {
+    return (
+      <>
+        <div className="filterbar filterbar--compact">
+          {search}
+          <button
+            className={`sheet-open ${activeCount ? 'sheet-open--on' : ''}`}
+            onClick={() => setSheetOpen(true)}
+            aria-expanded={sheetOpen}
+          >
+            Filters
+            {/* The count is the whole point of collapsing them: filtering
+                without noticing is otherwise the easiest mistake here. */}
+            {activeCount > 0 && <span className="sheet-open__count">{activeCount}</span>}
+          </button>
+        </div>
+
+        {sheetOpen && (
+          <div className="sheet-backdrop" onClick={() => setSheetOpen(false)}>
+            <div
+              className="sheet"
+              role="dialog"
+              aria-label="Filters"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="sheet__grip" aria-hidden="true" />
+              <div className="sheet__head">
+                <strong>Filters</strong>
+                <span className="filterbar__count">
+                  <strong>{shownCount}</strong> of {totalCount}
+                </span>
+                <button className="sheet__close" onClick={() => setSheetOpen(false)}>
+                  Done
+                </button>
+              </div>
+              <div className="sheet__body">
+                {pathSelect}
+                {controls}
+                {(isFilterActive(filters) || pathKey) && (
+                  <button className="filterbar__reset sheet__reset" onClick={reset}>
+                    Reset everything
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </>
+    )
+  }
+
+  /* -- wide screen: everything inline ------------------------------------- */
+
+  return (
+    <div className="filterbar">
+      <div className="filterbar__row">
+        {search}
+        {pathSelect}
+
+        <span className="filterbar__count">
+          <strong>{shownCount}</strong> of {totalCount}
+        </span>
+
+        {(isFilterActive(filters) || pathKey) && (
+          <button className="filterbar__reset" onClick={reset}>Reset</button>
+        )}
+      </div>
+
+      {controls}
     </div>
   )
 }

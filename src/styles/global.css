@@ -9,7 +9,13 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html, body, #root { height: 100%; }
+html, body, #root {
+  height: 100%;
+  /* Mobile browsers count their own chrome inside 100%, which pushes the
+     scrolling timeline partly out of view. The dynamic unit tracks the space
+     that is actually visible; the percentage stays as the fallback. */
+  height: 100dvh;
+}
 
 body {
   margin: 0;
