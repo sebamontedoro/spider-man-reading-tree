@@ -128,6 +128,30 @@ for (const [id, list] of Object.entries(MILESTONES_BY_ISSUE)) {
   if (issue) issue.milestones = list
 }
 
+/**
+ * `keyIssue` is partly derived, and deliberately so.
+ *
+ * Set by hand it drifted badly: 33 of 42 flags landed before 1991, because the
+ * early decades got the most careful curation. That skew reached three places
+ * at once — the star on the card, the Key issues filter, and the Essentials
+ * path — and made all of them read as though the character stopped having
+ * important issues in 1990.
+ *
+ * An issue whose premise changes for good, or where a continuity begins or
+ * ends, is a key issue by definition. Deriving that from the milestone layer
+ * keeps the three in step and rebalances them: 9/11/13/10/7/7 across the
+ * decades instead of 9/11/13/5/2/2. Hand-set flags still win, so an editorial
+ * call is never overridden.
+ */
+const PREMISE_CHANGING = new Set(['status-quo', 'universe'])
+
+for (const issue of byId.values()) {
+  if (issue.keyIssue) continue
+  if ((issue.milestones || []).some((m) => PREMISE_CHANGING.has(m.type))) {
+    issue.keyIssue = true
+  }
+}
+
 /* -- ordering ------------------------------------------------------------- */
 
 const monthIndex = (ym) => {

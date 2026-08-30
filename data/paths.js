@@ -19,7 +19,7 @@ export const PATHS = [
   {
     key: 'essentials',
     name: 'The Essentials',
-    blurb: 'The shortest route that still makes sense — every issue flagged as key.',
+    blurb: 'The shortest route that still makes sense: every issue where the premise changes for good, or a continuity begins or ends.',
     match: (i) => i.keyIssue === true,
   },
   {
