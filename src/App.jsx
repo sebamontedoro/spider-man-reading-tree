@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { ISSUES, ISSUE_BY_ID, TIMELINE, STATS, YEAR_RANGE } from './lib/dataset.js'
-import { DEFAULT_FILTERS, applyFilters, resolvePath } from './lib/filters.js'
+import { DEFAULT_FILTERS, applyFilters, resolvePath, isFilterActive } from './lib/filters.js'
 import { PATHS_BY_KEY } from '../data/paths.js'
 import { ARCS_BY_KEY } from '../data/arcs.js'
 
@@ -33,24 +33,45 @@ export default function App() {
     return new Map(ids.map((id, i) => [id, i + 1]))
   }, [path])
 
-  // Picking an arc should take you to where it starts, not leave you wherever
-  // you happened to be scrolled. Only fires on a change, so re-rendering for
-  // any other reason does not yank the page around.
-  const lastArc = useRef(null)
+  /**
+   * Narrowing the view should take you to the result, not just grey out
+   * everything else. Otherwise every filter is followed by a scroll hunt
+   * through sixty-four years of timeline.
+   *
+   * The trigger is the first *shown* issue changing, which covers every filter
+   * with one rule — year range, series, arc, character, search, a reading path
+   * — instead of a special case each. Selecting an arc lands on its earliest
+   * issue for free, because that is the first one still shown.
+   */
+  const firstShownId = useMemo(() => {
+    for (const i of ISSUES) {
+      if (!visibleIds.has(i.id)) continue
+      if (path && !pathOrder.has(i.id)) continue
+      return i.id
+    }
+    return null
+  }, [visibleIds, path, pathOrder])
+
+  const lastJump = useRef(undefined)
   useEffect(() => {
-    if (filters.arc === lastArc.current) return
-    lastArc.current = filters.arc
-    if (!filters.arc) return
+    const previous = lastJump.current
+    lastJump.current = firstShownId
 
-    const arc = ARCS_BY_KEY[filters.arc]
-    if (!arc) return
-    const first = arc.issues
-      .map((id) => ISSUE_BY_ID.get(id))
-      .filter(Boolean)
-      .sort((a, b) => a.coverDate.localeCompare(b.coverDate))[0]
+    // First render: record where we are, do not move.
+    if (previous === undefined) return
+    if (!firstShownId || firstShownId === previous) return
 
-    if (first) scrollToIssue(first)
-  }, [filters.arc])
+    // Clearing filters would otherwise fling you back to 1962, which is a
+    // reset of the view rather than a request to go somewhere.
+    if (!isFilterActive(filters) && !path) return
+
+    // Let a search settle before moving, so typing does not chase the page.
+    const t = setTimeout(() => {
+      const issue = ISSUE_BY_ID.get(firstShownId)
+      if (issue) scrollToIssue(issue)
+    }, 260)
+    return () => clearTimeout(t)
+  }, [firstShownId, filters, path])
 
   const selected = selectedId ? ISSUE_BY_ID.get(selectedId) : null
 
