@@ -143,6 +143,28 @@ for (const [id, list] of Object.entries(MILESTONES_BY_ISSUE)) {
  * decades instead of 9/11/13/5/2/2. Hand-set flags still win, so an editorial
  * call is never overridden.
  */
+/**
+ * A debut milestone that names its character feeds the firstAppearances field.
+ *
+ * The same drift as keyIssue had hit this too, harder: the field was written
+ * for the first three decades and is empty from 2001 on, while the debuts of
+ * those years went in as milestones instead. That emptied the character index
+ * and the "first appearance of" filter for two whole decades.
+ *
+ * Deriving one from the other keeps a debut in a single place. The milestone
+ * label is written to read in a timeline row ("Carnage arrives"); `character`
+ * is the indexable name.
+ */
+for (const issue of byId.values()) {
+  for (const m of issue.milestones || []) {
+    if (m.type !== 'debut' || !m.character) continue
+    issue.firstAppearances = issue.firstAppearances || []
+    if (!issue.firstAppearances.includes(m.character)) {
+      issue.firstAppearances.push(m.character)
+    }
+  }
+}
+
 const PREMISE_CHANGING = new Set(['status-quo', 'universe'])
 
 for (const issue of byId.values()) {
