@@ -84,6 +84,13 @@ export function parseFilename(base) {
   const fromHead = trailingNumber(head)
   if (fromHead) return fromHead
 
+  // A descriptor can follow the number instead of going in a bracket, as in
+  // "Amazing Fantasy 015 - Facsimile Edition (1962)". Cutting at the dash and
+  // retrying costs nothing when there is no dash, and only ever accepts a
+  // result that still ends in a number.
+  const beforeDash = trailingNumber(head.split(/\s+[-\u2013\u2014]\s+/)[0].trim())
+  if (beforeDash) return beforeDash
+
   // No number before the first tag — a filename like "ASM (1963) 001". Fall
   // back to removing the balanced groups and reading what is left.
   const stripped = stem.replace(/[([{][^)\]}]*[)\]}]/g, ' ').replace(/\s+/g, ' ').trim()
