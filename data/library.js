@@ -23,6 +23,12 @@ export const LIBRARY_FOLDERS = [
     // #1–441 are vol. 1; #500–700 are vol. 2 after Marvel restored the
     // original numbering, and share the directory with them.
     series: ['amazing-spider-man', 'amazing-spider-man-v2'],
+    // A number that does not mean what it says. This file is the 1997
+    // Flashback issue, #-1: the scene release is named "-001" and whoever
+    // organised this folder renamed it to "000" — same inode, same release
+    // tag. There is no Amazing Spider-Man #0. Aliasing it here fixes the match
+    // without renaming someone's files.
+    aliases: { '0': ['amazing-spider-man--1'] },
   },
   {
     dir: 'Amazing Spider-Man Annuals',

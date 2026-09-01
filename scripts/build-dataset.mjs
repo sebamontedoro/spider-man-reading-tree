@@ -119,6 +119,45 @@ for (const series of SERIES) {
       })
     }
   }
+
+  /**
+   * Issues that are not a step in the run's numbering.
+   *
+   * A segment is a contiguous range of whole numbers, which is the right model
+   * for a monthly book and no model at all for the two things Marvel does to
+   * one: the "Flashback" month of 1997, when every title shipped a #-1 set
+   * before its own first issue, and the point-one fill-ins of the 2010s, where
+   * #654.1 sits between #654 and #655. Both are single issues at an arbitrary
+   * number, so they are listed rather than generated.
+   */
+  for (const extra of series.extras || []) {
+    issues.push({
+      id: `${series.key}-${extra.number}`,
+      series: series.key,
+      seriesName: series.name,
+      seriesAbbr: series.abbr,
+      wikiTitle: extra.wikiTitle || series.wikiTitle,
+      ...(extra.wikiPage ? { wikiPage: extra.wikiPage } : {}),
+      number: extra.number,
+      coverDate: extra.coverDate,
+      yearOnly: false,
+      dateExact: extra.exact === true,
+      accent: series.accent,
+      universe: series.universe || 'earth-616',
+      role: series.role,
+      // A fill-in is worth reading but is not the spine of the run, so an
+      // extra may step down from the series default.
+      relevance: extra.relevance || series.relevance,
+      isAnnual: false,
+      isReprint: Boolean(series.isReprint),
+      outOfContinuity: Boolean(series.outOfContinuity),
+      arcs: [],
+      connections: [],
+      firstAppearances: [],
+      note: '',
+      generated: true,
+    })
+  }
 }
 
 /* -- ordering ------------------------------------------------------------- */

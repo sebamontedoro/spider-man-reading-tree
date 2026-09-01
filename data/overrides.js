@@ -312,4 +312,15 @@ export const OVERRIDES = {
     coverDate: '2014-04',
     dateExact: true,
   },
+
+  /* ------------------------------ numbers that are not steps in the run */
+  'amazing-spider-man--1': {
+    note: 'A #-1, and not a mistake: for one month in 1997 every Marvel title shipped one, set before its own first issue. Sits between #424 and #425 and looks backwards.',
+  },
+  'amazing-spider-man-v2-654.1': {
+    note: 'A point-one issue — a fill-in numbered between #654 and #655 rather than after it. Hands the Venom symbiote its next host.',
+  },
+  'amazing-spider-man-v2-700.1': {
+    note: 'The first of five epilogue issues published after #700 ended the run, all five cover-dated the same month.',
+  },
 }

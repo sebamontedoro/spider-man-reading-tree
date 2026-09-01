@@ -77,6 +77,13 @@ export const SERIES = [
       // Back to a steady monthly cadence for the rest of the volume.
       { from: 343, to: 441, startDate: '1991-01', endDate: '1998-11', endExact: true },
     ],
+    // Marvel's "Flashback" stunt of July 1997 gave every ongoing title a #-1,
+    // slotted between two ordinary issues and telling a story set before its
+    // own first. It is a real issue of this run at a number no sequence
+    // produces.
+    extras: [
+      { number: -1, coverDate: '1997-07', relevance: 'notable' },
+    ],
   },
   {
     key: 'amazing-spider-man-annual',
@@ -319,6 +326,20 @@ export const SERIES = [
       { from: 619, to: 640, startDate: '2010-04', endDate: '2010-10', endExact: true },
       { from: 641, to: 647, startDate: '2010-11', endDate: '2010-12', endExact: true },
       { from: 648, to: 700, startDate: '2011-01', endDate: '2013-02', endExact: true },
+    ],
+    // Point-one issues: fill-ins numbered between two ordinary ones. #700.1 to
+    // #700.5 all carry a February 2014 cover date — they shipped across three
+    // weeks of December 2013 as a single run-on, so five issues sharing a
+    // month here is correct rather than a fault in the data.
+    extras: [
+      { number: 654.1, coverDate: '2011-04', relevance: 'notable' },
+      { number: 679.1, coverDate: '2012-04', relevance: 'notable' },
+      { number: 699.1, coverDate: '2013-02', relevance: 'notable' },
+      { number: 700.1, coverDate: '2014-02', relevance: 'notable' },
+      { number: 700.2, coverDate: '2014-02', relevance: 'notable' },
+      { number: 700.3, coverDate: '2014-02', relevance: 'notable' },
+      { number: 700.4, coverDate: '2014-02', relevance: 'notable' },
+      { number: 700.5, coverDate: '2014-02', relevance: 'notable' },
     ],
   },
   {

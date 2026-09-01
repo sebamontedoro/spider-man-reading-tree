@@ -94,6 +94,12 @@ export function parseFilename(base) {
 function candidatesFor(relDir, title, number) {
   if (number === null) return []
   const folder = LIBRARY_FOLDERS.find((f) => f.dir === relDir)
+
+  // A folder may pin a number to specific issues, for the files whose name is
+  // simply wrong about which issue they hold.
+  const alias = folder?.aliases?.[number]
+  if (alias) return alias
+
   const keys = folder ? folder.series : (TITLE_FALLBACK.get(normalise(title)) || [])
   return keys.map((k) => `${k}-${number}`)
 }

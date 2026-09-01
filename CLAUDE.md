@@ -84,6 +84,24 @@ Database renames runs mid-stream — both `peter-parker-spectacular` and
 `spectacular-spider-man-annual` need a per-segment `wikiTitle` for exactly this
 reason.
 
+### Numbers that are not steps in the run
+
+A segment is a contiguous range of whole numbers. That is the right model for a
+monthly book and no model at all for the two things Marvel does to one, so a
+series may also carry `extras` — single issues listed outright:
+
+- **`#-1`.** For one month in 1997 every title shipped one, slotted between two
+  ordinary issues and set before its own first.
+- **Point-one issues.** `#654.1` sits between #654 and #655, not after it.
+  Numeric sort puts them in the right place for free.
+
+Both default to `relevance: 'notable'`: they are worth reading and are not the
+spine of the run.
+
+`#700.1`–`#700.5` all carry a February 2014 cover date. That is right — they
+shipped across three weeks of December 2013 as one run-on — so five issues
+sharing a month is not a fault to go fixing.
+
 ### When the number does not derive the page at all
 
 A segment may also carry `wikiPages`, a map from issue number to the page's
@@ -145,10 +163,14 @@ the series name parsed out of the filename, against a table derived from
 `data/series.js` — so a folder of Web of Spider-Man would resolve with no
 configuration at all.
 
-**739 of the 748 files on the shelf match an issue.** The other nine are gaps
-in the *tree*, not in the matcher: the eight point issues (`654.1`, `679.1`,
-`699.1`, `700.1`–`700.5`), which the generator does not model, and the 1997
-flashback filed as `000`.
+**All 748 files on the shelf match an issue.**
+
+One of them only because it is aliased. `Amazing Spider-Man 000 (1997)` is the
+Flashback issue **#-1** — the scene release is named `-001` and whoever
+organised the folder renamed it; same inode, same release tag, and there is no
+Amazing Spider-Man #0 for it to be. A folder in `data/library.js` can pin a
+parsed number to specific issue ids for exactly this, which beats renaming
+someone's files.
 
 Filenames are parsed by reading only up to the first bracket. Sixty-one files
 on the shelf have an unclosed one and five carry a bare `c2c` after the last
