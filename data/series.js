@@ -91,8 +91,30 @@ export const SERIES = [
     note: 'Oversized yearly specials. Several carry major first appearances.',
     segments: [
       { from: 1,  to: 24, startDate: '1964-10', endDate: '1990-08', cadence: 'annual', startExact: true, endExact: true },
-      // Marvel wound the annuals down mid-decade; this line stops at #28.
       { from: 25, to: 28, startDate: '1991-09', endDate: '1994-05', cadence: 'annual', startExact: true, endExact: true },
+      // 1995 had no annual, and from 1996 Marvel stopped numbering them: the
+      // covers read "Amazing Spider-Man '96" and the wiki files each one under
+      // its year. The numbers below are the legacy numbering the wiki itself
+      // assigns in its LegacyNumber field, which is the only thing tying
+      // "Vol 1 1998" to annual #31 — there is no "Vol 1 31" page to find.
+      { from: 29, to: 34, startDate: '1996-10', endDate: '2001-05', cadence: 'annual',
+        startExact: true, endExact: true,
+        wikiPages: {
+          29: 'Amazing Spider-Man Annual Vol 1 1996',
+          30: 'Amazing Spider-Man Annual Vol 1 1997',
+          31: 'Amazing Spider-Man Annual Vol 1 1998',
+          32: 'Amazing Spider-Man Annual Vol 1 1999',
+          33: 'Amazing Spider-Man Annual Vol 1 2000',
+          34: 'Amazing Spider-Man Annual Vol 1 2001',
+        } },
+      // Then nothing for seven years. The 2008 revival is a fresh volume that
+      // restarts at #1 and then, from the following year, jumps to the legacy
+      // number — so #35 is "Vol 2 1" while #36 to #39 are "Vol 2 36" to
+      // "Vol 2 39", and only the first needs naming.
+      { from: 35, to: 39, startDate: '2008-12', endDate: '2012-07', cadence: 'annual',
+        startExact: true, endExact: true,
+        wikiTitle: 'Amazing Spider-Man Annual Vol 2',
+        wikiPages: { 35: 'Amazing Spider-Man Annual Vol 2 1' } },
     ],
   },
 

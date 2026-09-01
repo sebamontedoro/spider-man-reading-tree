@@ -93,6 +93,12 @@ for (const series of SERIES) {
         // A renamed series is filed under a different wiki page mid-run, so the
         // segment's title wins over the series default when present.
         wikiTitle: seg.wikiTitle || series.wikiTitle,
+        // …and where even that does not derive the right page, the segment can
+        // name it outright. Marvel Database files the 1996–2001 Spider-Man
+        // annuals by year rather than by number, so "Vol 1 31" is not a page at
+        // all — the issue is at "Vol 1 1998", and only the wiki's own
+        // LegacyNumber field ties the two together.
+        ...(seg.wikiPages?.[number] ? { wikiPage: seg.wikiPages[number] } : {}),
         number,
         coverDate,
         yearOnly: Boolean(annual),

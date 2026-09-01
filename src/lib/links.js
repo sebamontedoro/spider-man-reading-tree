@@ -17,9 +17,15 @@
 
 const enc = encodeURIComponent
 
-/** `Amazing Spider-Man Vol 1` + 31 → the wiki page title. */
+/**
+ * `Amazing Spider-Man Vol 1` + 31 → the wiki page title.
+ *
+ * An issue may carry the page outright, for the runs where the number does not
+ * derive it: Marvel Database files the 1996–2001 Spider-Man annuals by year, so
+ * annual #31 lives at "Amazing Spider-Man Annual Vol 1 1998".
+ */
 const wikiPage = (issue) =>
-  `${issue.wikiTitle} ${issue.number}`.replace(/ /g, '_')
+  (issue.wikiPage || `${issue.wikiTitle} ${issue.number}`).replace(/ /g, '_')
 
 /** Human-readable query used for the search-based links. */
 const searchQuery = (issue) =>

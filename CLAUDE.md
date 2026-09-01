@@ -84,6 +84,23 @@ Database renames runs mid-stream — both `peter-parker-spectacular` and
 `spectacular-spider-man-annual` need a per-segment `wikiTitle` for exactly this
 reason.
 
+### When the number does not derive the page at all
+
+A segment may also carry `wikiPages`, a map from issue number to the page's
+full title, for the issues where no `wikiTitle` would produce it. That is not a
+hypothetical: Marvel stopped numbering the Spider-Man annuals in 1996 and the
+wiki files them by year, so annual **#31 lives at
+`Amazing Spider-Man Annual Vol 1 1998`** and there is no `Vol 1 31` page to
+find. The 2008 revival then restarts at `Vol 2 1` before jumping to the legacy
+number from `Vol 2 36` on.
+
+The only thing tying the two numberings together is the wiki's own
+**`LegacyNumber`** field on each issue page. Read that rather than inferring a
+sequence — #29 and #30 have redirects from their legacy numbers, but #31–#34
+do not, so a run of redirects tells you nothing about the rest. `wikiPage`
+flows through the generator to both `verify:wiki` and the outbound link, so an
+issue named this way is verified and linked like any other.
+
 ## The comic reader
 
 Issues with a local file behind them can be read in the page. `data/` still
@@ -128,10 +145,10 @@ the series name parsed out of the filename, against a table derived from
 `data/series.js` — so a folder of Web of Spider-Man would resolve with no
 configuration at all.
 
-**728 of the 748 files on the shelf match an issue.** The other 20 are gaps in
-the *tree*, not in the matcher: ASM Annuals #29–39, which the tree stops short
-of at #28; the eight point issues (`654.1`, `700.1`–`700.5`), which the
-generator does not model; and the 1997 flashback filed as `000`.
+**739 of the 748 files on the shelf match an issue.** The other nine are gaps
+in the *tree*, not in the matcher: the eight point issues (`654.1`, `679.1`,
+`699.1`, `700.1`–`700.5`), which the generator does not model, and the 1997
+flashback filed as `000`.
 
 Filenames are parsed by reading only up to the first bracket. Sixty-one files
 on the shelf have an unclosed one and five carry a bare `c2c` after the last

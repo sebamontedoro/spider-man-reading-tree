@@ -49,7 +49,11 @@ const missingOnly = args.includes('--missing')
 
 /* -- helpers -------------------------------------------------------------- */
 
-const pageTitle = (issue) => `${issue.wikiTitle} ${issue.number}`
+/**
+ * `<wikiTitle> <number>` for almost everything, but an issue may name its page
+ * outright when that does not derive — see `wikiPages` in data/series.js.
+ */
+const pageTitle = (issue) => issue.wikiPage || `${issue.wikiTitle} ${issue.number}`
 
 const field = (text, name) => {
   const m = text.match(new RegExp(`\\|\\s*${name}\\d*\\s*=\\s*([^\\n|]+)`))
