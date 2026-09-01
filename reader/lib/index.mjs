@@ -91,6 +91,13 @@ export function parseFilename(base) {
   const beforeDash = trailingNumber(head.split(/\s+[-\u2013\u2014]\s+/)[0].trim())
   if (beforeDash) return beforeDash
 
+  // Or the descriptor is a bare word: "Spectacular Spider-Man V1 -1 Flashback".
+  // Drop one trailing word and retry — one, not any number of them, because
+  // each extra word dropped is another chance to read a year or a volume as
+  // the issue number.
+  const dropped = trailingNumber(head.replace(/\s+\S+$/, ''))
+  if (dropped) return dropped
+
   // No number before the first tag — a filename like "ASM (1963) 001". Fall
   // back to removing the balanced groups and reading what is left.
   const stripped = stem.replace(/[([{][^)\]}]*[)\]}]/g, ' ').replace(/\s+/g, ' ').trim()
@@ -106,6 +113,18 @@ function candidatesFor(relDir, title, number) {
   // simply wrong about which issue they hold.
   const alias = folder?.aliases?.[number]
   if (alias) return alias
+
+  // …and it may route by what the filename calls the book, for the folders
+  // that hold a run and its annuals together: "Spectacular Spider-Man V1 12"
+  // and "Spectacular Spider-Man V1 Annual 12" are both number 12, and only the
+  // title tells them apart. Keys are substrings of the normalised title,
+  // tested in order.
+  if (folder?.titles) {
+    const t = normalise(title)
+    for (const [needle, keys] of Object.entries(folder.titles)) {
+      if (t.includes(needle)) return keys.map((k) => `${k}-${number}`)
+    }
+  }
 
   const keys = folder ? folder.series : (TITLE_FALLBACK.get(normalise(title)) || [])
   return keys.map((k) => `${k}-${number}`)

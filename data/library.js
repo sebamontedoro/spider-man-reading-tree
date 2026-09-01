@@ -35,6 +35,35 @@ export const LIBRARY_FOLDERS = [
     series: ['amazing-spider-man-annual'],
   },
   {
+    // A separate download with its own conventions: the volume is in the
+    // filename ("Spectacular Spider-Man V1 042"), and the annuals sit in with
+    // the run instead of in their own folder — which is what `titles` is for.
+    dir: 'Spectacular Spider-Man/Volume 1 (1976)',
+    series: ['peter-parker-spectacular'],
+    titles: { annual: ['spectacular-spider-man-annual'] },
+  },
+  {
+    dir: 'Spectacular Spider-Man/Volume 2 (2003)',
+    series: ['spectacular-spider-man-v2'],
+  },
+  {
+    // Zdarsky's 2017 run, which numbers #1–6 and then jumps to the legacy
+    // #297–313. Both are in this folder, and both belong to the same key.
+    dir: 'Spectacular Spider-Man/Volume 3 (2017)',
+    series: ['peter-parker-spectacular-2017'],
+    titles: { annual: ['peter-parker-spectacular-2017-annual'] },
+  },
+  {
+    dir: 'Spectacular Spider-Man/Magazine (1968)',
+    series: ['spectacular-spider-man-magazine'],
+  },
+  {
+    // The odds and ends: the 1997 Flashback #-1 and the 2011 #1000 one-shot,
+    // both of which the tree files under the 1976 run.
+    dir: 'Spectacular Spider-Man/Extra',
+    series: ['peter-parker-spectacular'],
+  },
+  {
     dir: 'Amazing Spider-Man Vol 2 (1999)',
     // Filed as "Volume Two" in the filenames, which no title guess would map
     // to vol. 2 on its own — #1–58 here are a different issue from #1–58 of

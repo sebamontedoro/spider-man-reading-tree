@@ -195,6 +195,19 @@ export const SERIES = [
       { from: 172, to: 263, startDate: '1991-01', endDate: '1998-11',
         wikiTitle: 'Spectacular Spider-Man Vol 1', startExact: true, endExact: true },
     ],
+    // Both sit outside the numbering, and both under the *renamed* title —
+    // by 1997 the book was plain Spectacular Spider-Man, so neither derives
+    // from this series' own wikiTitle.
+    extras: [
+      { number: -1, coverDate: '1997-07', relevance: 'notable',
+        wikiTitle: 'Spectacular Spider-Man Vol 1' },
+      // A 2011 anniversary one-shot, thirteen years after the run ended. It
+      // carries the old title and a number nobody reached, so it lands in 2011
+      // on the timeline under a series that stopped in 1998 — which is exactly
+      // what it is.
+      { number: 1000, coverDate: '2011-06', relevance: 'notable',
+        wikiTitle: 'Spectacular Spider-Man Vol 1' },
+    ],
   },
   {
     key: 'spectacular-spider-man-annual',
@@ -450,6 +463,27 @@ export const SERIES = [
       { from: 789, to: 801, startDate: '2017-12', endDate: '2018-08', startExact: true, endExact: true },
     ],
   },
+  {
+    key: 'peter-parker-spectacular-2017',
+    name: 'Peter Parker: The Spectacular Spider-Man', abbr: 'PPSSM 17', vol: 1,
+    // A different title from the 1976 book, and the wiki files it as its own
+    // Vol 1 — the colon is what separates the two.
+    wikiTitle: 'Peter Parker: The Spectacular Spider-Man Vol 1', accent: 'ppssm',
+    role: 'lead', relevance: 'core',
+    note: 'Chip Zdarsky\u2019s run. Six issues in, it switched to the legacy numbering and carried on.',
+    segments: [
+      { from: 1, to: 6, startDate: '2017-08', endDate: '2018-01', startExact: true, endExact: true },
+      { from: 297, to: 313, startDate: '2018-01', endDate: '2019-02', startExact: true, endExact: true },
+    ],
+  },
+  {
+    key: 'peter-parker-spectacular-2017-annual',
+    name: 'Peter Parker: The Spectacular Spider-Man Annual', abbr: 'PPSSM 17 ANN', vol: 1,
+    wikiTitle: 'Peter Parker: The Spectacular Spider-Man Annual Vol 1', accent: 'ppssm',
+    role: 'lead', relevance: 'notable', isAnnual: true,
+    segments: [{ from: 1, to: 1, startDate: '2018-08', endDate: '2018-08', startExact: true, endExact: true }],
+  },
+
   {
     key: 'amazing-spider-man-v5',
     name: 'The Amazing Spider-Man (vol. 5)', abbr: 'ASM v5', vol: 5,
