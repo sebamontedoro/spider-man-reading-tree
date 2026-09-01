@@ -5,7 +5,9 @@ An interactive visual reading guide to Spider-Man's first three decades in print
 appearances that carry real story weight, with a focus graph showing how any
 issue connects to what came before and after.
 
-Vite + React, no backend. UI and content are in English.
+Vite + React. The site itself is static; a small companion service serves
+pages out of local .cbz/.cbr files when there is a shelf to read from, and the
+site works without it. UI and content are in English.
 
 ## Running it
 
@@ -17,7 +19,7 @@ npm run verify:wiki    # refresh dates and Marvel ids from the wiki (network)
 npm run build          # build:data + production build
 ```
 
-## The four data layers
+## The data layers
 
 The single most important thing to understand about this codebase:
 
@@ -29,11 +31,13 @@ The single most important thing to understand about this codebase:
 | 4 | Corrections & notes | `data/overrides.js` | Yes |
 | 5 | Guest appearances | `data/appearances.js` | Yes |
 | 6 | Arcs & crossovers | `data/arcs.js` | Yes |
+| 7 | Comic shelf folders | `data/library.js` | Yes |
 
 Layers 1–3 are machine-produced and disposable — 1 from `npm run build:data`,
 2 and 3 from a single `npm run verify:wiki` crawl. **Editing either directly
-loses your work on the next run.** Layers 3 to 5 are hand-curated and always
-win. `src/lib/dataset.js` merges all five at load time.
+loses your work on the next run.** Layers 4 to 7 are hand-curated and always
+win. `src/lib/dataset.js` merges 1–6 at load time; layer 7 is read by the comic
+reader instead, and is the only one that describes files rather than issues.
 
 To correct one issue — a wrong date, a missing first appearance, a note — add it
 to `data/overrides.js` keyed by its id. Ids are `<series-key>-<number>`, e.g.
@@ -80,6 +84,66 @@ Database renames runs mid-stream — both `peter-parker-spectacular` and
 `spectacular-spider-man-annual` need a per-segment `wikiTitle` for exactly this
 reason.
 
+## The comic reader
+
+Issues with a local file behind them can be read in the page. `data/` still
+holds no artwork and no file paths — the shelf is discovered at runtime.
+
+### Why there is a service at all
+
+A third of the shelf is `.cbr`, which is RAR, and the archives run 30–50 MB
+each. Unpacking those in the browser means shipping a WASM extractor and
+downloading a whole archive to show its first page. `reader/server.mjs` opens
+one page instead, in about 15 ms, and works the same for both containers.
+
+It has **no npm dependencies** — Node builtins plus `bsdtar` — which is worth
+keeping. Two details earn their place:
+
+- **`.cbz` is read in process.** `reader/lib/zip.mjs` is a small
+  random-access zip reader: central directory, then a seek straight to the one
+  entry wanted. Verified against all 445 zip archives on the shelf.
+- **`.cbr` is unpacked once, whole,** into a disposable page cache, then served
+  from disk (0.5 s cold, 3 ms after). `bsdtar` and not `7z`: Debian and Alpine
+  both ship p7zip *without* the RAR decoder, because its licence is not free,
+  and it fails every entry with "Unsupported Method" after listing the archive
+  quite happily.
+
+The cache is a named volume, and it has to be one. Bind-mounting a host
+directory gives root ownership to a container that runs as `node`, and every
+`.cbr` then fails one request at a time; the service warns about that at
+startup rather than letting it be discovered a page at a time.
+
+### The service knows nothing about issues
+
+`/api/library` returns, per archive, the issue ids it *could* be — in priority
+order — and the browser picks the first that names a real issue, because the
+browser is where the dataset lives. So extending the tree needs no redeploy of
+the service, and adding comics needs no rebuild of the site.
+
+`data/library.js` maps a folder to the series keys its files may belong to.
+Order is priority, which is what lets one folder hold two series: the 1963
+directory contains both #1–441 and the post-renumbering #500–700, and only the
+second lot are vol. 2. Anything in an unmapped folder falls back to matching on
+the series name parsed out of the filename, against a table derived from
+`data/series.js` — so a folder of Web of Spider-Man would resolve with no
+configuration at all.
+
+**728 of the 748 files on the shelf match an issue.** The other 20 are gaps in
+the *tree*, not in the matcher: ASM Annuals #29–39, which the tree stops short
+of at #28; the eight point issues (`654.1`, `700.1`–`700.5`), which the
+generator does not model; and the 1997 flashback filed as `000`.
+
+Filenames are parsed by reading only up to the first bracket. Sixty-one files
+on the shelf have an unclosed one and five carry a bare `c2c` after the last
+group, and stripping balanced groups instead loses the issue number in all of
+them.
+
+### Reading position
+
+`src/lib/progress.js` keeps the last page per issue in localStorage — per
+browser, never leaving the machine. Read/unread on the cards and the two shelf
+filters are derived from it rather than stored separately.
+
 ## Deploying
 
 ### The live deployment
@@ -91,6 +155,12 @@ Running at **http://dell-server:8082**, deployed with:
   --dir /home/server/docker-services/spider-man \
   --port 8082
 ```
+
+The shelf defaults to `/mnt/hdd/media/books/comics` on that host — 748
+archives, hardlinked to the torrent directory, so it costs no extra disk. Point
+it elsewhere with `--comics <path>`, or pass `--comics ""` to deploy the site
+without the reader. A missing directory is not an error: the script says so and
+deploys the site alone.
 
 Three things about that host are not the script's defaults and are worth
 remembering: the SSH user is `server` (not the local username), services live
@@ -174,4 +244,11 @@ sources into them.
 
 ## Not built (yet)
 
-Read/unread tracking was explicitly left out of the first pass.
+Read/unread tracking was explicitly left out of the first pass. What exists now
+is only what the reader could not do without — a resume position per issue, in
+localStorage — and everything on top of it is derived from that.
+
+The reader is one page at a time: no two-page spreads, and no downscaling for
+phones. Pages are served at their scan resolution (often 2175×3075, ~1.4 MB)
+because zoom needs it, which is fine on a LAN and would not be over the
+internet.

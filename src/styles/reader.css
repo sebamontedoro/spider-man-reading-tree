@@ -1,0 +1,224 @@
+/* ==========================================================================
+   The comic reader.
+
+   Deliberately the one dark surface in the app. Artwork reads better against
+   near-black than against newsprint cream, and the switch tells you plainly
+   that you have stopped browsing the tree and started reading a comic. The
+   comic register carries over in everything else: square corners, heavy rules,
+   the same red and gold.
+   ========================================================================== */
+
+.reader {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: #0b0a09;
+  color: #efe7d8;
+  /* The bars are fixed; the artwork is what may sit under a notch. */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+           env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* -- top bar --------------------------------------------------------------- */
+
+.reader__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--ink);
+  border-bottom: var(--rule-heavy) solid var(--red);
+  min-height: 44px;
+}
+
+.reader__close {
+  width: 30px; height: 30px;
+  flex: none;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.reader__close:hover { background: var(--red-deep); }
+
+.reader__id {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+.reader__series {
+  color: #b9ae9c;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.reader__number {
+  font-family: var(--font-display);
+  font-size: var(--t-title);
+  color: var(--gold);
+}
+
+.reader__tools {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.reader__tool {
+  background: transparent;
+  border: 1px solid #4a443c;
+  color: #efe7d8;
+  padding: 5px 9px;
+  font-family: var(--font-display);
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+.reader__tool:hover { background: #241f1b; }
+.reader__tool--on { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+
+.reader__zoom { display: flex; align-items: center; gap: 2px; }
+.reader__pct {
+  min-width: 44px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  color: #b9ae9c;
+  font-variant-numeric: tabular-nums;
+}
+
+/* -- the page -------------------------------------------------------------- */
+
+.reader__stage {
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+  /* Every gesture is handled in src/lib/panzoom.js; letting the browser also
+     scroll or pinch here would fight it. */
+  touch-action: none;
+  cursor: grab;
+  background:
+    repeating-linear-gradient(45deg, #100e0c 0 8px, #0b0a09 8px 16px);
+}
+.reader__stage:active { cursor: grabbing; }
+
+.reader__page {
+  position: absolute;
+  top: 0; left: 0;
+  transform-origin: 0 0;
+  user-select: none;
+  -webkit-user-drag: none;
+  /* The transform changes every pointermove; promoting it keeps a 2000px-wide
+     scan smooth instead of re-rasterising each frame. */
+  will-change: transform;
+  box-shadow: 0 0 0 1px #000, 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* The page you were reading stays up while the next one decodes, dimmed just
+   enough to read as "working" without going dark between every turn. */
+.reader__stage.is-busy .reader__page { opacity: 0.45; }
+
+.reader__spinner {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 34px; height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 3px solid rgba(239, 231, 216, 0.25);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: reader-spin 700ms linear infinite;
+}
+@keyframes reader-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .reader__spinner { animation-duration: 2s; }
+}
+
+.reader__message {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  text-align: center;
+  padding: var(--sp-5);
+  color: #d6ccbb;
+}
+
+/* -- bottom bar ------------------------------------------------------------ */
+
+.reader__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--ink);
+  border-top: var(--rule) solid #3a342e;
+}
+
+.reader__turn {
+  flex: none;
+  min-width: 44px;
+  height: 34px;
+  background: transparent;
+  border: 1px solid #4a443c;
+  color: #efe7d8;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.reader__turn:hover:not(:disabled) { background: #241f1b; }
+.reader__turn:disabled { opacity: 0.3; cursor: default; }
+.reader__turn--next-issue {
+  width: auto;
+  padding: 0 var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.reader__scrub { flex: 1; display: flex; min-width: 0; }
+.reader__scrub input {
+  width: 100%;
+  accent-color: var(--red);
+  cursor: pointer;
+}
+
+.reader__count {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  color: #b9ae9c;
+  font-variant-numeric: tabular-nums;
+}
+
+/* -- phone ----------------------------------------------------------------- */
+
+/* Must stay in step with PHONE in src/lib/useMediaQuery.js: the reader also
+   changes behaviour at that width — it opens fitted to the width rather than
+   to the page — and a gap between the two would leave a band of widths reading
+   as a phone in JS and as a desktop in CSS. */
+@media (max-width: 760px) {
+  .reader__bar { gap: var(--sp-2); padding: var(--sp-2); }
+  .reader__series { display: none; }
+  .reader__tools { gap: 4px; }
+  .reader__tool { padding: 5px 7px; letter-spacing: 0.04em; }
+  .reader__pct { min-width: 38px; }
+  /* Thumb-sized targets: page turns are the one control used constantly. */
+  .reader__turn { min-width: 52px; height: 40px; }
+}

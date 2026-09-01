@@ -1,7 +1,7 @@
 import YearBand from './YearBand.jsx'
 
 export default function Timeline({
-  timeline, visibleIds, pathOrder, pathActive, selectedId, onSelect,
+  timeline, visibleIds, pathOrder, pathActive, selectedId, onSelect, shelfMarks,
 }) {
   return (
     <div className="timeline halftone-ground">
@@ -21,6 +21,7 @@ export default function Timeline({
             pathActive={pathActive}
             selectedId={selectedId}
             onSelect={onSelect}
+            shelfMarks={shelfMarks}
           />
         ))}
       </div>

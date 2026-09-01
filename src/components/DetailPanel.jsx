@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { linksFor } from '../lib/links.js'
+import { progressFor, setRead, useProgress } from '../lib/progress.js'
 import { useMediaQuery, PHONE } from '../lib/useMediaQuery.js'
 import { ARCS_BY_KEY } from '../../data/arcs.js'
 import { MILESTONE_TYPES } from '../../data/milestones.js'
@@ -19,8 +20,9 @@ const formatDate = (issue) => {
 const PEEK = 0.38   // fraction of the viewport left showing the timeline
 const FULL = 0.06
 
-export default function DetailPanel({ issue, byId, onSelect, onClose }) {
+export default function DetailPanel({ issue, byId, onSelect, onClose, onRead, onShelf }) {
   const isPhone = useMediaQuery(PHONE)
+  useProgress()   // re-render when the reading position changes
   const [offset, setOffset] = useState(null)   // null = resting at PEEK
   const drag = useRef(null)
   const sheetRef = useRef(null)
@@ -115,6 +117,32 @@ export default function DetailPanel({ issue, byId, onSelect, onClose }) {
         )}
 
         {issue.note && <p className="detail__note">{issue.note}</p>}
+
+        {/* The whole point of the shelf: a copy of this issue is on the
+            server, so it can be read here rather than only looked up. */}
+        {onShelf && (() => {
+          const saved = progressFor(issue.id)
+          const part = saved && !saved.done && saved.page > 1
+          return (
+            <div className="detail__read">
+              <button className="detail__read-btn" onClick={() => onRead(issue.id)}>
+                {part ? `Resume on page ${saved.page}` : saved?.done ? 'Read it again' : 'Read it here'}
+              </button>
+              <span className="detail__read-note">
+                {part && saved.pages ? `${saved.page} of ${saved.pages} pages` : null}
+                {saved?.done ? 'Finished' : null}
+              </span>
+              {saved && (
+                <button
+                  className="detail__read-mark"
+                  onClick={() => setRead(issue.id, !saved.done)}
+                >
+                  {saved.done ? 'Mark unread' : 'Mark read'}
+                </button>
+              )}
+            </div>
+          )
+        })()}
 
         {!issue.digital && (
           <p className="detail__nodigital">

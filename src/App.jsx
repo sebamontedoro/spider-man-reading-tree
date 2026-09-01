@@ -6,10 +6,13 @@ import { PATHS_BY_KEY } from '../data/paths.js'
 import { ARCS_BY_KEY } from '../data/arcs.js'
 
 import { scrollToIssue } from './lib/scrollToIssue.js'
+import { useShelf } from './lib/shelf.js'
+import { statusOf, useProgress } from './lib/progress.js'
 
 import FilterBar from './components/FilterBar.jsx'
 import Timeline from './components/Timeline.jsx'
 import DetailPanel from './components/DetailPanel.jsx'
+import Reader from './components/Reader.jsx'
 
 import './styles/app.css'
 
@@ -17,14 +20,27 @@ export default function App() {
   const [filters, setFilters] = useState(DEFAULT_FILTERS)
   const [pathKey, setPathKey] = useState(null)
   const [selectedId, setSelectedId] = useState(null)
+  const [readingId, setReadingId] = useState(null)
 
   const path = pathKey ? PATHS_BY_KEY[pathKey] : null
+
+  // Which issues have a local file behind them, and how far into each you got.
+  // Empty until the reader service answers — and permanently empty when there
+  // is none, which is a supported way to run this.
+  const shelf = useShelf()
+  const progress = useProgress()
+
+  const shelfMarks = useMemo(() => {
+    const marks = new Map()
+    for (const id of shelf.byIssue.keys()) marks.set(id, statusOf(id))
+    return marks
+  }, [shelf, progress])
 
   // Ids surviving the filters. Everything else is dimmed rather than removed,
   // so the shape of the timeline stays readable while you narrow it down.
   const visibleIds = useMemo(
-    () => new Set(applyFilters(ISSUES, filters).map((i) => i.id)),
-    [filters],
+    () => new Set(applyFilters(ISSUES, filters, shelfMarks).map((i) => i.id)),
+    [filters, shelfMarks],
   )
 
   // Position along the active reading path, used to number the route.
@@ -82,6 +98,25 @@ export default function App() {
 
   const shownCount = path ? pathOrder.size : visibleIds.size
 
+  /* -- the reader --------------------------------------------------------- */
+
+  const reading = readingId ? ISSUE_BY_ID.get(readingId) : null
+  const readingComic = readingId ? shelf.byIssue.get(readingId) : null
+
+  /**
+   * The next issue of the same run, but only when it too is on the shelf —
+   * that is what the reader offers at the last page. Following a "continues"
+   * connection keeps this in step with the tree rather than guessing that the
+   * next issue is this number plus one.
+   */
+  const nextOnShelf = useMemo(() => {
+    if (!reading) return null
+    const link = (reading.connections || [])
+      .find((c) => c.type === 'continues' && c.dir === 'forward')
+    const next = link ? ISSUE_BY_ID.get(link.to) : null
+    return next && shelf.byIssue.has(next.id) ? next : null
+  }, [reading, shelf])
+
   return (
     <div className={`app ${selected ? 'app--panel-open' : ''}`}>
       <header className="masthead halftone-red">
@@ -109,6 +144,7 @@ export default function App() {
         onPathChange={setPathKey}
         shownCount={shownCount}
         totalCount={STATS.total}
+        shelfCount={shelf.byIssue.size}
       />
 
       <main className="app__body">
@@ -119,6 +155,7 @@ export default function App() {
           pathActive={Boolean(path)}
           selectedId={selectedId}
           onSelect={handleSelect}
+          shelfMarks={shelfMarks}
         />
       </main>
 
@@ -127,7 +164,19 @@ export default function App() {
         byId={ISSUE_BY_ID}
         onSelect={handleSelect}
         onClose={() => setSelectedId(null)}
+        onRead={setReadingId}
+        onShelf={selected ? shelf.byIssue.has(selected.id) : false}
       />
+
+      {reading && readingComic && (
+        <Reader
+          issue={reading}
+          comicKey={readingComic.key}
+          nextIssue={nextOnShelf}
+          onOpenIssue={(id) => { setReadingId(id); setSelectedId(id) }}
+          onClose={() => setReadingId(null)}
+        />
+      )}
     </div>
   )
 }

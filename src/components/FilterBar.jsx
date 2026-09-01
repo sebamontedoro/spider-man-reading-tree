@@ -14,7 +14,7 @@ const RELEVANCE = [
 ]
 
 export default function FilterBar({
-  filters, onChange, pathKey, onPathChange, shownCount, totalCount,
+  filters, onChange, pathKey, onPathChange, shownCount, totalCount, shelfCount = 0,
 }) {
   const isPhone = useMediaQuery(PHONE)
   const [sheetOpen, setSheetOpen] = useState(false)
@@ -171,6 +171,30 @@ export default function FilterBar({
           >
             Readable now
           </button>
+
+          {/* Only offered when there is a shelf to filter by. Without the
+              reader service these would just empty the timeline with no way
+              for anyone to work out why. */}
+          {shelfCount > 0 && (
+            <>
+              <button
+                className={`chip chip--shelf ${filters.onShelf ? 'chip--on' : ''}`}
+                onClick={() => set({ onShelf: !filters.onShelf })}
+                aria-pressed={filters.onShelf}
+                title={`Only the ${shelfCount} issues held on the shelf`}
+              >
+                On my shelf
+              </button>
+              <button
+                className={`chip chip--shelf ${filters.unreadOnly ? 'chip--on' : ''}`}
+                onClick={() => set({ unreadOnly: !filters.unreadOnly })}
+                aria-pressed={filters.unreadOnly}
+                title="On the shelf and not finished"
+              >
+                Not read yet
+              </button>
+            </>
+          )}
         </span>
       </div>
 

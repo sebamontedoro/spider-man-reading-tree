@@ -5,6 +5,8 @@
  * default: it triples the node count without adding a story.
  */
 
+import { ABSENT, READ } from './progress.js'
+
 export const DEFAULT_FILTERS = {
   series: null,        // series key, or null for all
   yearFrom: null,
@@ -18,6 +20,8 @@ export const DEFAULT_FILTERS = {
   milestoneOnly: false,
   milestoneType: null,   // 'debut' | 'death' | 'event' | 'status-quo' | 'universe'
   universe: null,        // null shows every continuity
+  onShelf: false,        // only issues with a local file behind them
+  unreadOnly: false,     // …and only the ones not finished yet
 }
 
 const normalize = (s) => String(s || '').toLowerCase()
@@ -37,10 +41,23 @@ const matchesQuery = (issue, q) => {
   )
 }
 
-export const applyFilters = (issues, f) => {
+/**
+ * @param shelf  issueId → reading status, from src/lib/progress.js. Absent
+ *               when the reader service is not running, which is why the two
+ *               shelf filters are also hidden in that case rather than
+ *               silently emptying the timeline.
+ */
+export const applyFilters = (issues, f, shelf = null) => {
   const year = (i) => Number(i.coverDate.slice(0, 4))
 
   return issues.filter((i) => {
+    if (f.onShelf && !shelf?.has(i.id)) return false
+    if (f.unreadOnly) {
+      // "Not read yet" means unfinished, which includes one you are halfway
+      // through — those are the ones you most want to be shown.
+      const status = shelf?.get(i.id) ?? ABSENT
+      if (status === ABSENT || status === READ) return false
+    }
     if (f.series && i.series !== f.series) return false
     if (f.relevance?.length && !f.relevance.includes(i.relevance)) return false
     if (f.yearFrom && year(i) < f.yearFrom) return false
@@ -103,6 +120,8 @@ export const countActiveFilters = (f) => {
   if (f.digitalOnly) n++
   if (f.milestoneOnly) n++
   if (f.milestoneType) n++
+  if (f.onShelf) n++
+  if (f.unreadOnly) n++
   if (f.yearFrom || f.yearTo) n++
   // Relevance counts only when it differs from the default set.
   if (f.relevance.length !== DEFAULT_FILTERS.relevance.length) n++
@@ -120,6 +139,8 @@ export const isFilterActive = (f) =>
       f.milestoneOnly ||
       f.milestoneType ||
       f.universe ||
+      f.onShelf ||
+      f.unreadOnly ||
       f.yearFrom ||
       f.yearTo ||
       f.relevance.length !== DEFAULT_FILTERS.relevance.length,

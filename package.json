@@ -8,7 +8,8 @@
     "build": "npm run build:data && vite build",
     "preview": "vite preview",
     "build:data": "node scripts/build-dataset.mjs",
-    "verify:wiki": "node scripts/verify-wiki.mjs"
+    "verify:wiki": "node scripts/verify-wiki.mjs",
+    "dev:reader": "COMICS_DIR=${COMICS_DIR:-./comics} CACHE_DIR=${CACHE_DIR:-./.cache/pages} node reader/server.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

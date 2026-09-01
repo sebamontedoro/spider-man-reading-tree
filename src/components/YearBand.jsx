@@ -15,6 +15,7 @@ const MONTHS = ['', 'JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE',
  */
 export default function YearBand({
   year, months, count, visibleIds, pathOrder, pathActive, selectedId, onSelect,
+  shelfMarks,
 }) {
   const ref = useRef(null)
   const [near, setNear] = useState(false)
@@ -74,6 +75,7 @@ export default function YearBand({
                       selected={selectedId === issue.id}
                       pathIndex={pathOrder.get(issue.id)}
                       onSelect={onSelect}
+                      shelf={shelfMarks?.get(issue.id) || 0}
                     />
                   ))}
                 </div>

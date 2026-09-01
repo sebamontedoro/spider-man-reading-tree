@@ -22,6 +22,37 @@ services:
       retries: 3
       start_period: 5s
 
+  # The comic reader. Optional: the site serves the reading tree perfectly well
+  # without it, and nginx resolves the upstream lazily so it starts either way.
+  # What it needs is a directory of .cbz/.cbr files, mounted read-only — it
+  # never writes to the shelf.
+  spider-man-reader:
+    build:
+      context: .
+      dockerfile: reader/Dockerfile
+    image: spider-man-reader:latest
+    container_name: spider-man-reader
+    restart: unless-stopped
+    networks:
+      - docker-services
+    volumes:
+      - ${SPIDERMAN_COMICS:-/mnt/hdd/media/books/comics}:/comics:ro
+      # Pages unpacked from rar archives. Disposable — deleting this volume
+      # costs one re-extraction per comic, nothing else.
+      - spider-man-pages:/cache
+    environment:
+      # Ceiling for that cache, evicted least-recently-read first.
+      CACHE_MAX_BYTES: ${SPIDERMAN_CACHE_BYTES:-4294967296}
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8787/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  spider-man-pages:
+
 networks:
   docker-services:
     # Created by the host's own docker-services stack; we only attach to it.

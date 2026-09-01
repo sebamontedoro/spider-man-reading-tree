@@ -929,3 +929,65 @@
   .detail__number { font-size: 36px; }
   .focusgraph__scroll { max-width: 100%; }
 }
+
+/* -- the shelf ------------------------------------------------------------ */
+
+/* A local file exists for this issue. One mark in the corner, three states:
+   never opened, part-read, finished. Deliberately quiet — the card already
+   carries the series, the number, the date, the digital dot and the star. */
+.issue__shelf {
+  position: absolute;
+  left: 3px;
+  bottom: 3px;
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--ink);
+}
+.issue__shelf--new  { background: transparent; }
+.issue__shelf--part { background: linear-gradient(90deg, var(--gold) 50%, transparent 50%); }
+.issue__shelf--done { background: var(--gold); }
+
+.chip--shelf { border-style: dashed; }
+.chip--shelf.chip--on { border-style: solid; }
+
+/* -- "read it here", in the detail panel ---------------------------------- */
+
+.detail__read {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: var(--sp-3) 0;
+  padding: var(--sp-3);
+  background: var(--paper-deep);
+  border: var(--rule) solid var(--ink);
+  box-shadow: var(--shadow-panel);
+}
+.detail__read-btn {
+  background: var(--red);
+  color: #fff;
+  border: var(--rule) solid var(--ink);
+  padding: 8px 14px;
+  font-family: var(--font-display);
+  font-size: var(--t-meta);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.detail__read-btn:hover { background: var(--red-deep); }
+.detail__read-note {
+  font-size: var(--t-meta);
+  color: var(--ink-faint);
+}
+.detail__read-mark {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--ink-faint);
+  color: var(--ink-soft);
+  padding: 5px 8px;
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}

@@ -20,8 +20,10 @@ PORT="${SPIDERMAN_PORT:-8080}"
 DIR="${SPIDERMAN_DIR:-/opt/spider-man-reading-tree}"
 BRANCH="${SPIDERMAN_BRANCH:-main}"
 REPO="${SPIDERMAN_REPO:-}"
+COMICS="${SPIDERMAN_COMICS:-/mnt/hdd/media/books/comics}"
 ACTION="deploy"
 CONTAINER="spider-man-reading-tree"
+READER="spider-man-reader"
 
 # ---- output -----------------------------------------------------------------
 
@@ -44,13 +46,16 @@ Options:
   --port <n>       Host port to publish on           (default: $PORT)
   --dir <path>     Deploy directory on the remote    (default: $DIR)
   --branch <name>  Branch to deploy                  (default: $BRANCH)
+  --comics <path>  Comic shelf on the remote, read-only (default: $COMICS)
+                   Pass "" to deploy the site without the reader.
   --repo <url>     Repository to clone               (default: this repo's origin)
   --status         Show container status and exit
   --logs           Tail container logs and exit
   --down           Stop and remove the container and exit
   -h, --help       This message
 
-Environment equivalents: SPIDERMAN_PORT, SPIDERMAN_DIR, SPIDERMAN_BRANCH, SPIDERMAN_REPO
+Environment equivalents: SPIDERMAN_PORT, SPIDERMAN_DIR, SPIDERMAN_BRANCH, SPIDERMAN_REPO,
+SPIDERMAN_COMICS
 USAGE
 }
 
@@ -61,6 +66,7 @@ while [ $# -gt 0 ]; do
     --port)   PORT="${2:?--port needs a value}"; shift 2 ;;
     --dir)    DIR="${2:?--dir needs a value}"; shift 2 ;;
     --branch) BRANCH="${2:?--branch needs a value}"; shift 2 ;;
+    --comics) COMICS="${2-}"; shift 2 ;;
     --repo)   REPO="${2:?--repo needs a value}"; shift 2 ;;
     --status) ACTION="status"; shift ;;
     --logs)   ACTION="logs"; shift ;;
@@ -206,10 +212,28 @@ ok "at $DEPLOYED_SHA — $DEPLOYED_MSG"
 
 # ---- build and start --------------------------------------------------------
 
+# The reader needs a shelf that actually exists on the remote. Rather than let
+# compose create an empty directory and serve an empty library, check first and
+# deploy the site alone if there is nothing there.
+SERVICES=""
+if [ -n "$COMICS" ]; then
+  if rsh "test -d '$COMICS'"; then
+    SHELF_COUNT=$(rsh "find '$COMICS' -type f \\( -iname '*.cbz' -o -iname '*.cbr' \\) 2>/dev/null | wc -l" || echo 0)
+    ok "shelf: $SHELF_COUNT archives in $COMICS"
+  else
+    warn "no directory at $COMICS on the remote — deploying the site without the reader"
+    COMICS=""
+    SERVICES="spider-man"
+  fi
+else
+  ok "reader not requested — deploying the site alone"
+  SERVICES="spider-man"
+fi
+
 step "Building image and starting container on port $PORT"
 printf '%s    (first build pulls node and nginx images; it can take a few minutes)%s\n' "$DIM" "$OFF"
 
-rsh "cd '$DIR' && SPIDERMAN_PORT='$PORT' $COMPOSE_CMD up -d --build" \
+rsh "cd '$DIR' && SPIDERMAN_PORT='$PORT' SPIDERMAN_COMICS='$COMICS' $COMPOSE_CMD up -d --build $SERVICES" \
   || die "build or start failed. Inspect with:  $0 $REMOTE --logs"
 ok "container up"
 
@@ -249,6 +273,25 @@ if printf '%s' "$BODY" | grep -q "Spider"; then
   ok "serving the reading tree"
 else
   warn "it answers, but the response does not look like this app"
+fi
+
+# The reader is checked through nginx, which is the path the browser takes —
+# a healthy container behind a broken proxy would still be a broken reader.
+if [ -n "$COMICS" ]; then
+  READER_BODY=""
+  for _ in $(seq 1 15); do
+    READER_BODY=$(rsh "docker exec '$CONTAINER' wget -qO- http://127.0.0.1/api/health" 2>/dev/null || true)
+    [ -n "$READER_BODY" ] && break
+    sleep 2
+  done
+  ARCHIVES=$(printf '%s' "$READER_BODY" | sed -n 's/.*"archives":\([0-9]*\).*/\1/p')
+  if [ -n "$ARCHIVES" ] && [ "$ARCHIVES" -gt 0 ]; then
+    MATCHABLE=$(printf '%s' "$READER_BODY" | sed -n 's/.*"matchable":\([0-9]*\).*/\1/p')
+    ok "reader: $ARCHIVES archives indexed, $MATCHABLE matched to issues"
+  else
+    warn "the reader did not answer through the proxy; the site is up without it"
+    warn "check it with:  ssh $REMOTE docker logs $READER"
+  fi
 fi
 
 HOST_ONLY="${REMOTE#*@}"
