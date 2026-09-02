@@ -35,6 +35,25 @@ export const LIBRARY_FOLDERS = [
     series: ['amazing-spider-man-annual'],
   },
   {
+    // A third packager, a third set of conventions: most of these are named
+    // for an abbreviation ("websm 042") that no series name could ever match,
+    // so the folder has to say what it holds.
+    dir: 'Web of Spider-Man/Vol 1 (1985)',
+    series: ['web-of-spider-man'],
+  },
+  {
+    dir: 'Web of Spider-Man/Annuals',
+    series: ['web-of-spider-man-annual'],
+    aliases: {
+      // Annual #7, named as though it were #3. Keyed by filename because
+      // "websm_annual3.cbr" sits in the same folder and parses to the same
+      // number — nothing but the name tells the two apart.
+      'websm_annual7p_3.cbr': ['web-of-spider-man-annual-7'],
+      // Not an annual at all: the 1995 Super Special, filed in with them.
+      'websm_1995.cbz': ['web-of-spider-man-super-special-1'],
+    },
+  },
+  {
     // A separate download with its own conventions: the volume is in the
     // filename ("Spectacular Spider-Man V1 042"), and the annuals sit in with
     // the run instead of in their own folder — which is what `titles` is for.

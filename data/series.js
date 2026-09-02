@@ -272,6 +272,15 @@ export const SERIES = [
 
   /* --------------------------------------------------------- 1990 → 1998 */
   {
+    key: 'web-of-spider-man-super-special',
+    name: 'Web of Spider-Man Super Special', abbr: 'WEB SS', vol: 1,
+    wikiTitle: 'Web of Spider-Man Super Special Vol 1', accent: 'web',
+    role: 'lead', relevance: 'notable',
+    note: 'A one-shot from the clone years, with Ben Reilly alongside Peter.',
+    segments: [{ from: 1, to: 1, startDate: '1995-10', endDate: '1995-10', startExact: true, endExact: true }],
+  },
+
+  {
     key: 'spider-man-1990',
     name: 'Spider-Man',
     abbr: 'SM',

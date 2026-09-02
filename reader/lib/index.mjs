@@ -85,6 +85,14 @@ export function parseFilename(base) {
   const fromHead = trailingNumber(head)
   if (fromHead) return fromHead
 
+  // Some packagers delimit their tags with doubled underscores instead of
+  // brackets: "Web_of_Spider-Man_011__2010___GreenGiant-DCP_". Cut there —
+  // but only take the result if a number ends it, because the very same
+  // collection uses a doubled underscore to *introduce* the number in
+  // "Web_of_Spider-Man__057", where cutting would throw the number away.
+  const beforeTags = trailingNumber(stem.split('__')[0].replace(/_/g, ' ').trim())
+  if (beforeTags) return beforeTags
+
   // A descriptor can follow the number instead of going in a bracket, as in
   // "Amazing Fantasy 015 - Facsimile Edition (1962)". Cutting at the dash and
   // retrying costs nothing when there is no dash, and only ever accepts a
@@ -106,12 +114,17 @@ export function parseFilename(base) {
 }
 
 /** Issue ids this file could be, best guess first. */
-function candidatesFor(relDir, title, number) {
-  if (number === null) return []
+function candidatesFor(relDir, base, title, number) {
   const folder = LIBRARY_FOLDERS.find((f) => f.dir === relDir)
 
-  // A folder may pin a number to specific issues, for the files whose name is
-  // simply wrong about which issue they hold.
+  // A folder may pin specific issues to a file whose name is simply wrong
+  // about which issue it holds. Keyed by filename first, then by the parsed
+  // number — the filename is what you need when two files in one folder parse
+  // to the same number, as "websm_annual3" and "websm_annual7p_3" do.
+  const byName = folder?.aliases?.[base]
+  if (byName) return byName
+
+  if (number === null) return []
   const alias = folder?.aliases?.[number]
   if (alias) return alias
 
@@ -175,7 +188,7 @@ export async function scanLibrary(root, { maxDepth = 4 } = {}) {
         title,
         number,
         bytes,
-        ids: parts ? [] : candidatesFor(path.dirname(rel), title, number),
+        ids: parts ? [] : candidatesFor(path.dirname(rel), e.name, title, number),
         ...(parts ? { parts } : {}),
       })
     }
