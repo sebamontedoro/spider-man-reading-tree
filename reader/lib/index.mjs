@@ -20,12 +20,24 @@ import { SERIES } from '../../data/series.js'
 
 const ARCHIVE_EXT = new Set(['.cbz', '.cbr', '.cb7', '.zip', '.rar'])
 
-/** `The Amazing Spider-Man Annual` and `amazing spider-man annual` are one key. */
+/**
+ * `The Amazing Spider-Man Annual` and `amazing spider-man annual` are one key.
+ *
+ * Also drops the two devices packagers use to force reading order — a leading
+ * cover date ("1995-11 Scarlet Spider v1 001") and a leading sequence number
+ * ("03 - The Amazing Spider-Man 404") — and the bare volume marker some of
+ * them put in the title ("v1"). None of the three is part of a series name,
+ * and every one of them otherwise turns the title into something no series
+ * can match.
+ */
 const normalise = (title) =>
   title
     .toLowerCase()
+    .replace(/^\d{4}[-_ ]\d{2}\s+/, '')
+    .replace(/^\d{1,2}\s*-\s+/, '')
     .replace(/^the\s+/, '')
     .replace(/\bvol(?:ume)?\.?\s+\d+\b/g, ' ')
+    .replace(/\bv\d+\b/g, ' ')
     .replace(/[^a-z0-9]+/g, ' ')
     .trim()
 
@@ -81,7 +93,9 @@ const trailingNumber = (s) => {
 export function parseFilename(base) {
   const stem = base.replace(/\.[^.]+$/, '')
 
-  const head = stem.split(/[([{]/)[0].trim()
+  // Trailing separators before the first tag are noise: "…Lost_Years_001_(2011)"
+  // leaves an underscore that would hide the number.
+  const head = stem.split(/[([{]/)[0].replace(/[_\s]+$/, '').trim()
   const fromHead = trailingNumber(head)
   if (fromHead) return fromHead
 
