@@ -35,6 +35,16 @@ export const LIBRARY_FOLDERS = [
     series: ['amazing-spider-man-annual'],
   },
   {
+    // Only an alias: everything else here still resolves by its title.
+    dir: 'Era del clon y one-shots',
+    aliases: {
+      // Marvel Database files this under its indicia title, "Osborn Journals",
+      // while the scan is named for the cover: "Spider-Man - The Osborn
+      // Journal". Nothing derives one from the other.
+      'Spider-Man - The Osborn Journal 001 (1997) (Digital) (Shadowcat-Empire).cbz': ['osborn-journals-1'],
+    },
+  },
+  {
     // A third packager, a third set of conventions: most of these are named
     // for an abbreviation ("websm 042") that no series name could ever match,
     // so the folder has to say what it holds.

@@ -154,7 +154,10 @@ function candidatesFor(relDir, base, title, number) {
     }
   }
 
-  const keys = folder ? folder.series : (TITLE_FALLBACK.get(normalise(title)) || [])
+  // A folder entry may carry only aliases, to correct a file or two without
+  // having to enumerate every series the folder holds; the rest keep falling
+  // back to the title.
+  const keys = folder?.series ?? (TITLE_FALLBACK.get(normalise(title)) || [])
   return keys.map((k) => `${k}-${number}`)
 }
 
