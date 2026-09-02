@@ -171,7 +171,7 @@ export default function App() {
       {reading && readingComic && (
         <Reader
           issue={reading}
-          comicKey={readingComic.key}
+          comic={readingComic}
           nextIssue={nextOnShelf}
           onOpenIssue={(id) => { setReadingId(id); setSelectedId(id) }}
           onClose={() => setReadingId(null)}

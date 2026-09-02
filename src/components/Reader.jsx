@@ -19,7 +19,17 @@ import '../styles/reader.css'
  * in once it has decoded, so turning a page never flashes an empty frame; the
  * one you were reading stays up, dimmed, until the next is ready.
  */
-export default function Reader({ issue, comicKey, nextIssue, onOpenIssue, onClose }) {
+export default function Reader({ issue, comic: shelved, nextIssue, onOpenIssue, onClose }) {
+  const comicKey = shelved.key
+  /**
+   * A collected edition holds this issue between two pages of a much longer
+   * book. The window is applied here rather than in the service, which keeps
+   * the service serving plain page numbers and means everything below — the
+   * counter, the slider, the preloader, the saved position — counts pages of
+   * *this issue*, starting at one, exactly as it would for a standalone file.
+   */
+  const offset = (shelved.from || 1) - 1
+  const windowed = Boolean(shelved.from)
   const isPhone = useMediaQuery(PHONE)
 
   const [comic, setComic] = useState(null)
@@ -57,8 +67,11 @@ export default function Reader({ issue, comicKey, nextIssue, onOpenIssue, onClos
     setComic(null); setShown(null); setNatural(null); setError(null); setBusy(true)
 
     fetchComic(comicKey).then(
-      (c) => {
+      (whole) => {
         if (!live) return
+        const c = windowed
+          ? { ...whole, count: shelved.to - shelved.from + 1 }
+          : whole
         setComic(c)
         // Resume where you stopped — unless you finished it, in which case
         // reopening means re-reading, and that starts at the cover.
@@ -69,7 +82,7 @@ export default function Reader({ issue, comicKey, nextIssue, onOpenIssue, onClos
       (err) => { if (live) { setError(err.message); setBusy(false) } },
     )
     return () => { live = false }
-  }, [comicKey, issue.id])
+  }, [comicKey, issue.id, windowed, shelved.from, shelved.to])
 
   /* -- the current page ---------------------------------------------------- */
 
@@ -80,7 +93,7 @@ export default function Reader({ issue, comicKey, nextIssue, onOpenIssue, onClos
     // A page that failed should not leave its message over the next one.
     setError(null)
 
-    const url = pageUrl(comic.key, page)
+    const url = pageUrl(comic.key, page + offset)
     const img = new Image()
     img.src = url
     // decode() rather than onload: it resolves when the bitmap is ready to
@@ -95,16 +108,16 @@ export default function Reader({ issue, comicKey, nextIssue, onOpenIssue, onClos
       .catch(() => { if (live) { setError(`Page ${page} would not load.`); setBusy(false) } })
 
     return () => { live = false }
-  }, [comic, page])
+  }, [comic, page, offset])
 
   // The next page or two, fetched while you read this one. Turning a page then
   // costs nothing, which is most of what makes the reader feel local.
   useEffect(() => {
     if (!comic) return
     for (const n of [page + 1, page + 2, page - 1]) {
-      if (n >= 1 && n <= comic.count) new Image().src = pageUrl(comic.key, n)
+      if (n >= 1 && n <= comic.count) new Image().src = pageUrl(comic.key, n + offset)
     }
-  }, [comic, page])
+  }, [comic, page, offset])
 
   useEffect(() => {
     if (comic) recordPage(issue.id, page, comic.count)
@@ -158,6 +171,9 @@ export default function Reader({ issue, comicKey, nextIssue, onOpenIssue, onClos
         <div className="reader__id">
           <span className="label reader__series">{issue.seriesName}</span>
           <strong className="reader__number">#{issue.number}</strong>
+          {windowed && (
+            <span className="reader__from" title={shelved.file}>en un tomo</span>
+          )}
         </div>
 
         <div className="reader__tools">

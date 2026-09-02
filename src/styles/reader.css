@@ -222,3 +222,19 @@
   /* Thumb-sized targets: page turns are the one control used constantly. */
   .reader__turn { min-width: 52px; height: 40px; }
 }
+
+/* A page count that comes from a collected edition rather than a single file.
+   Worth saying quietly: it explains why the reader opens on page 1 of 23 in
+   the middle of a 332-page book. */
+.reader__from {
+  font-family: var(--font-display);
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--gold);
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+@media (max-width: 760px) { .reader__from { display: none; } }

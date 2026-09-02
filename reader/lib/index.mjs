@@ -14,6 +14,7 @@ import { createHash } from 'node:crypto'
 import { readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
 
+import { COLLECTIONS } from '../../data/collections.js'
 import { LIBRARY_FOLDERS } from '../../data/library.js'
 import { SERIES } from '../../data/series.js'
 
@@ -132,6 +133,9 @@ function candidatesFor(relDir, title, number) {
 
 const keyFor = (rel) => createHash('sha1').update(rel).digest('hex').slice(0, 16)
 
+/** A file that holds several issues declares what is where — data/collections.js. */
+const COLLECTION_BY_FILE = new Map(COLLECTIONS.map((c) => [c.file, c.parts]))
+
 /**
  * Walks the shelf. Returns one entry per archive, sorted by path so the
  * manifest is stable between restarts and cheap to diff.
@@ -160,6 +164,10 @@ export async function scanLibrary(root, { maxDepth = 4 } = {}) {
       let bytes = 0
       try { bytes = (await stat(full)).size } catch { /* vanished mid-scan */ }
 
+      // A collected edition names its own contents, so the filename is not
+      // asked what issue it is — it is not one issue.
+      const parts = COLLECTION_BY_FILE.get(rel)
+
       comics.push({
         key: keyFor(rel),
         file: rel,
@@ -167,7 +175,8 @@ export async function scanLibrary(root, { maxDepth = 4 } = {}) {
         title,
         number,
         bytes,
-        ids: candidatesFor(path.dirname(rel), title, number),
+        ids: parts ? [] : candidatesFor(path.dirname(rel), title, number),
+        ...(parts ? { parts } : {}),
       })
     }
   }

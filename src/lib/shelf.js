@@ -20,18 +20,42 @@ import { ISSUE_BY_ID } from './dataset.js'
 
 const API = '/api'
 
-/** issueId → { key, file, bytes } for the archive that holds it. */
+/**
+ * issueId → the archive that holds it: `{ key, file, bytes }`, plus `from`/`to`
+ * when the issue is one slice of a collected edition.
+ *
+ * Two passes, and the order is the point. A file cut to a single issue wins
+ * over a slice of a 332-page Masterworks, so whole files are claimed first and
+ * collections only fill what is left. Without that, a collection sorting
+ * earlier by path would displace a dozen perfectly good single issues.
+ */
 const resolve = (manifest) => {
   const byIssue = new Map()
   const spare = []
+  const comics = manifest.comics || []
 
-  for (const comic of manifest.comics || []) {
+  for (const comic of comics) {
+    if (comic.parts) continue
     const id = (comic.ids || []).find((c) => ISSUE_BY_ID.has(c) && !byIssue.has(c))
     if (id) byIssue.set(id, { key: comic.key, file: comic.file, bytes: comic.bytes })
     // Files whose number matches no issue in the tree — annuals the tree does
     // not reach yet, point issues the generator does not model. Counted so the
     // gap is visible rather than silently swallowed.
     else spare.push(comic)
+  }
+
+  for (const comic of comics) {
+    if (!comic.parts) continue
+    let used = 0
+    for (const part of comic.parts) {
+      if (!ISSUE_BY_ID.has(part.id) || byIssue.has(part.id)) continue
+      byIssue.set(part.id, {
+        key: comic.key, file: comic.file, bytes: comic.bytes,
+        from: part.from, to: part.to,
+      })
+      used++
+    }
+    if (!used) spare.push(comic)
   }
 
   return { byIssue, unmatched: spare, total: manifest.count || 0 }

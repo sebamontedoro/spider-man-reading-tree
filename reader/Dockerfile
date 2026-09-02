@@ -16,7 +16,7 @@ RUN apk add --no-cache libarchive-tools
 WORKDIR /app
 
 COPY reader/ ./reader/
-COPY data/series.js data/library.js ./data/
+COPY data/series.js data/library.js data/collections.js ./data/
 
 # Extracted rar pages live here. Created before dropping privileges so that a
 # fresh named volume inherits the ownership and the service can write to it.
