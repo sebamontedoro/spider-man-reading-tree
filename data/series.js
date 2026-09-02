@@ -169,7 +169,11 @@ export const SERIES = [
     wikiTitle: 'Marvel Team-Up Annual Vol 1',
     accent: 'mtu',
     role: 'lead',
-    relevance: 'optional',
+    // Was 'optional', which this file defines as reprints and out-of-continuity
+    // material. These are neither: Spider-Man headlines them and they are in
+    // continuity, like every other annual here. Being the one annual series
+    // hidden by default was an inconsistency, not a judgement.
+    relevance: 'notable',
     isAnnual: true,
     segments: [
       { from: 1, to: 7, startDate: '1976-08', endDate: '1984-08', cadence: 'annual' },
