@@ -426,6 +426,19 @@ export const SERIES = [
     segments: [{ from: 1, to: 133, startDate: '2000-10', endDate: '2009-08', startExact: true, endExact: true }],
   },
   {
+    key: 'ultimate-marvel-team-up',
+    name: 'Ultimate Marvel Team-Up', abbr: 'UMTU', vol: 1,
+    // The wiki files this one without the hyphen in "Team Up" — the only
+    // place in the dataset where that spelling appears, and the reason a
+    // search for the hyphenated name comes back empty.
+    wikiTitle: 'Ultimate Marvel Team Up Vol 1', accent: 'ultimate',
+    universe: 'ultimate',
+    role: 'lead', relevance: 'notable',
+    note: 'Bendis pairs the new Spider-Man with one guest a story, before the Ultimate line had anyone else to spare.',
+    segments: [{ from: 1, to: 16, startDate: '2001-04', endDate: '2002-07', startExact: true, endExact: true }],
+  },
+
+  {
     key: 'ultimate-spider-man-annual',
     name: 'Ultimate Spider-Man Annual',
     abbr: 'USM ANN', vol: 1,
