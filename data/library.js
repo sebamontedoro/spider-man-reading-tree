@@ -30,6 +30,62 @@ export const LIBRARY_FOLDERS = [
     // without renaming someone's files.
     aliases: { '0': ['amazing-spider-man--1'] },
   },
+  // Los seis volumenes de Amazing Spider-Man se llaman igual en el disco
+  // ("Amazing Spider-Man 001"), y el fallback por titulo devuelve los seis en
+  // orden de dataset: el #1 de 2018 se resolveria como el #1 de 1963. Cada
+  // carpeta tiene que decir de que volumen es.
+  {
+    dir: 'Amazing Spider-Man Vol 3 (2014)',
+    series: ['amazing-spider-man-v3'],
+  },
+  {
+    // #1-32 y, tras el regreso a la numeracion heredada, #789-801: dos tramos
+    // del mismo volumen conviviendo en la carpeta.
+    dir: 'Amazing Spider-Man Vol 4 (2015)',
+    series: ['amazing-spider-man-v4'],
+  },
+  {
+    dir: 'Amazing Spider-Man Vol 5 (2018)',
+    series: ['amazing-spider-man-v5'],
+  },
+  {
+    dir: 'Amazing Spider-Man Vol 6 (2022)',
+    series: ['amazing-spider-man-v6'],
+  },
+  {
+    // La de 2006 numera #23-41 y la de 1996 llega hasta #33: sin esto, los
+    // numeros 23-33 se irian a la serie equivocada.
+    dir: 'Sensational Spider-Man (2006)',
+    series: ['sensational-spider-man-v2'],
+  },
+  {
+    dir: 'Superior Spider-Man/Vol 2 (2019)',
+    series: ['superior-spider-man-v2'],
+  },
+  {
+    dir: 'Superior Spider-Man/Vol 3 (2024)',
+    series: ['superior-spider-man-v3'],
+  },
+  {
+    // El titulo en el archivo es "Spider-Man" a secas, que es tambien el de la
+    // run de 1990. Es la serie de Miles posterior a Ultimate.
+    dir: 'Miles Morales/Spider-Man (2016)',
+    series: ['spider-man-miles-v2'],
+  },
+  {
+    dir: 'Miles Morales/Vol 1 (2019)',
+    series: ['miles-morales-spider-man'],
+  },
+  {
+    dir: 'Miles Morales/Vol 2 (2023)',
+    series: ['miles-morales-spider-man-v2'],
+  },
+  {
+    // El relanzamiento de 2024 vuelve a empezar en #1, encima de la run de
+    // Bendis que llego a #133.
+    dir: 'Ultimate Spider-Man/Vol 3 (2024)',
+    series: ['ultimate-spider-man-2024'],
+  },
   {
     dir: 'Amazing Spider-Man Annuals',
     series: ['amazing-spider-man-annual'],
