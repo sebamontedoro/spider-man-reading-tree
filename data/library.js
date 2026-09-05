@@ -93,6 +93,19 @@ export const LIBRARY_FOLDERS = [
     series: ['peter-parker-spectacular'],
   },
   {
+    // The 1990 run, which McFarlane started as "Spider-Man" and which was
+    // renamed "Peter Parker: Spider-Man" at #75 -- both names sit in this one
+    // folder, and neither would fall back to the right key on its own: the
+    // second is the title of the *1999* series, a different book entirely.
+    dir: 'Spider-Man (1990)',
+    series: ['spider-man-1990'],
+    // The two annuals are shelved in with the run and parse to 97 and 98 from
+    // their cover years ("Annual '97"), which are real issues of it. The tree
+    // does not index this run's annuals, so say so rather than let them claim
+    // someone else's number.
+    titles: { annual: [] },
+  },
+  {
     dir: 'Amazing Spider-Man Vol 2 (1999)',
     // Filed as "Volume Two" in the filenames, which no title guess would map
     // to vol. 2 on its own — #1–58 here are a different issue from #1–58 of
