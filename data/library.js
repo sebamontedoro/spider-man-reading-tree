@@ -87,6 +87,12 @@ export const LIBRARY_FOLDERS = [
     series: ['ultimate-spider-man-2024'],
   },
   {
+    // La tercera carpeta cuyo archivo dice solo "Spider-Man": la de Slott de
+    // 2022, que no es ni la de 1990 ni la de Miles de 2016.
+    dir: 'Spider-Man (2022)',
+    series: ['spider-man-v4'],
+  },
+  {
     dir: 'Amazing Spider-Man Annuals',
     series: ['amazing-spider-man-annual'],
   },
