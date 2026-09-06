@@ -13,7 +13,9 @@ import { MILESTONE_TYPES } from '../../data/milestones.js'
 const RELEVANCE = [
   { key: 'core', label: 'Core' },
   { key: 'notable', label: 'Notable' },
-  { key: 'optional', label: 'Reprints & tie-ins' },
+  // Sin Marvel Tales no quedan reediciones: lo que agrupa hoy son los 57
+  // numeros de Spidey Super Stories y el manual del Clone Journal.
+  { key: 'optional', label: 'Tie-ins & handbooks' },
 ]
 
 /** The series accent an uncurated arc borrows, taken from where it mostly runs. */

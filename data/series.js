@@ -742,23 +742,6 @@ export const SERIES = [
 
   /* ------------------------------------------- Optional / hidden by default */
   {
-    key: 'marvel-tales',
-    name: 'Marvel Tales',
-    abbr: 'MTALES',
-    vol: 2,
-    wikiTitle: 'Marvel Tales Vol 2',
-    accent: 'reprint',
-    role: 'lead',
-    relevance: 'optional',
-    isReprint: true,
-    note: 'Reprint anthology. No new story — useful only as a reading substitute.',
-    segments: [
-      { from: 1,   to: 241, startDate: '1964-01', endDate: '1990-09', endExact: true },
-      { from: 242, to: 244, startDate: '1990-10', endDate: '1990-12', startExact: true, endExact: true },
-      { from: 245, to: 291, startDate: '1991-01', endDate: '1994-11', endExact: true },
-    ],
-  },
-  {
     key: 'spidey-super-stories',
     name: 'Spidey Super Stories',
     abbr: 'SSS',

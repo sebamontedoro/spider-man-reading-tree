@@ -1,7 +1,6 @@
 # Spider-Man Reading Tree
 
-An interactive visual reading guide to Spider-Man's first three decades in
-print, **1962–1990**.
+An interactive visual reading guide to Spider-Man in print, **1962–2026**.
 
 A chronological timeline of every issue he headlined, plus the guest
 appearances that carry real story weight. Click any issue to see how it
@@ -16,19 +15,22 @@ unchanged.
 
 ## What's in it
 
-**1109 issues · 1106 with verified cover dates · 24 story arcs · 58 characters indexed · 7 reading paths**
+**2384 issues · 2383 with verified cover dates · 86 story arcs · 50 characters indexed · 17 reading paths**
 
 Every issue links out to where you can read or look it up, and the guide tells
-you which ones have a digital edition — 700 of the 793 issues worth reading do.
+you which ones have a digital edition — 2144 of them do.
 
 | | |
 |---|---|
 | Titles he headlines | Amazing Fantasy #15, Amazing Spider-Man, Peter Parker/Spectacular, Marvel Team-Up, Web of Spider-Man, and their annuals |
 | Guest appearances | 24 curated ones, from the 1963 Human Torch crossovers to the 1990 New Fantastic Four |
 | Crossovers mapped | Kraven's Last Hunt, Inferno, Acts of Vengeance, Life in the Mad Dog Ward, Missing in Action, the Alien Costume |
-| Also included | Reprints and out-of-continuity material, hidden behind a filter |
+| Also included | Out-of-continuity material, hidden behind a filter |
 
-Deliberately excluded: single-panel cameos, and anything after 1990.
+Deliberately excluded: single-panel cameos, and reprints. Marvel Tales ran 291
+issues from 1964 to 1994 republishing stories the tree already holds, and a
+reading guide that lists the same story twice is worse than one that does not
+list it at all.
 
 ## Running it
 
