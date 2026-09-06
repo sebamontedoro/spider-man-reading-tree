@@ -1,24 +1,35 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
-import { ISSUES, ISSUE_BY_ID, TIMELINE, STATS, YEAR_RANGE } from './lib/dataset.js'
+import { ISSUES, ISSUE_BY_ID, TIMELINE, STATS, YEAR_RANGE, CHARACTERS } from './lib/dataset.js'
 import { DEFAULT_FILTERS, applyFilters, resolvePath, isFilterActive } from './lib/filters.js'
 import { PATHS_BY_KEY } from '../data/paths.js'
 import { ARCS_BY_KEY } from '../data/arcs.js'
 
+import {
+  hasSelection, describe, readingOrder, toRoute, fromRoute, arcAccent,
+} from './lib/selection.js'
 import { scrollToIssue } from './lib/scrollToIssue.js'
 import { useShelf } from './lib/shelf.js'
 import { statusOf, useProgress } from './lib/progress.js'
 
 import FilterBar from './components/FilterBar.jsx'
 import Timeline from './components/Timeline.jsx'
+import SelectionView from './components/SelectionView.jsx'
 import DetailPanel from './components/DetailPanel.jsx'
 import Reader from './components/Reader.jsx'
 
 import './styles/app.css'
 
 export default function App() {
-  const [filters, setFilters] = useState(DEFAULT_FILTERS)
-  const [pathKey, setPathKey] = useState(null)
+  // A route in the address bar is a selection someone shared or came back to,
+  // so it wins over the defaults on the first render rather than being applied
+  // after one — otherwise the timeline paints, then jumps.
+  const booted = fromRoute(typeof window === 'undefined' ? '' : window.location.hash, CHARACTERS)
+  const [filters, setFilters] = useState({
+    ...DEFAULT_FILTERS,
+    series: booted.series, arc: booted.arc, character: booted.character,
+  })
+  const [pathKey, setPathKey] = useState(booted.path)
   const [selectedId, setSelectedId] = useState(null)
   const [readingId, setReadingId] = useState(null)
 
@@ -81,6 +92,10 @@ export default function App() {
     // reset of the view rather than a request to go somewhere.
     if (!isFilterActive(filters) && !path) return
 
+    // And with a selection open there is nothing to scroll to: its issues are
+    // the page.
+    if (hasSelection(filters, pathKey)) return
+
     // Let a search settle before moving, so typing does not chase the page.
     const t = setTimeout(() => {
       const issue = ISSUE_BY_ID.get(firstShownId)
@@ -88,6 +103,45 @@ export default function App() {
     }, 260)
     return () => clearTimeout(t)
   }, [firstShownId, filters, path])
+
+  /* -- the selection ------------------------------------------------------ */
+
+  const selecting = hasSelection(filters, pathKey)
+  const route = toRoute(filters, pathKey)
+
+  // replaceState, not push: the pickers are a way of looking, not a trail of
+  // pages, and every keystroke of narrowing would otherwise need a Back press
+  // to undo.
+  useEffect(() => {
+    const next = `${window.location.pathname}${window.location.search}${route}`
+    if (next !== window.location.href.replace(window.location.origin, '')) {
+      window.history.replaceState(null, '', next)
+    }
+  }, [route])
+
+  const chosen = useMemo(() => describe(filters, pathKey), [filters, pathKey])
+  const order = useMemo(() => readingOrder(filters, pathKey), [filters, pathKey])
+
+  /**
+   * The issues the selection holds, in the order it wants them.
+   *
+   * The filter pipeline already intersects series, arc and character, and the
+   * path is intersected here — which is the same intersection the pickers
+   * enforce, so this list is never empty by surprise.
+   */
+  const chosenIssues = useMemo(() => {
+    if (!selecting) return []
+    const list = ISSUES.filter(
+      (i) => visibleIds.has(i.id) && (!path || pathOrder.has(i.id)),
+    )
+    if (!order) return list
+    return [...list].sort((a, b) => (order.get(a.id) ?? 1e9) - (order.get(b.id) ?? 1e9))
+  }, [selecting, visibleIds, path, pathOrder, order])
+
+  const clearSelection = useCallback(() => {
+    setFilters((f) => ({ ...f, series: null, arc: null, character: null }))
+    setPathKey(null)
+  }, [])
 
   const selected = selectedId ? ISSUE_BY_ID.get(selectedId) : null
 
@@ -148,6 +202,22 @@ export default function App() {
       />
 
       <main className="app__body">
+        {selecting && chosen ? (
+          <SelectionView
+            title={chosen.title}
+            kind={chosen.kind}
+            blurb={chosen.blurb}
+            issues={chosenIssues}
+            order={order}
+            shelfMarks={shelfMarks}
+            onSelect={handleSelect}
+            onRead={setReadingId}
+            onClear={clearSelection}
+            route={route}
+            arcKey={filters.arc}
+            arcAccent={filters.arc ? arcAccent(filters.arc) : undefined}
+          />
+        ) : (
         <Timeline
           timeline={TIMELINE}
           visibleIds={visibleIds}
@@ -157,6 +227,7 @@ export default function App() {
           onSelect={handleSelect}
           shelfMarks={shelfMarks}
         />
+        )}
       </main>
 
       <DetailPanel

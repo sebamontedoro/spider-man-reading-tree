@@ -1110,3 +1110,193 @@
 }
 .filterbar--pickers::-webkit-scrollbar { display: none; }
 .filterbar--pickers .picker__btn { white-space: nowrap; }
+
+/* -- selection view ------------------------------------------------------ */
+/* What replaces the timeline once something is chosen. Its own panel rather
+   than a variation on the year band: this is a table of contents, and the
+   timeline's month rail and card grid are answering a different question. */
+
+/* The scroll lives here, not on the page: .app__body clips on purpose, and
+   the timeline scrolls itself the same way. */
+.selection {
+  height: 100%;
+  overflow-y: auto;
+  background: var(--paper);
+}
+.selection__inner {
+  max-width: 940px;
+  margin: 0 auto;
+  padding-bottom: var(--sp-8);
+}
+
+/* The arc's duo, full width — the same two colours its row in the picker
+   carried, so the thing you clicked and the thing you landed on match. */
+.selection__band { display: flex; height: 8px; }
+.selection__band i { flex: 1; }
+
+.selection__back {
+  font: inherit;
+  font-size: var(--t-meta);
+  font-weight: 600;
+  background: none;
+  border: 0;
+  color: var(--accent);
+  cursor: pointer;
+  padding: var(--sp-3) var(--sp-4) 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.selection__back:hover { color: var(--red); }
+
+.selection__head {
+  padding: var(--sp-2) var(--sp-5) var(--sp-4);
+  border-bottom: var(--rule-heavy) solid var(--ink);
+}
+.selection__kind {
+  margin: 0 0 var(--sp-1);
+  font-size: var(--t-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.selection__title {
+  margin: 0 0 var(--sp-2);
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 38px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.selection__blurb {
+  margin: 0 0 var(--sp-3);
+  font-size: var(--t-title);
+  color: var(--ink-soft);
+  max-width: 58ch;
+}
+.selection__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  align-items: center;
+  margin: 0 0 var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+.selection__meta strong { color: var(--ink); }
+.selection__route {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  background: var(--paper-deep);
+  border: 1px solid var(--hairline);
+  padding: 2px var(--sp-2);
+  color: var(--ink-faint);
+}
+
+.selection__start {
+  font: inherit;
+  font-size: var(--t-title);
+  font-weight: 700;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--red);
+  color: var(--on-accent);
+  border: var(--rule-heavy) solid var(--ink);
+  box-shadow: var(--shadow-lift);
+  cursor: pointer;
+}
+.selection__start:hover { transform: translate(1px, 1px); box-shadow: 4px 4px 0 var(--shade); }
+.selection__start:active { transform: translate(5px, 5px); box-shadow: none; }
+
+.selection__empty { padding: var(--sp-5); color: var(--ink-faint); }
+
+.selection__rows { list-style: none; margin: 0; padding: 0; }
+.selection__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-5);
+  border-bottom: 1px solid var(--hairline);
+}
+.selection__row:hover { background: var(--paper-raised); }
+.selection__n {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  color: var(--ink-ghost);
+  width: 32px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.selection__accent { width: 5px; align-self: stretch; min-height: 26px; flex: none; }
+.selection__issue {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  font: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 0;
+}
+.selection__issue b { display: block; font-size: var(--t-title); font-weight: 600; }
+.selection__issue span { font-size: var(--t-meta); color: var(--ink-faint); }
+.selection__issue:hover b { color: var(--red); }
+.selection__date {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* On the shelf is state, so it wears the skin's accent and not the action
+   red. Filled, half and hollow are shelved, part-read and read. */
+.selection__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: var(--rule) solid var(--ink);
+  flex: none;
+  padding: 0;
+  cursor: pointer;
+  background: var(--accent);
+}
+.selection__dot--reading { background: linear-gradient(90deg, var(--accent) 0 50%, transparent 50%); }
+.selection__dot--read { background: var(--paper); }
+.selection__dot--absent { background: none; border-color: var(--ink-ghost); cursor: default; }
+
+.selection__pager {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  flex-wrap: wrap;
+}
+.selection__pager button {
+  font: inherit;
+  font-size: var(--t-meta);
+  font-weight: 600;
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--paper-raised);
+  border: var(--rule) solid var(--ink);
+  color: var(--ink);
+  cursor: pointer;
+}
+.selection__pager button:hover:not(:disabled) { background: var(--gold); }
+.selection__pager button:disabled { opacity: 0.35; cursor: default; }
+.selection__pager span {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+.selection__all { margin-left: auto; }
+
+@media (max-width: 700px) {
+  .selection__head { padding-left: var(--sp-3); padding-right: var(--sp-3); }
+  .selection__row { padding-left: var(--sp-3); padding-right: var(--sp-3); gap: var(--sp-2); }
+  .selection__n { width: 24px; }
+}
