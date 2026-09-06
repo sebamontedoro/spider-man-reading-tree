@@ -1,9 +1,39 @@
 /* ==========================================================================
-   Design tokens — comic register: saturated red/blue, heavy blacks, cream stock.
-   Every colour lives here so the whole page can be retuned from one file.
+   Design tokens — two skins for the same book.
+
+   Spider-Man, in light: newsprint cream, the red and blue of the suit, black
+   ink. The register the tree was drawn in.
+
+   Venom, in dark: void black biased violet, bone white for the ink — the
+   spider and the eyes — and McFarlane's violet for the highlights. The neutrals
+   lean violet rather than grey so they read as chosen; a flat grey next to that
+   black looks like an oversight.
+
+   Two rules hold across both, and both are about meaning rather than taste:
+
+     The action is red in either skin. A button that changes colour when the
+     skin changes stops reading as the same button, and the red is the one
+     thing the tree inherited from the character.
+
+     The skin's own accent — the suit's blue, the symbiote's green — marks
+     state and never fires anything. It is the colour of "this one is on the
+     shelf", not of "press me".
+
+   Every colour lives here so the whole page retunes from one file. Components
+   reference the names, never the values, which is what lets a second skin
+   exist at all.
+
+   The viewer has three states, not two. An explicit choice stamps
+   data-theme on the root; the default "system" setting stamps nothing, and
+   only prefers-color-scheme separates light from dark there. So: this block
+   carries the complete light palette, the media query redefines tokens for the
+   unstamped dark case, and the attribute block redefines them again so an
+   explicit choice wins in both directions.
    ========================================================================== */
 
 :root {
+  color-scheme: light;
+
   /* --- Surfaces ------------------------------------------------------- */
   --paper:          #f2e9d5;  /* newsprint cream, the page ground */
   --paper-deep:     #e6d9be;  /* recessed bands (year headers, rails) */
@@ -15,13 +45,29 @@
   --ink-soft:       #45403a;  /* body copy */
   --ink-faint:      #7d746a;  /* metadata, captions */
   --ink-ghost:      #b3aa9c;  /* placeholder, disabled */
+  --hairline:       #d8cbb0;  /* the lightest rule that still separates */
 
   /* --- Brand ---------------------------------------------------------- */
-  --red:            #cf1d24;
+  --red:            #cf1d24;  /* the action, in both skins */
   --red-deep:       #96131a;
   --blue:           #1b40b0;
   --blue-deep:      #122a76;
   --gold:           #f0b323;
+
+  /* The skin's signature. Marks state — on the shelf, selected, focused —
+     and never triggers anything; that is what --red is for. */
+  --accent:         #1b40b0;  /* the suit's blue */
+  --on-accent:      #fffdf7;  /* type that sits on --red or --accent */
+
+  /* Ink and its shadow part company in the dark skin: a drop shadow cast in
+     bone white reads as a glow, not as depth. */
+  --shade:          #14110f;
+
+  /* The masthead and the year bands carry the halftone, and in the dark skin
+     a saturated red plate across the top is a different design, not the same
+     one unlit. */
+  --mast:           #cf1d24;
+  --band:           #1b40b0;
 
   /* --- Series accents (border colour on each issue card) -------------- */
   --s-origin:       #14110f;  /* Amazing Fantasy — the root */
@@ -42,6 +88,11 @@
   --s-miles:        #c41e3a;  /* Miles Morales */
   --s-ultimate2:    #6a3fa0;  /* Ultimate 2024 — a third continuity */
 
+  /* How far a curated arc colour is lifted before it is painted. Nothing in
+     the light skin; on the void ground, enough that Kingpin's ivory and the
+     black suit's black both survive. See src/lib/palette.js. */
+  --arc-lift:       0;
+
   /* --- Relevance ------------------------------------------------------ */
   --border-core:     3px;
   --border-notable:  2px;
@@ -51,8 +102,8 @@
   --rule:           2px;      /* standard panel rule */
   --rule-heavy:     4px;      /* year band, panel edges */
   --radius:         0px;      /* comic panels have square corners */
-  --shadow-panel:   3px 3px 0 var(--ink);
-  --shadow-lift:    5px 5px 0 var(--ink);
+  --shadow-panel:   3px 3px 0 var(--shade);
+  --shadow-lift:    5px 5px 0 var(--shade);
 
   /* --- Spacing -------------------------------------------------------- */
   --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
@@ -79,6 +130,106 @@
   --ease: cubic-bezier(0.2, 0, 0.1, 1);
   --fast: 120ms;
   --slow: 260ms;
+}
+
+/* --- Venom ------------------------------------------------------------ */
+/* Declared once and applied from both entry points. Only tokens change; no
+   component rule lives in here, so nothing can go missing in the third state
+   where neither block applies. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --paper:          #08070d;
+    --paper-deep:     #100e18;
+    --paper-raised:   #16131f;
+    --panel:          #1b1728;
+
+    --ink:            #ecebf6;  /* bone — the spider, the eyes */
+    --ink-soft:       #b6b2ca;
+    --ink-faint:      #7e7996;
+    --ink-ghost:      #4e4a63;
+    --hairline:       #2b2740;
+
+    --red:            #e8323e;  /* the same red, lifted to survive the void */
+    --red-deep:       #b71d29;
+    --blue:           #8b7bf0;
+    --blue-deep:      #6b5bd2;
+    --gold:           #f0c04a;
+
+    --accent:         #8ef04a;  /* the symbiote's green — state, never action */
+    --on-accent:      #ffffff;
+    --shade:          #000000;
+    --mast:           #12101c;
+    --band:           #211c33;
+
+    --s-origin:       #d8d3ea;
+    --s-asm:          #ff5a5f;
+    --s-ppssm:        #7f9dff;
+    --s-mtu:          #c48cf0;
+    --s-web:          #3fd3ba;
+    --s-spec-mag:     #ff9a4d;
+    --s-guest:        #9fcf67;
+    --s-reprint:      #b6aea2;
+    --s-kids:         #ff8ec0;
+    --s-sm90:         #ff8464;
+    --s-unlimited:    #b3a4ea;
+    --s-sensational:  #57d982;
+    --s-scarlet:      #ff5f78;
+    --s-ultimate:     #55bdf0;
+    --s-superior:     #8a8ae8;
+    --s-miles:        #ff6683;
+    --s-ultimate2:    #b58ff5;
+
+    --arc-lift:       0.58;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper:          #08070d;
+  --paper-deep:     #100e18;
+  --paper-raised:   #16131f;
+  --panel:          #1b1728;
+
+  --ink:            #ecebf6;
+  --ink-soft:       #b6b2ca;
+  --ink-faint:      #7e7996;
+  --ink-ghost:      #4e4a63;
+  --hairline:       #2b2740;
+
+  --red:            #e8323e;
+  --red-deep:       #b71d29;
+  --blue:           #8b7bf0;
+  --blue-deep:      #6b5bd2;
+  --gold:           #f0c04a;
+
+  --accent:         #8ef04a;
+  --on-accent:      #ffffff;
+  --shade:          #000000;
+  --mast:           #12101c;
+  --band:           #211c33;
+
+  --s-origin:       #d8d3ea;
+  --s-asm:          #ff5a5f;
+  --s-ppssm:        #7f9dff;
+  --s-mtu:          #c48cf0;
+  --s-web:          #3fd3ba;
+  --s-spec-mag:     #ff9a4d;
+  --s-guest:        #9fcf67;
+  --s-reprint:      #b6aea2;
+  --s-kids:         #ff8ec0;
+  --s-sm90:         #ff8464;
+  --s-unlimited:    #b3a4ea;
+  --s-sensational:  #57d982;
+  --s-scarlet:      #ff5f78;
+  --s-ultimate:     #55bdf0;
+  --s-superior:     #8a8ae8;
+  --s-miles:        #ff6683;
+  --s-ultimate2:    #b58ff5;
+
+  --arc-lift:       0.58;
 }
 
 @media (prefers-reduced-motion: reduce) {

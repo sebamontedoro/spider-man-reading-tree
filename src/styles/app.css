@@ -170,7 +170,7 @@
   color: var(--ink-faint);
   text-decoration: none;
   padding: 1px 4px;
-  background: rgba(242, 233, 213, 0.85);
+  background: color-mix(in srgb, var(--paper) 85%, transparent);
 }
 .timeline__jump a:hover { background: var(--red); color: #fff; }
 
@@ -216,7 +216,7 @@
   border-left: var(--rule) solid var(--ink);
   border-right: var(--rule) solid var(--ink);
   border-bottom: var(--rule) solid var(--ink);
-  background: rgba(255, 253, 247, 0.62);
+  background: color-mix(in srgb, var(--panel) 62%, transparent);
 }
 
 .month {
