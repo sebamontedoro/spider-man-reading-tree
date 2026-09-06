@@ -526,10 +526,12 @@ export const ARCS = [
     name: "Civil War",
     year: 2006,
     issues: [
-      'amazing-spider-man-v2-532', 'amazing-spider-man-v2-533', 'amazing-spider-man-v2-534',
-      'friendly-neighborhood-spider-man-11', 'amazing-spider-man-v2-535', 'amazing-spider-man-v2-536',
-      'friendly-neighborhood-spider-man-12', 'friendly-neighborhood-spider-man-13', 'amazing-spider-man-v2-537',
-      'amazing-spider-man-v2-538',
+      'civil-war-1', 'civil-war-2', 'amazing-spider-man-v2-532',
+      'amazing-spider-man-v2-533', 'amazing-spider-man-v2-534', 'friendly-neighborhood-spider-man-11',
+      'civil-war-3', 'civil-war-4', 'amazing-spider-man-v2-535',
+      'amazing-spider-man-v2-536', 'friendly-neighborhood-spider-man-12', 'friendly-neighborhood-spider-man-13',
+      'civil-war-5', 'civil-war-6', 'amazing-spider-man-v2-537',
+      'amazing-spider-man-v2-538', 'civil-war-7',
     ],
     blurb: "He takes a public side, and unmasks on television. The consequences drive the next two years.",
     crossover: true,
@@ -825,10 +827,12 @@ export const ARCS = [
     name: "Spider-Verse",
     year: 2014,
     issues: [
-      'superior-spider-man-32', 'superior-spider-man-33', 'amazing-spider-man-v3-7',
-      'amazing-spider-man-v3-8', 'amazing-spider-man-v3-9', 'amazing-spider-man-v3-10',
-      'amazing-spider-man-v3-11', 'amazing-spider-man-v3-12', 'amazing-spider-man-v3-13',
-      'amazing-spider-man-v3-14', 'amazing-spider-man-v3-15',
+      'edge-of-spider-verse-1', 'edge-of-spider-verse-2', 'edge-of-spider-verse-3',
+      'edge-of-spider-verse-4', 'edge-of-spider-verse-5', 'superior-spider-man-32',
+      'superior-spider-man-33', 'amazing-spider-man-v3-7', 'amazing-spider-man-v3-8',
+      'amazing-spider-man-v3-9', 'amazing-spider-man-v3-10', 'amazing-spider-man-v3-11',
+      'amazing-spider-man-v3-12', 'amazing-spider-man-v3-13', 'amazing-spider-man-v3-14',
+      'amazing-spider-man-v3-15',
     ],
     blurb: "Every Spider-Man from every continuity, hunted at once. The event the universe model exists for.",
     crossover: true,
@@ -971,8 +975,174 @@ export const ARCS = [
     key: 'new-fantastic-four',
     name: 'The New Fantastic Four',
     year: 1990,
-    issues: ['fantastic-four-347'],
+    issues: [
+      'fantastic-four-347', 'fantastic-four-348', 'fantastic-four-349',
+    ],
     blurb: 'A replacement team assembled from four of the line\u2019s biggest sellers.',
+  },
+
+  /* ==================================================================== */
+  /* Events that run their whole length in someone else's book.           */
+  /*                                                                      */
+  /* These hold guest ids from data/appearances.js rather than generated   */
+  /* ones. Without them the ninety-seven issues added there would be       */
+  /* reachable only through a single flat path of a hundred and forty-six. */
+  /* ==================================================================== */
+
+  {
+    key: 'secret-wars-1984',
+    name: 'Secret Wars',
+    year: 1984,
+    issues: [
+      'secret-wars-1', 'secret-wars-2', 'secret-wars-3',
+      'secret-wars-4', 'secret-wars-5', 'secret-wars-6',
+      'secret-wars-7', 'secret-wars-8', 'secret-wars-9',
+      'secret-wars-10', 'secret-wars-11', 'secret-wars-12',
+    ],
+    blurb: 'The twelve-issue crossover he is drafted into, and where he picks up the costume that outlives it.',
+  },
+  {
+    key: 'infinity-gauntlet',
+    name: 'The Infinity Gauntlet',
+    year: 1991,
+    issues: [
+      'infinity-gauntlet-1', 'infinity-gauntlet-2', 'infinity-gauntlet-3',
+      'infinity-gauntlet-4', 'infinity-gauntlet-5', 'infinity-gauntlet-6',
+    ],
+    blurb: 'A cosmic event that reaches street level for exactly as long as street level survives it.',
+  },
+  {
+    key: 'marvels',
+    name: 'Marvels',
+    year: 1994,
+    issues: [
+      'marvels-1', 'marvels-2', 'marvels-3',
+      'marvels-4',
+    ],
+    blurb: 'Four issues of the Marvel Universe photographed from the sidewalk, ending on Gwen Stacy.',
+  },
+  {
+    key: 'ultimate-six',
+    name: 'Ultimate Six',
+    year: 2003,
+    issues: [
+      'ultimate-six-1', 'ultimate-six-2', 'ultimate-six-3',
+      'ultimate-six-4', 'ultimate-six-5', 'ultimate-six-6',
+      'ultimate-six-7',
+    ],
+    blurb: 'The Ultimate Sinister Six against the Ultimates, with Peter caught between the two.',
+  },
+  {
+    key: 'thin-air',
+    name: 'Thin Air',
+    year: 2004,
+    issues: [
+      'the-pulse-1', 'the-pulse-2', 'the-pulse-3',
+      'the-pulse-4', 'the-pulse-5',
+    ],
+    blurb: 'The Daily Bugle covering Norman Osborn as a newspaper would, with Peter on the staff.',
+  },
+  {
+    key: 'breakout',
+    name: 'Breakout',
+    year: 2005,
+    issues: [
+      'new-avengers-1', 'new-avengers-2', 'new-avengers-3',
+      'new-avengers-4', 'new-avengers-5', 'new-avengers-6',
+    ],
+    blurb: 'A prison riot assembles a team by accident, and he is on it for the next five years.',
+  },
+  {
+    key: 'world-war-hulk',
+    name: 'World War Hulk',
+    year: 2007,
+    issues: [
+      'world-war-hulk-1', 'world-war-hulk-2', 'world-war-hulk-3',
+      'world-war-hulk-4', 'world-war-hulk-5',
+    ],
+    blurb: 'The Hulk returns for the people who exiled him and takes the city Spider-Man works in.',
+  },
+  {
+    key: 'secret-invasion',
+    name: 'Secret Invasion',
+    year: 2008,
+    issues: [
+      'secret-invasion-1', 'secret-invasion-2', 'secret-invasion-3',
+      'secret-invasion-4', 'secret-invasion-5', 'secret-invasion-6',
+      'secret-invasion-7', 'secret-invasion-8',
+    ],
+    blurb: 'Nobody can prove who anybody is, and the man who ends it is handed the country.',
+  },
+  {
+    key: 'siege',
+    name: 'Siege',
+    year: 2010,
+    issues: [
+      'siege-1', 'siege-2', 'siege-3',
+      'siege-4',
+    ],
+    blurb: 'How Osborn\'s year in charge ends, and the world his book runs in afterwards.',
+  },
+  {
+    key: 'ultimate-fallout',
+    name: 'Ultimate Fallout',
+    year: 2011,
+    issues: [
+      'ultimate-fallout-1', 'ultimate-fallout-2', 'ultimate-fallout-3',
+      'ultimate-fallout-4', 'ultimate-fallout-5', 'ultimate-fallout-6',
+    ],
+    blurb: 'Six issues between one Spider-Man\'s funeral and the last page where the next one appears.',
+  },
+  {
+    key: 'secret-wars-2015',
+    name: 'Secret Wars',
+    year: 2015,
+    issues: [
+      'secret-wars-2015-1', 'secret-wars-2015-2', 'secret-wars-2015-3',
+      'secret-wars-2015-4', 'secret-wars-2015-5', 'secret-wars-2015-6',
+      'secret-wars-2015-7', 'secret-wars-2015-8', 'secret-wars-2015-9',
+    ],
+    blurb: 'The end of the Ultimate line and the main one, and the single universe that comes out.',
+  },
+  {
+    key: 'absolute-carnage',
+    name: 'Absolute Carnage',
+    year: 2019,
+    issues: [
+      'absolute-carnage-1', 'absolute-carnage-2', 'absolute-carnage-3',
+      'absolute-carnage-4', 'absolute-carnage-5',
+    ],
+    blurb: 'Kasady comes back for everyone who ever wore a symbiote, which is most of the cast.',
+  },
+  {
+    key: 'king-in-black',
+    name: 'King in Black',
+    year: 2020,
+    issues: [
+      'king-in-black-1', 'king-in-black-2', 'king-in-black-3',
+      'king-in-black-4', 'king-in-black-5',
+    ],
+    blurb: 'The symbiote thread reaches the thing the symbiotes came from.',
+  },
+  {
+    key: 'devils-reign',
+    name: 'Devil\'s Reign',
+    year: 2021,
+    issues: [
+      'devils-reign-1', 'devils-reign-2', 'devils-reign-3',
+      'devils-reign-4', 'devils-reign-5', 'devils-reign-6',
+    ],
+    blurb: 'Wilson Fisk is elected mayor and outlaws costumed heroes, which is the premise his book then runs on.',
+  },
+  {
+    key: 'ultimate-invasion',
+    name: 'Ultimate Invasion',
+    year: 2023,
+    issues: [
+      'ultimate-invasion-1', 'ultimate-invasion-2', 'ultimate-invasion-3',
+      'ultimate-invasion-4', 'ultimate-universe-1',
+    ],
+    blurb: 'The Maker builds a universe to his own design — the one the 2024 Ultimate Spider-Man lives in.',
   },
 ]
 

@@ -71,23 +71,24 @@ export const PATHS = [
   {
     key: 'beyond-his-own-books',
     name: 'Outside His Own Titles',
-    blurb: 'Every issue in the tree that he appears in without headlining — from the 1963 Human Torch crossings to Spider-Geddon.',
-    match: (i) => i.role === 'guest',
+    blurb: 'The one-off crossings: a single issue of someone else’s book, worth reading on its own. The events he spends a whole storyline inside are arcs in their own right now, so this is what is left over — and it reads as the list it was always meant to be.',
+    match: (i) => i.role === 'guest' && i.arcs.length === 0,
   },
   {
     key: 'line-wide-events',
     name: 'When the Whole Line Arrives',
-    blurb: 'The company-wide events that reach him, each starting in the book where it actually happens rather than in his tie-in.',
+    blurb: 'The company-wide events that reach him, each at its whole length in the book where it actually happens rather than as the one issue that opens it.',
     arcs: [
-      'black-suit', 'inferno', 'acts-of-vengeance', 'maximum-carnage',
-      'the-other', 'civil-war', 'civil-war-ii', 'secret-empire',
-      'spider-verse', 'ultimatum',
+      'secret-wars-1984', 'inferno', 'acts-of-vengeance', 'infinity-gauntlet',
+      'maximum-carnage', 'the-other', 'civil-war', 'world-war-hulk',
+      'secret-invasion', 'siege', 'ultimatum', 'spider-verse',
+      'secret-wars-2015', 'civil-war-ii', 'secret-empire', 'absolute-carnage',
+      'king-in-black', 'devils-reign', 'ultimate-invasion',
     ],
     issues: [
-      'infinity-gauntlet-1', 'infinity-war-1', 'infinity-crusade-1',
-      'secret-invasion-1', 'fear-itself-1', 'avengers-vs-x-men-1',
-      'original-sin-1', 'secret-wars-2015-1', 'secret-wars-2015-9',
-      'spider-geddon-1',
+      'infinity-war-1', 'infinity-crusade-1', 'fear-itself-1',
+      'avengers-vs-x-men-1', 'original-sin-1', 'spider-geddon-1',
+      'dark-web-1',
     ],
   },
   {
@@ -117,8 +118,11 @@ export const PATHS = [
   {
     key: 'the-symbiote-thread',
     name: 'The Symbiote Thread',
-    blurb: 'One costume, followed for thirty-six years: a crossover souvenir that becomes a villain, then several.',
-    arcs: ['black-suit', 'venom-arrives', 'maximum-carnage', 'web-of-carnage'],
+    blurb: 'One costume, followed from a crossover souvenir to a villain, to several, to the thing the whole species came from.',
+    arcs: [
+      'black-suit', 'venom-arrives', 'maximum-carnage', 'web-of-carnage',
+      'absolute-carnage', 'king-in-black',
+    ],
     issues: [
       'secret-wars-8', 'amazing-spider-man-259',
       'venom-lethal-protector-1', 'venom-lethal-protector-6',
@@ -146,11 +150,14 @@ export const PATHS = [
   {
     key: 'miles-morales',
     name: 'Miles Morales',
-    blurb: 'From a debut in the parallel line, through the crossing where the two meet, to the continuity he ends up in.',
+    blurb: 'From three pages at the end of someone else\u2019s funeral, through the crossing where the two Spider-Men meet, to the continuity he ends up in.',
     match: (i) =>
       ['ultimate-comics-spider-man', 'miles-morales-ultimate',
        'spider-man-miles-v2', 'miles-morales-spider-man'].includes(i.series),
-    issues: ['spider-men-1', 'spider-men-5', 'secret-wars-2015-9', 'spider-men-ii-1'],
+    issues: [
+      'ultimate-fallout-4', 'spider-men-1', 'spider-men-5',
+      'secret-wars-2015-9', 'spider-men-ii-1',
+    ],
   },
   {
     key: 'the-superior-run',
@@ -176,6 +183,13 @@ export const PATHS = [
       'web-of-spider-man-32', 'amazing-spider-man-294', 'peter-parker-spectacular-132',
       'amazing-spider-man-annual-21', 'amazing-spider-man-300',
     ],
+  },
+  {
+    key: 'the-avengers-years',
+    name: 'The Avengers Years',
+    blurb: 'The stretch from 2005 to 2010 when the story that mattered to him was happening in someone else\u2019s book: a team he joins by accident, a registration act, an invasion, and the man it puts in charge.',
+    arcs: ['breakout', 'civil-war', 'secret-invasion', 'siege'],
+    issues: ['world-war-hulk-1', 'world-war-hulk-5'],
   },
 ]
 

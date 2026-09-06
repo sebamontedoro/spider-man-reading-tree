@@ -639,12 +639,6 @@ export const MILESTONES = [
     blurb: 'The sixth time the flagship restarts its count in twenty-four years.',
   },
   {
-    issue: 'ultimate-spider-man-2024-1',
-    type: 'universe',
-    label: 'A third continuity begins',
-    blurb: 'A second line called Ultimate, sharing nothing with the 2000 one but the name. Its Peter Parker reaches middle age before becoming Spider-Man at all.',
-  },
-  {
     issue: 'ultimate-comics-spider-man-2009-1',
     type: 'status-quo',
     label: 'The Ultimate line restarts its numbering',
@@ -704,6 +698,44 @@ export const MILESTONES = [
     type: 'status-quo',
     label: 'The relaunch: back to #1',
     blurb: 'All four titles restart, and the line is cut from four books to two.',
+  },
+  {
+    issue: 'ultimate-fallout-4',
+    type: 'debut',
+    character: "Miles Morales",
+    label: 'Miles Morales, first seen',
+    blurb: 'Three pages at the end of a book about someone else\u2019s funeral. Everything the tree holds under his name starts on them, four months before he takes the name.',
+  },
+  {
+    issue: 'edge-of-spider-verse-2',
+    type: 'debut',
+    character: "Gwen Stacy (Earth-65)",
+    label: 'Spider-Gwen',
+    blurb: 'The premise handed to the character it was originally spent on. Published as a one-shot to stock an event, and outlasted it.',
+  },
+  {
+    issue: 'new-avengers-6',
+    type: 'status-quo',
+    label: 'He joins the Avengers',
+    blurb: 'A street-level character becomes a member of the flagship team, which is the arrangement his own books run on until 2012.',
+  },
+  {
+    issue: 'secret-invasion-8',
+    type: 'status-quo',
+    label: 'Osborn is handed the country',
+    blurb: 'The man who ends the invasion is given the security apparatus, and Spider-Man spends the next two years hunted by his own government.',
+  },
+  {
+    issue: 'devils-reign-1',
+    type: 'status-quo',
+    label: 'Fisk outlaws the heroes',
+    blurb: 'An elected mayor makes the costume itself illegal in the city the book has always been set in.',
+  },
+  {
+    issue: 'ultimate-invasion-1',
+    type: 'event',
+    label: 'The Maker builds a universe',
+    blurb: 'A four-issue mini in which one man rewrites a continuity from scratch \u2014 the one the 2024 Ultimate Spider-Man is set in.',
   },
 ]
 
