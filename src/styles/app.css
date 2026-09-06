@@ -43,7 +43,7 @@
   text-transform: uppercase;
   color: #fff;
   /* Hard offset instead of a blur — closer to printed cover lettering. */
-  text-shadow: 3px 3px 0 var(--ink);
+  text-shadow: 3px 3px 0 var(--shade);
   display: flex;
   align-items: baseline;
   gap: var(--sp-3);
@@ -54,7 +54,7 @@
   font-size: 0.42em;
   font-weight: 700;
   letter-spacing: 0.22em;
-  text-shadow: 2px 2px 0 var(--ink);
+  text-shadow: 2px 2px 0 var(--shade);
 }
 
 .masthead__range { text-align: right; }
@@ -64,7 +64,7 @@
   font-family: var(--font-display);
   font-size: 22px;
   font-weight: 800;
-  text-shadow: 2px 2px 0 var(--ink);
+  text-shadow: 2px 2px 0 var(--shade);
 }
 
 .masthead__stats {
@@ -207,7 +207,7 @@
   font-stretch: condensed;
   letter-spacing: -0.04em;
   color: #fff;
-  text-shadow: 3px 3px 0 var(--ink);
+  text-shadow: 3px 3px 0 var(--shade);
   line-height: 1;
 }
 
@@ -217,7 +217,7 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  text-shadow: 1px 1px 0 var(--ink);
+  text-shadow: 1px 1px 0 var(--shade);
 }
 
 .year__months {
@@ -420,7 +420,7 @@
   font-weight: 900;
   font-stretch: condensed;
   color: #fff;
-  text-shadow: 3px 3px 0 var(--ink);
+  text-shadow: 3px 3px 0 var(--shade);
   margin: var(--sp-1) 0 2px;
 }
 

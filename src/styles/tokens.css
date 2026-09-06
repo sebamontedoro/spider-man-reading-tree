@@ -60,7 +60,8 @@
   --on-accent:      #fffdf7;  /* type that sits on --red or --accent */
 
   /* Ink and its shadow part company in the dark skin: a drop shadow cast in
-     bone white reads as a glow, not as depth. */
+     bone white reads as a glow, not as depth — and under white lettering, as a
+     doubled blur. Every drop shadow takes this, box and text alike. */
   --shade:          #14110f;
 
   /* The masthead and the year bands carry the halftone, and in the dark skin
