@@ -73,6 +73,12 @@ export const LIBRARY_FOLDERS = [
     series: ['spider-man-miles-v2'],
   },
   {
+    // El ultimo tramo de Miles en la linea paralela, antes de cruzar a la
+    // principal. Su titulo empieza igual que el de sus dos series propias.
+    dir: 'Miles Morales/Ultimate (2014)',
+    series: ['miles-morales-ultimate'],
+  },
+  {
     dir: 'Miles Morales/Vol 1 (2019)',
     series: ['miles-morales-spider-man'],
   },
