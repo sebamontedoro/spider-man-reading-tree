@@ -53,6 +53,20 @@ export const LIBRARY_FOLDERS = [
     series: ['amazing-spider-man-v6'],
   },
   {
+    // Sin esto, el #1 de 2013 se ofrecia tambien como el #1 de la vol. 2 y el
+    // de la vol. 3: el fallback devuelve todos los volumenes cuyo titulo
+    // coincide, y las tres Superior empiezan en 1. Un solo archivo contaba
+    // como tres numeros presentes.
+    dir: 'Superior Spider-Man/Vol 1 (2013)',
+    series: ['superior-spider-man'],
+  },
+  {
+    // La misma colision: la de 1996 llega al #33 y la de 2006 empieza en el
+    // #23, asi que once numeros se reclamaban dos veces.
+    dir: 'Sensational Spider-Man (1996)',
+    series: ['sensational-spider-man'],
+  },
+  {
     // La de 2006 numera #23-41 y la de 1996 llega hasta #33: sin esto, los
     // numeros 23-33 se irian a la serie equivocada.
     dir: 'Sensational Spider-Man (2006)',
