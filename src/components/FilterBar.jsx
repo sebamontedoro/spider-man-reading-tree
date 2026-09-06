@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
-import { SERIES_LIST, CHARACTERS, YEAR_RANGE, UNIVERSES } from '../lib/dataset.js'
+import { SERIES_LIST, CHARACTERS, YEAR_RANGE, UNIVERSES, ISSUE_BY_ID } from '../lib/dataset.js'
 import { DEFAULT_FILTERS, isFilterActive, countActiveFilters } from '../lib/filters.js'
+import { optionsFor, narrowedBy } from '../lib/scope.js'
+import { arcDuo, duoBackground, useArcLift } from '../lib/palette.js'
 import { useMediaQuery, PHONE } from '../lib/useMediaQuery.js'
-import { ARCS_SORTED } from '../../data/arcs.js'
-import { PATHS } from '../../data/paths.js'
+import Picker from './Picker.jsx'
+import { ARCS_SORTED, ARCS_BY_KEY } from '../../data/arcs.js'
+import { PATHS, PATHS_BY_KEY } from '../../data/paths.js'
 import { MILESTONE_TYPES } from '../../data/milestones.js'
 
 const RELEVANCE = [
@@ -13,11 +16,25 @@ const RELEVANCE = [
   { key: 'optional', label: 'Reprints & tie-ins' },
 ]
 
+/** The series accent an uncurated arc borrows, taken from where it mostly runs. */
+const ARC_ACCENT = new Map(
+  ARCS_SORTED.map((a) => {
+    const counts = new Map()
+    for (const id of a.issues) {
+      const accent = ISSUE_BY_ID.get(id)?.accent
+      if (accent) counts.set(accent, (counts.get(accent) || 0) + 1)
+    }
+    const best = [...counts.entries()].sort((x, y) => y[1] - x[1])[0]
+    return [a.key, best ? best[0] : 'asm']
+  }),
+)
+
 export default function FilterBar({
   filters, onChange, pathKey, onPathChange, shownCount, totalCount, shelfCount = 0,
 }) {
   const isPhone = useMediaQuery(PHONE)
   const [sheetOpen, setSheetOpen] = useState(false)
+  const lift = useArcLift()
 
   const activeCount = countActiveFilters(filters)
   const set = (patch) => onChange({ ...filters, ...patch })
@@ -35,6 +52,74 @@ export default function FilterBar({
     setSheetOpen(false)
   }
 
+  /* -- the four dimensions ------------------------------------------------ */
+
+  /** What each picker is narrowed by, named so it can be said out loud. */
+  const selection = { series: filters.series, arc: filters.arc, path: pathKey, character: filters.character }
+  const labels = {
+    series: SERIES_LIST.find((s) => s.key === filters.series)?.name,
+    arc: ARCS_BY_KEY[filters.arc]?.name,
+    path: PATHS_BY_KEY[pathKey]?.name,
+    character: filters.character,
+  }
+  const by = (kind) => narrowedBy(selection, kind, labels)
+
+  const seriesOptions = useMemo(
+    () => optionsFor('series', SERIES_LIST, selection),
+    [filters.arc, pathKey, filters.character],
+  )
+  const arcOptions = useMemo(
+    () => optionsFor('arc', ARCS_SORTED, selection),
+    [filters.series, pathKey, filters.character],
+  )
+  const pathOptions = useMemo(
+    () => optionsFor('path', PATHS, selection),
+    [filters.series, filters.arc, filters.character],
+  )
+  const charOptions = useMemo(
+    () => optionsFor('character', CHARACTERS, selection, (c) => c),
+    [filters.series, filters.arc, pathKey],
+  )
+
+  const pickers = (
+    <>
+      <Picker
+        kind="series" noun="series" label="Series"
+        options={seriesOptions} value={filters.series}
+        onChange={(key) => set({ series: key })}
+        narrowedBy={by('series')}
+        labelOf={(s) => s.name}
+        metaOf={(s) => `${s.count}`}
+        swatchOf={(s) => `var(--s-${s.accent})`}
+      />
+      <Picker
+        kind="arc" noun="arcs" label="Arc"
+        options={arcOptions} value={filters.arc}
+        onChange={(key) => set({ arc: key })}
+        narrowedBy={by('arc')}
+        labelOf={(a) => a.name}
+        metaOf={(a) => `${a.year} · ${a.issues.length}`}
+        swatchOf={(a) => duoBackground(arcDuo(a.key, ARC_ACCENT.get(a.key), lift))}
+      />
+      <Picker
+        kind="path" noun="reading paths" label="Reading path"
+        options={pathOptions} value={pathKey}
+        onChange={onPathChange}
+        narrowedBy={by('path')}
+        labelOf={(p) => p.name}
+        metaOf={() => 'path'}
+      />
+      <Picker
+        kind="character" noun="characters" label="First appearance of…"
+        options={charOptions} value={filters.character}
+        onChange={(key) => set({ character: key })}
+        narrowedBy={by('character')}
+        keyOf={(c) => c}
+        labelOf={(c) => c}
+      />
+    </>
+  )
+
   const search = (
     <label className="filterbar__search">
       <span className="sr-only">Search issues</span>
@@ -47,24 +132,14 @@ export default function FilterBar({
     </label>
   )
 
-  const pathSelect = (
-    <select
-      className="filterbar__select"
-      value={pathKey || ''}
-      onChange={(e) => onPathChange(e.target.value || null)}
-      aria-label="Reading path"
-    >
-      <option value="">Reading path — none</option>
-      {PATHS.map((p) => (
-        <option key={p.key} value={p.key}>{p.name}</option>
-      ))}
-    </select>
-  )
-
   /**
-   * Defined once, rendered inline on a wide screen and inside the sheet on a
-   * phone. Sharing the markup is what stops the two layouts drifting apart as
-   * filters get added — there is only one place to add them.
+   * Everything that is not a dimension.
+   *
+   * These used to sit open across two rows, and between them and the legend
+   * the scaffolding stood taller than the first row of cards. They are still
+   * one click away, and the button carries the count — filtering without
+   * noticing is the mistake collapsing them could cause, and the count is what
+   * stops it.
    */
   const controls = (
     <>
@@ -82,42 +157,6 @@ export default function FilterBar({
             ))}
           </select>
         )}
-
-        <select
-          className="filterbar__select"
-          value={filters.series || ''}
-          onChange={(e) => set({ series: e.target.value || null })}
-          aria-label="Series"
-        >
-          <option value="">All series</option>
-          {SERIES_LIST.map((s) => (
-            <option key={s.key} value={s.key}>{s.name} ({s.count})</option>
-          ))}
-        </select>
-
-        <select
-          className="filterbar__select"
-          value={filters.arc || ''}
-          onChange={(e) => set({ arc: e.target.value || null })}
-          aria-label="Story arc"
-        >
-          <option value="">All arcs</option>
-          {ARCS_SORTED.map((a) => (
-            <option key={a.key} value={a.key}>{a.name}</option>
-          ))}
-        </select>
-
-        <select
-          className="filterbar__select"
-          value={filters.character || ''}
-          onChange={(e) => set({ character: e.target.value || null })}
-          aria-label="First appearance of"
-        >
-          <option value="">First appearance of…</option>
-          {CHARACTERS.map((c) => (
-            <option key={c} value={c}>{c}</option>
-          ))}
-        </select>
 
         <span className="filterbar__years">
           <input
@@ -225,77 +264,72 @@ export default function FilterBar({
     </>
   )
 
-  /* -- phone: search stays out, everything else moves into a sheet --------- */
+  const sheet = sheetOpen && (
+    <div className="sheet-backdrop" onClick={() => setSheetOpen(false)}>
+      <div
+        className="sheet"
+        role="dialog"
+        aria-label="Filters"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="sheet__grip" aria-hidden="true" />
+        <div className="sheet__head">
+          <strong>Filters</strong>
+          <span className="filterbar__count">
+            <strong>{shownCount}</strong> of {totalCount}
+          </span>
+          <button className="sheet__close" onClick={() => setSheetOpen(false)}>Done</button>
+        </div>
+        <div className="sheet__body">
+          {controls}
+          {(isFilterActive(filters) || pathKey) && (
+            <button className="filterbar__reset sheet__reset" onClick={reset}>
+              Reset everything
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+
+  const filtersButton = (
+    <button
+      className={`sheet-open ${activeCount ? 'sheet-open--on' : ''}`}
+      onClick={() => setSheetOpen(true)}
+      aria-expanded={sheetOpen}
+    >
+      Filters
+      {activeCount > 0 && <span className="sheet-open__count">{activeCount}</span>}
+    </button>
+  )
 
   if (isPhone) {
     return (
       <>
         <div className="filterbar filterbar--compact">
           {search}
-          <button
-            className={`sheet-open ${activeCount ? 'sheet-open--on' : ''}`}
-            onClick={() => setSheetOpen(true)}
-            aria-expanded={sheetOpen}
-          >
-            Filters
-            {/* The count is the whole point of collapsing them: filtering
-                without noticing is otherwise the easiest mistake here. */}
-            {activeCount > 0 && <span className="sheet-open__count">{activeCount}</span>}
-          </button>
+          {filtersButton}
         </div>
-
-        {sheetOpen && (
-          <div className="sheet-backdrop" onClick={() => setSheetOpen(false)}>
-            <div
-              className="sheet"
-              role="dialog"
-              aria-label="Filters"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="sheet__grip" aria-hidden="true" />
-              <div className="sheet__head">
-                <strong>Filters</strong>
-                <span className="filterbar__count">
-                  <strong>{shownCount}</strong> of {totalCount}
-                </span>
-                <button className="sheet__close" onClick={() => setSheetOpen(false)}>
-                  Done
-                </button>
-              </div>
-              <div className="sheet__body">
-                {pathSelect}
-                {controls}
-                {(isFilterActive(filters) || pathKey) && (
-                  <button className="filterbar__reset sheet__reset" onClick={reset}>
-                    Reset everything
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
+        <div className="filterbar filterbar--pickers">{pickers}</div>
+        {sheet}
       </>
     )
   }
-
-  /* -- wide screen: everything inline ------------------------------------- */
 
   return (
     <div className="filterbar">
       <div className="filterbar__row">
         {search}
-        {pathSelect}
-
+        {pickers}
         <span className="filterbar__count">
           <strong>{shownCount}</strong> of {totalCount}
         </span>
-
+        {filtersButton}
         {(isFilterActive(filters) || pathKey) && (
           <button className="filterbar__reset" onClick={reset}>Reset</button>
         )}
       </div>
-
-      {controls}
+      {sheet}
     </div>
   )
 }
