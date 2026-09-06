@@ -1354,3 +1354,41 @@
 /* The list takes whatever is left of the sheet rather than a fixed 300px. */
 .picker__sheet .picker__list { max-height: none; flex: 1; }
 .picker__sheet .picker__opt { padding: var(--sp-3); }
+
+/* -- skin toggle --------------------------------------------------------- */
+/* In the control bar rather than on the masthead. The plate is a flex row that
+   wraps, and anything added there pushed the masthead from two rows to three —
+   forty-seven pixels of height for a switch, on a page where the scaffolding
+   had just been cut down. This row had the space already. */
+.skin {
+  display: inline-flex;
+  border: var(--rule) solid var(--ink);
+  flex: none;
+  margin-left: auto;
+}
+.skin__btn {
+  font: inherit;
+  font-family: var(--font-display);
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px var(--sp-2);
+  background: var(--paper-raised);
+  color: var(--ink-faint);
+  border: 0;
+  border-right: var(--rule) solid var(--ink);
+  cursor: pointer;
+}
+.skin__btn:last-child { border-right: 0; }
+.skin__btn:hover { background: var(--gold); color: var(--ink); }
+.skin__btn[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+@media (max-width: 760px) {
+  /* Next to the Filters button, which is the row it belongs with there. */
+  .filterbar--compact .skin { margin-left: 0; }
+  .skin__btn { padding: 5px 6px; letter-spacing: 0.04em; }
+}

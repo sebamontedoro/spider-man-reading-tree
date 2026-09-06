@@ -6,6 +6,7 @@ import { optionsFor, narrowedBy } from '../lib/scope.js'
 import { arcDuo, duoBackground, useArcLift } from '../lib/palette.js'
 import { useMediaQuery, PHONE } from '../lib/useMediaQuery.js'
 import Picker from './Picker.jsx'
+import SkinToggle from './SkinToggle.jsx'
 import { ARCS_SORTED, ARCS_BY_KEY } from '../../data/arcs.js'
 import { PATHS, PATHS_BY_KEY } from '../../data/paths.js'
 import { MILESTONE_TYPES } from '../../data/milestones.js'
@@ -311,6 +312,7 @@ export default function FilterBar({
         <div className="filterbar filterbar--compact">
           {search}
           {filtersButton}
+          <SkinToggle />
         </div>
         <div className="filterbar filterbar--pickers">{pickers}</div>
         {sheet}
@@ -330,6 +332,7 @@ export default function FilterBar({
         {(isFilterActive(filters) || pathKey) && (
           <button className="filterbar__reset" onClick={reset}>Reset</button>
         )}
+        <SkinToggle />
       </div>
       {sheet}
     </div>
