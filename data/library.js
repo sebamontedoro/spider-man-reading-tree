@@ -93,6 +93,24 @@ export const LIBRARY_FOLDERS = [
     series: ['spider-man-v4'],
   },
   {
+    // Dos series con el mismo nombre y la misma numeracion: la de 2000 llega a
+    // #133 y el relanzamiento de 2009 vuelve a empezar en #1. El arbol solo
+    // indexa la primera, pero la carpeta lo dice igual — el dia que entre la
+    // segunda, el fallback las confundiria en silencio.
+    dir: 'Ultimate Spider-Man/Vol 1 (2000)',
+    series: ['ultimate-spider-man'],
+  },
+  {
+    dir: 'Ultimate Spider-Man/Annuals',
+    series: ['ultimate-spider-man-annual'],
+  },
+  {
+    // La de Miles. Su titulo es el de la serie de 2009 mas una palabra, y esa
+    // palabra es lo unico que las separa.
+    dir: 'Ultimate Spider-Man/Ultimate Comics (2011)',
+    series: ['ultimate-comics-spider-man'],
+  },
+  {
     dir: 'Amazing Spider-Man Annuals',
     series: ['amazing-spider-man-annual'],
   },
