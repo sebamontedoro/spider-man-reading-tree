@@ -137,4 +137,57 @@ export const COLLECTIONS = [
       { id: 'amazing-spider-man-v4-32', from: 70,  to: 90 },
     ],
   },
+  {
+    file: 'Collected Editions/Ultimate Comics Spider-Man - Death of Spider-Man Fallout (Digital) (Kileko-Empire).cbr',
+    // Ultimate Fallout #1-6. Ninguno de los seis existe suelto.
+    // 142 paginas: dos de tomo y seis numeros de 22 a 24, leidos portada por
+    // portada. Lo confirma la historia: en la 92, dentro del #4, aparece Miles.
+    parts: [
+      { id: 'ultimate-fallout-1', from: 3,   to: 25 },
+      { id: 'ultimate-fallout-2', from: 26,  to: 47 },
+      { id: 'ultimate-fallout-3', from: 48,  to: 70 },
+      { id: 'ultimate-fallout-4', from: 71,  to: 94 },
+      { id: 'ultimate-fallout-5', from: 95,  to: 118 },
+      { id: 'ultimate-fallout-6', from: 119, to: 142 },
+    ],
+  },
+  {
+    file: 'Collected Editions/New Avengers - Breakout v01 (2005) (Digital) (GetComics).cbz',
+    // New Avengers #1-6, el arco Breakout. El pack de la run completa son diez
+    // piezas de ~2 GB para conseguir estos seis numeros; el tomo pesa 178 MB.
+    // Las anclas son los seis creditos \"BREAKOUT! PART N\". Ojo con la del #3:
+    // con miniaturas chicas la lei en la 44 y es la 45, lo que daba un #3 de 14
+    // paginas y un #4 de 32 — imposibles, y eso fue lo que delato el error.
+    parts: [
+      { id: 'new-avengers-1', from: 3,   to: 22 },
+      { id: 'new-avengers-2', from: 23,  to: 44 },
+      { id: 'new-avengers-3', from: 45,  to: 66 },
+      { id: 'new-avengers-4', from: 67,  to: 89 },
+      { id: 'new-avengers-5', from: 90,  to: 108 },
+      { id: 'new-avengers-6', from: 109, to: 132 },
+    ],
+  },
+  {
+    file: 'Collected Editions/Original Sin by Aaron & Deodato (2014) (Digital) (GetComics).cbr',
+    // Del evento el arbol solo pide el #1. El post traia dos escaneos: uno de
+    // 637 paginas con el evento y todos sus tie-ins, y este de 226 que es solo
+    // la serie principal. La portada del #2 esta en la 72.
+    parts: [
+      { id: 'original-sin-1', from: 45, to: 71 },
+    ],
+  },
+  {
+    file: 'Collected Editions/Ultimate Invasion (2024) (Digital) (Shan-Empire).cbz',
+    // Ultimate Invasion #1. Su post suelto quedo caido en las tres vias que
+    // ofrece, asi que este tomo fue la unica fuente; bajo por Pixeldrain.
+    //
+    // Solo se lista el #1. Del #2 al #4 hay archivos sueltos en el estante, y
+    // sus fronteras no se leen con confianza: la distancia entre el divisor
+    // numerado de cada numero y su pagina \"CHAPTER\" cambia (0, 3 y 7
+    // paginas), asi que interpolarlas seria adivinar. La del #1 si esta leida:
+    // la 50 es la variante del #1 y la 51 el divisor del #2.
+    parts: [
+      { id: 'ultimate-invasion-1', from: 4, to: 50 },
+    ],
+  },
 ]

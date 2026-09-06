@@ -219,4 +219,55 @@ export const LIBRARY_FOLDERS = [
     // the 1963 run.
     series: ['amazing-spider-man-v2'],
   },
+  // La rama de invitados: numeros de otras series donde Spider-Man aparece.
+  // Ninguna de estas carpetas se resuelve sola. El fallback por titulo deriva
+  // de data/series.js, y estas no son series del arbol sino apariciones, que
+  // viven en data/appearances.js — un archivo que el lector no importa. Sin
+  // pinchar la carpeta quedaban indexadas y sin ningun id: presentes en el
+  // disco e invisibles para el arbol.
+  // Las parejas salen de la tabla de destinos del repartidor, no de conjeturas:
+  // cada carpeta tiene exactamente un prefijo.
+  { dir: 'Invitados/Absolute Carnage', series: ['absolute-carnage'] },
+  { dir: 'Invitados/Avengers vs. X-Men', series: ['avengers-vs-x-men'] },
+  { dir: 'Invitados/Civil War', series: ['civil-war'] },
+  { dir: 'Invitados/Daredevil', series: ['daredevil'] },
+  { dir: 'Invitados/Dark Web', series: ['dark-web'] },
+  { dir: 'Invitados/Devil\'s Reign', series: ['devils-reign'] },
+  { dir: 'Invitados/Edge of Spider-Verse', series: ['edge-of-spider-verse'] },
+  { dir: 'Invitados/FF', series: ['ff'] },
+  { dir: 'Invitados/Fantastic Four', series: ['fantastic-four'] },
+  { dir: 'Invitados/Fantastic Four Annual', series: ['fantastic-four-annual'] },
+  { dir: 'Invitados/Fear Itself', series: ['fear-itself'] },
+  { dir: 'Invitados/Infinity Crusade', series: ['infinity-crusade'] },
+  { dir: 'Invitados/Infinity War', series: ['infinity-war'] },
+  { dir: 'Invitados/King in Black', series: ['king-in-black'] },
+  { dir: 'Invitados/Marvel Feature', series: ['marvel-feature'] },
+  { dir: 'Invitados/Marvel Super Hero Contest of Champions', series: ['contest-of-champions'] },
+  { dir: 'Invitados/Marvel Super Heroes Secret Wars', series: ['secret-wars'] },
+  { dir: 'Invitados/Marvel Two-In-One', series: ['marvel-two-in-one'] },
+  { dir: 'Invitados/Marvels', series: ['marvels'] },
+  { dir: 'Invitados/New Avengers', series: ['new-avengers'] },
+  { dir: 'Invitados/Nova', series: ['nova'] },
+  { dir: 'Invitados/Original Sin', series: ['original-sin'] },
+  { dir: 'Invitados/Secret Invasion', series: ['secret-invasion'] },
+  { dir: 'Invitados/Secret Wars (2015)', series: ['secret-wars-2015'] },
+  { dir: 'Invitados/Secret Wars II', series: ['secret-wars-ii'] },
+  { dir: 'Invitados/Siege', series: ['siege'] },
+  { dir: 'Invitados/Spider-Geddon', series: ['spider-geddon'] },
+  { dir: 'Invitados/Spider-Man: The Jackal Files', series: ['spider-man-jackal-files'] },
+  { dir: 'Invitados/Spider-Men', series: ['spider-men'] },
+  { dir: 'Invitados/Spider-Men II', series: ['spider-men-ii'] },
+  { dir: 'Invitados/Strange Tales', series: ['strange-tales'] },
+  { dir: 'Invitados/Strange Tales Annual', series: ['strange-tales-annual'] },
+  { dir: 'Invitados/The Avengers', series: ['avengers'] },
+  { dir: 'Invitados/The Infinity Gauntlet', series: ['infinity-gauntlet'] },
+  { dir: 'Invitados/The New Warriors', series: ['new-warriors'] },
+  { dir: 'Invitados/The Pulse', series: ['the-pulse'] },
+  { dir: 'Invitados/The X-Men', series: ['x-men'] },
+  { dir: 'Invitados/Ultimate Fallout', series: ['ultimate-fallout'] },
+  { dir: 'Invitados/Ultimate Invasion', series: ['ultimate-invasion'] },
+  { dir: 'Invitados/Ultimate Six', series: ['ultimate-six'] },
+  { dir: 'Invitados/Ultimate Universe', series: ['ultimate-universe'] },
+  { dir: 'Invitados/Venom: Lethal Protector', series: ['venom-lethal-protector'] },
+  { dir: 'Invitados/World War Hulk', series: ['world-war-hulk'] },
 ]
