@@ -13,6 +13,12 @@
  *   event       a crossover or line-wide event reaches Spider-Man
  *   status-quo  the premise of the book changes and does not change back
  *
+ * `character` is the indexable name, and only debuts carry it: the label is
+ * written to read in a timeline row ("Venom, in full") and four of them name
+ * two arrivals at once, so neither derives from the other. It takes a list
+ * when one milestone introduces two characters, which is what keeps those four
+ * from needing a duplicate row.
+ *
  * `label` is what the timeline shows — keep it under about 40 characters, it
  * has to read at a glance while scrolling. `blurb` is the one-line expansion
  * shown in the detail panel. Both are our own words.
@@ -70,6 +76,7 @@ export const MILESTONES = [
   {
     issue: 'amazing-fantasy-15',
     type: 'debut',
+    character: "Spider-Man",
     label: 'Spider-Man debuts',
     blurb: 'Sixteen pages at the back of an anthology already cancelled.',
   },
@@ -82,24 +89,27 @@ export const MILESTONES = [
   {
     issue: 'amazing-spider-man-1',
     type: 'debut',
+    character: ["J. Jonah Jameson", "The Chameleon"],
     label: 'J. Jonah Jameson and the Chameleon',
     blurb: 'The ongoing begins, and with it the Bugle and the money problems.',
   },
-  { issue: 'amazing-spider-man-3',  type: 'debut', label: 'Doctor Octopus debuts' },
-  { issue: 'amazing-spider-man-6',  type: 'debut', label: 'The Lizard debuts' },
-  { issue: 'amazing-spider-man-9',  type: 'debut', label: 'Electro debuts' },
-  { issue: 'amazing-spider-man-13', type: 'debut', label: 'Mysterio debuts' },
+  { issue: 'amazing-spider-man-3',  type: 'debut',  character: "Doctor Octopus", label: 'Doctor Octopus debuts' },
+  { issue: 'amazing-spider-man-6',  type: 'debut',  character: "The Lizard", label: 'The Lizard debuts' },
+  { issue: 'amazing-spider-man-9',  type: 'debut',  character: "Electro", label: 'Electro debuts' },
+  { issue: 'amazing-spider-man-13', type: 'debut', character: "Mysterio", label: 'Mysterio debuts' },
   {
     issue: 'amazing-spider-man-14',
     type: 'debut',
+    character: "The Green Goblin",
     label: 'The Green Goblin debuts',
     blurb: 'His identity would stay hidden for another twenty-five issues.',
   },
-  { issue: 'amazing-spider-man-15', type: 'debut', label: 'Kraven the Hunter debuts' },
-  { issue: 'amazing-spider-man-20', type: 'debut', label: 'The Scorpion debuts' },
+  { issue: 'amazing-spider-man-15', type: 'debut', character: "Kraven the Hunter", label: 'Kraven the Hunter debuts' },
+  { issue: 'amazing-spider-man-20', type: 'debut', character: "The Scorpion", label: 'The Scorpion debuts' },
   {
     issue: 'amazing-spider-man-31',
     type: 'debut',
+    character: ["Gwen Stacy", "Harry Osborn"],
     label: 'Gwen Stacy and Harry Osborn',
     blurb: 'Two of the core supporting cast arrive, in the issue that opens the Master Planner saga.',
   },
@@ -109,11 +119,12 @@ export const MILESTONES = [
     label: 'The Goblin is unmasked',
     blurb: 'Romita takes over the art and the Goblin turns out to be someone already in the cast.',
   },
-  { issue: 'amazing-spider-man-41', type: 'debut', label: 'The Rhino debuts' },
-  { issue: 'amazing-spider-man-42', type: 'debut', label: 'Mary Jane Watson, revealed' },
+  { issue: 'amazing-spider-man-41', type: 'debut', character: "The Rhino", label: 'The Rhino debuts' },
+  { issue: 'amazing-spider-man-42', type: 'debut', character: "Mary Jane Watson", label: 'Mary Jane Watson, revealed' },
   {
     issue: 'amazing-spider-man-50',
     type: 'debut',
+    character: "The Kingpin",
     label: 'The Kingpin debuts',
     blurb: 'A villain who would outgrow this title entirely.',
   },
@@ -137,8 +148,8 @@ export const MILESTONES = [
     label: 'Published without Comics Code approval',
     blurb: 'Marvel ran the story over the Code authority’s objection, and the Code changed soon after.',
   },
-  { issue: 'amazing-spider-man-101', type: 'debut', label: 'Morbius debuts' },
-  { issue: 'amazing-spider-man-113', type: 'debut', label: 'Hammerhead debuts' },
+  { issue: 'amazing-spider-man-101', type: 'debut', character: "Morbius", label: 'Morbius debuts' },
+  { issue: 'amazing-spider-man-113', type: 'debut', character: "Hammerhead", label: 'Hammerhead debuts' },
   {
     issue: 'amazing-spider-man-121',
     type: 'death',
@@ -151,10 +162,11 @@ export const MILESTONES = [
     label: 'The Green Goblin dies — apparently',
     blurb: 'Filed by Marvel Database as an apparent death, and rightly: he was brought back two decades later.',
   },
-  { issue: 'amazing-spider-man-124', type: 'debut', label: 'Man-Wolf debuts' },
+  { issue: 'amazing-spider-man-124', type: 'debut', character: "Man-Wolf", label: 'Man-Wolf debuts' },
   {
     issue: 'amazing-spider-man-129',
     type: 'debut',
+    character: ["The Punisher", "The Jackal"],
     label: 'The Punisher and the Jackal',
     blurb: 'A one-off antagonist who did not stay one.',
   },
@@ -170,20 +182,21 @@ export const MILESTONES = [
     label: 'The third Green Goblin dies',
     blurb: 'Closes the 1970s run of claimants to the identity.',
   },
-  { issue: 'marvel-team-up-65',       type: 'debut', label: 'Arcade, and Captain Britain in the US' },
-  { issue: 'peter-parker-spectacular-25', type: 'debut', label: 'Carrion debuts' },
+  { issue: 'marvel-team-up-65',       type: 'debut',       character: ["Arcade", "Captain Britain"], label: 'Arcade, and Captain Britain in the US' },
+  { issue: 'peter-parker-spectacular-25', type: 'debut', character: "Carrion", label: 'Carrion debuts' },
   {
     issue: 'peter-parker-spectacular-1',
     type: 'status-quo',
     label: 'A second monthly title launches',
     blurb: 'From here the character carries more than one ongoing book at a time.',
   },
-  { issue: 'amazing-spider-man-194', type: 'debut', label: 'The Black Cat debuts' },
+  { issue: 'amazing-spider-man-194', type: 'debut', character: "The Black Cat", label: 'The Black Cat debuts' },
 
   /* ============================================================== 1980s */
   {
     issue: 'amazing-spider-man-238',
     type: 'debut',
+    character: "The Hobgoblin",
     label: 'The Hobgoblin debuts',
     blurb: 'An identity deliberately left open, then left open by accident for years.',
   },
@@ -250,12 +263,14 @@ export const MILESTONES = [
   {
     issue: 'amazing-spider-man-298',
     type: 'debut',
+    character: "Venom",
     label: 'Venom, in glimpses',
     blurb: 'McFarlane starts as regular artist and the new villain gets a brief first look.',
   },
   {
     issue: 'amazing-spider-man-300',
     type: 'debut',
+    character: "Venom",
     label: 'Venom, in full',
     blurb: 'The best-known issue of the era, and the one that reset the title’s fortunes.',
   },
@@ -514,6 +529,7 @@ export const MILESTONES = [
   {
     issue: 'amazing-spider-man-v3-9',
     type: 'debut',
+    character: "The Scarlet Spider (Ben Reilly)",
     label: 'Ben Reilly returns',
     blurb: 'Nineteen years after the Clone Saga wrote him out.',
   },

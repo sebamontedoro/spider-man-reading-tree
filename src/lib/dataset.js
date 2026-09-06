@@ -153,14 +153,20 @@ for (const [id, list] of Object.entries(MILESTONES_BY_ISSUE)) {
  *
  * Deriving one from the other keeps a debut in a single place. The milestone
  * label is written to read in a timeline row ("Carnage arrives"); `character`
- * is the indexable name.
+ * is the indexable name, and takes a list when one arrival introduces two.
  */
 for (const issue of byId.values()) {
   for (const m of issue.milestones || []) {
     if (m.type !== 'debut' || !m.character) continue
+    // Un hito puede presentar dos personajes de una — "Gwen Stacy and Harry
+    // Osborn" es una sola llegada en la linea de tiempo y dos entradas en el
+    // indice. Partirlo en dos hitos duplicaria la fila.
+    const nombres = Array.isArray(m.character) ? m.character : [m.character]
     issue.firstAppearances = issue.firstAppearances || []
-    if (!issue.firstAppearances.includes(m.character)) {
-      issue.firstAppearances.push(m.character)
+    for (const nombre of nombres) {
+      if (!issue.firstAppearances.includes(nombre)) {
+        issue.firstAppearances.push(nombre)
+      }
     }
   }
 }
