@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
-import { ISSUES, ISSUE_BY_ID, TIMELINE, STATS, YEAR_RANGE, CHARACTERS } from './lib/dataset.js'
+import { ISSUES, ISSUE_BY_ID, TIMELINE, STATS, YEAR_RANGE } from './lib/dataset.js'
 import { DEFAULT_FILTERS, applyFilters, resolvePath, isFilterActive } from './lib/filters.js'
 import { PATHS_BY_KEY } from '../data/paths.js'
 import { ARCS_BY_KEY } from '../data/arcs.js'
@@ -24,7 +24,7 @@ export default function App() {
   // A route in the address bar is a selection someone shared or came back to,
   // so it wins over the defaults on the first render rather than being applied
   // after one — otherwise the timeline paints, then jumps.
-  const booted = fromRoute(typeof window === 'undefined' ? '' : window.location.hash, CHARACTERS)
+  const booted = fromRoute(typeof window === 'undefined' ? '' : window.location.hash)
   const [filters, setFilters] = useState({
     ...DEFAULT_FILTERS,
     series: booted.series, arc: booted.arc, character: booted.character,

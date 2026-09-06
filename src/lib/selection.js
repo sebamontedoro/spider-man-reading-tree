@@ -12,7 +12,7 @@
  * chronological, which is what the tree is sorted by already.
  */
 
-import { ISSUE_BY_ID, SERIES_LIST } from './dataset.js'
+import { ISSUE_BY_ID, SERIES_LIST, CHARACTERS } from './dataset.js'
 import { resolvePath } from './filters.js'
 import { ARCS_BY_KEY } from '../../data/arcs.js'
 import { PATHS_BY_KEY } from '../../data/paths.js'
@@ -37,21 +37,31 @@ export function toRoute(filters, pathKey) {
 }
 
 /**
- * The other direction. Characters are matched by slug rather than stored by
- * one, because their names are display strings with punctuation in them and a
- * URL should not be the reason a name cannot be edited.
+ * The other direction, and every key is checked against the real thing.
+ *
+ * A URL is typed, edited and shared, so it arrives wrong sooner or later. An
+ * unchecked key does not fail loudly: it names nothing, so the header shows
+ * the raw slug and the filter it drives matches everything — a selection of
+ * 2359 issues called `kraven-thread`. Dropping what does not resolve turns
+ * that into the timeline, which is what a route to nowhere should be.
+ *
+ * Characters are matched by slug rather than stored by one, because their
+ * names are display strings with punctuation in them and a URL should not be
+ * the reason a name cannot be edited.
  */
-export function fromRoute(hash, characters = []) {
+export function fromRoute(hash) {
   const out = { arc: null, series: null, path: null, character: null }
   const parts = String(hash || '').replace(/^#\/?/, '').split('/').filter(Boolean)
   for (let i = 0; i < parts.length - 1; i += 2) {
     const kind = parts[i]
     const value = parts[i + 1]
     if (!DIMENSIONS.includes(kind)) continue
-    if (kind === 'character') {
-      out.character = characters.find((c) => slug(c) === value) || null
-    } else {
-      out[kind] = value
+    if (kind === 'arc') out.arc = ARCS_BY_KEY[value] ? value : null
+    else if (kind === 'path') out.path = PATHS_BY_KEY[value] ? value : null
+    else if (kind === 'series') {
+      out.series = SERIES_LIST.some((s) => s.key === value) ? value : null
+    } else if (kind === 'character') {
+      out.character = CHARACTERS.find((c) => slug(c) === value) || null
     }
   }
   return out
