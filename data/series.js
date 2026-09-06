@@ -546,9 +546,28 @@ export const SERIES = [
 
   /* ================================= La rama Ultimate, segunda generación */
   {
+    // La continuacion directa de la run de 2000, bajo otro titulo: #1-15 y
+    // despues un salto a #150 para contar los 150 de Ultimate Spider-Man
+    // enteros. Termina matando a su Peter Parker, que es de donde sale el
+    // hueco que Miles ocupa dos meses despues.
+    //
+    // La clave lleva el anio, como spider-man-1990, porque el nombre solo no
+    // alcanza: la serie de Miles se llama igual.
+    key: 'ultimate-comics-spider-man-2009',
+    name: 'Ultimate Comics: Spider-Man (2009)', abbr: 'UCSM09', vol: 1,
+    wikiTitle: 'Ultimate Comics Spider-Man Vol 1', accent: 'ultimate',
+    universe: 'ultimate',
+    role: 'lead', relevance: 'core',
+    note: 'Peter Parker\u2019s last two years in the parallel line, ending in his death.',
+    segments: [
+      { from: 1,   to: 15,  startDate: '2009-12', endDate: '2011-01', startExact: true, endExact: true },
+      { from: 150, to: 160, startDate: '2011-02', endDate: '2011-08', startExact: true, endExact: true },
+    ],
+  },
+  {
     key: 'ultimate-comics-spider-man',
     name: 'Ultimate Comics Spider-Man', abbr: 'UCSM', vol: 1,
-    wikiTitle: 'Ultimate Comics Spider-Man Vol 1', accent: 'miles',
+    wikiTitle: 'Ultimate Comics Spider-Man Vol 2', accent: 'miles',
     universe: 'ultimate',
     role: 'lead', relevance: 'core',
     note: 'A new Spider-Man in the parallel line: Miles Morales.',

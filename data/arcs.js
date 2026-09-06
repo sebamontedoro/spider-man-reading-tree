@@ -667,6 +667,17 @@ export const ARCS = [
     blurb: "The last arc inside this range.",
   },
   {
+    key: 'death-of-spider-man',
+    name: 'The Death of Spider-Man',
+    year: 2011,
+    issues: [
+      'ultimate-comics-spider-man-2009-156', 'ultimate-comics-spider-man-2009-157',
+      'ultimate-comics-spider-man-2009-158', 'ultimate-comics-spider-man-2009-159',
+      'ultimate-comics-spider-man-2009-160',
+    ],
+    blurb: 'The parallel line kills its Peter Parker, and does not take it back.',
+  },
+  {
     key: 'ultimate-carnage',
     name: "Carnage",
     year: 2004,

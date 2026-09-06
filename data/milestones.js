@@ -645,6 +645,18 @@ export const MILESTONES = [
     blurb: 'A second line called Ultimate, sharing nothing with the 2000 one but the name. Its Peter Parker reaches middle age before becoming Spider-Man at all.',
   },
   {
+    issue: 'ultimate-comics-spider-man-2009-1',
+    type: 'status-quo',
+    label: 'The Ultimate line restarts its numbering',
+    blurb: 'Same Peter Parker, same continuity, a new #1 — and a jump back to #150 fifteen issues later, to count the run whole.',
+  },
+  {
+    issue: 'ultimate-comics-spider-man-2009-160',
+    type: 'death',
+    label: 'Peter Parker dies',
+    blurb: 'The parallel line kills its Spider-Man and leaves the name open. It is the reason Miles Morales exists, and it held.',
+  },
+  {
     issue: 'ultimate-comics-spider-man-1',
     type: 'debut',
     character: 'Miles Morales',

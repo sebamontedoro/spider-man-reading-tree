@@ -101,6 +101,13 @@ export const LIBRARY_FOLDERS = [
     series: ['ultimate-spider-man'],
   },
   {
+    // El relanzamiento de 2009, que en disco se llama igual que la run de 2000
+    // y arranca de nuevo en #1. Esta es exactamente la confusion que la
+    // carpeta de arriba anticipaba.
+    dir: 'Ultimate Spider-Man/Vol 2 (2009)',
+    series: ['ultimate-comics-spider-man-2009'],
+  },
+  {
     dir: 'Ultimate Spider-Man/Annuals',
     series: ['ultimate-spider-man-annual'],
   },
