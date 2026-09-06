@@ -1,5 +1,7 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 
+import { useMediaQuery, PHONE } from '../lib/useMediaQuery.js'
+
 /**
  * One dimension of the selection, as a list you can type into.
  *
@@ -21,6 +23,7 @@ export default function Picker({
   kind, label, noun, options, value, onChange, narrowedBy = [], swatchOf,
   metaOf, labelOf, keyOf = (o) => o.key,
 }) {
+  const isPhone = useMediaQuery(PHONE)
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [cursor, setCursor] = useState(0)
@@ -28,10 +31,9 @@ export default function Picker({
   const field = useRef(null)
   const listId = useId()
 
-  const chosen = value ? options.find((o) => keyOf(o) === value)
-    // A choice can outlive its list: narrowing the others may drop the row it
-    // came from. The button keeps naming it rather than going blank.
-    : null
+  // A choice can outlive its list: narrowing the others may drop the row it
+  // came from. The button keeps naming it rather than going blank.
+  const chosen = value ? options.find((o) => keyOf(o) === value) : null
 
   const shown = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -61,6 +63,55 @@ export default function Picker({
     else if (e.key === 'Enter' && shown[cursor]) { e.preventDefault(); pick(shown[cursor]) }
   }
 
+  /* The list itself, mounted in whichever container the screen calls for. */
+  const body = (
+    <>
+      <div className="picker__filter">
+        <input
+          ref={field}
+          type="search"
+          value={query}
+          onChange={(e) => { setQuery(e.target.value); setCursor(0) }}
+          onKeyDown={onKey}
+          placeholder={`Filter ${options.length} ${noun}…`}
+          aria-controls={listId}
+        />
+      </div>
+
+      {/* Why the list is shorter than it was — otherwise a picker that
+          silently drops three quarters of its rows looks broken. */}
+      {narrowed && (
+        <p className="picker__why">
+          Only what crosses <b>{narrowedBy.join(' + ')}</b>.
+        </p>
+      )}
+
+      <ul className="picker__list" id={listId} role="listbox">
+        {shown.map((o, i) => {
+          const k = keyOf(o)
+          const swatch = swatchOf?.(o)
+          return (
+            <li key={k} role="option" aria-selected={k === value}>
+              <button
+                type="button"
+                className={`picker__opt ${i === cursor ? 'picker__opt--cursor' : ''}`}
+                onMouseEnter={() => setCursor(i)}
+                onClick={() => pick(o)}
+              >
+                {swatch && <i className="picker__swatch" style={{ background: swatch }} />}
+                <b>{labelOf(o)}</b>
+                <span>{metaOf?.(o)}</span>
+              </button>
+            </li>
+          )
+        })}
+        {shown.length === 0 && (
+          <li className="picker__none">Nothing matches “{query}”.</li>
+        )}
+      </ul>
+    </>
+  )
+
   return (
     <div className="picker" ref={box}>
       <button
@@ -77,53 +128,30 @@ export default function Picker({
         <i aria-hidden="true">{value ? '✕' : '▾'}</i>
       </button>
 
-      {open && (
-        <div className="picker__pop" role="dialog" aria-label={label}>
-          <div className="picker__filter">
-            <input
-              ref={field}
-              type="search"
-              value={query}
-              onChange={(e) => { setQuery(e.target.value); setCursor(0) }}
-              onKeyDown={onKey}
-              placeholder={`Filter ${options.length} ${noun}…`}
-              aria-controls={listId}
-            />
+      {open && (isPhone ? (
+        /* On a phone the row of dimensions scrolls sideways, and an overflow
+           clips whatever is positioned inside it — the popover came out cut
+           off at the height of its own search field. A sheet escapes that
+           clip, and lands where the thumb already is. */
+        <div className="picker__backdrop" onClick={() => setOpen(false)}>
+          <div
+            className="picker__sheet"
+            role="dialog"
+            aria-label={label}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="picker__sheet-head">
+              <strong>{label}</strong>
+              <button type="button" onClick={() => setOpen(false)}>Done</button>
+            </div>
+            {body}
           </div>
-
-          {/* Why the list is shorter than it was — otherwise a picker that
-              silently drops three quarters of its rows looks broken. */}
-          {narrowed && (
-            <p className="picker__why">
-              Only what crosses <b>{narrowedBy.join(' + ')}</b>.
-            </p>
-          )}
-
-          <ul className="picker__list" id={listId} role="listbox">
-            {shown.map((o, i) => {
-              const k = keyOf(o)
-              const swatch = swatchOf?.(o)
-              return (
-                <li key={k} role="option" aria-selected={k === value}>
-                  <button
-                    type="button"
-                    className={`picker__opt ${i === cursor ? 'picker__opt--cursor' : ''}`}
-                    onMouseEnter={() => setCursor(i)}
-                    onClick={() => pick(o)}
-                  >
-                    {swatch && <i className="picker__swatch" style={{ background: swatch }} />}
-                    <b>{labelOf(o)}</b>
-                    <span>{metaOf?.(o)}</span>
-                  </button>
-                </li>
-              )
-            })}
-            {shown.length === 0 && (
-              <li className="picker__none">Nothing matches “{query}”.</li>
-            )}
-          </ul>
         </div>
-      )}
+      ) : (
+        <div className="picker__pop" role="dialog" aria-label={label}>
+          {body}
+        </div>
+      ))}
     </div>
   )
 }

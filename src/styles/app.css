@@ -2,13 +2,21 @@
    Application layout and components.
    ========================================================================== */
 
+/* A column that does not care how many bands sit above the body.
+   It was a grid of exactly three rows, and the phone layout has four — the
+   four dimensions get their own scrolling row there — so the extra one landed
+   in an implicit track and the pickers were handed ten pixels. Flex asks only
+   which child takes the slack. */
 .app {
-  display: grid;
-  grid-template-rows: auto auto 1fr;
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
 
-.app__body { overflow: hidden; min-height: 0; }
+.app > .masthead,
+.app > .filterbar { flex: none; }
+
+.app__body { flex: 1; overflow: hidden; min-height: 0; }
 
 /* -- masthead ------------------------------------------------------------ */
 
@@ -1102,6 +1110,11 @@
    put the thing you came to use two taps away. */
 .filterbar--pickers {
   display: flex;
+  /* .filterbar is a column, and inheriting that stacked the four buttons four
+     rows deep instead of laying them along one scrolling line. */
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
   gap: var(--sp-2);
   overflow-x: auto;
   padding: 0 var(--sp-3) var(--sp-2);
@@ -1300,3 +1313,44 @@
   .selection__row { padding-left: var(--sp-3); padding-right: var(--sp-3); gap: var(--sp-2); }
   .selection__n { width: 24px; }
 }
+
+/* -- picker, on a phone -------------------------------------------------- */
+/* Fixed, so the scrolling row of dimensions cannot clip it. */
+.picker__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--ink) 45%, transparent);
+  display: flex;
+  align-items: flex-end;
+}
+.picker__sheet {
+  width: 100%;
+  max-height: 82vh;
+  background: var(--panel);
+  border-top: var(--rule-heavy) solid var(--ink);
+  display: flex;
+  flex-direction: column;
+}
+.picker__sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: var(--rule) solid var(--ink);
+}
+.picker__sheet-head strong { font-size: var(--t-title); }
+.picker__sheet-head button {
+  font: inherit;
+  font-size: var(--t-meta);
+  font-weight: 600;
+  background: var(--ink);
+  color: var(--paper);
+  border: 0;
+  padding: var(--sp-2) var(--sp-3);
+  cursor: pointer;
+}
+/* The list takes whatever is left of the sheet rather than a fixed 300px. */
+.picker__sheet .picker__list { max-height: none; flex: 1; }
+.picker__sheet .picker__opt { padding: var(--sp-3); }
