@@ -190,4 +190,100 @@ export const COLLECTIONS = [
       { id: 'ultimate-invasion-1', from: 4, to: 50 },
     ],
   },
+  {
+    file: 'Collected Editions/Daredevil Epic Collection v01 - The Man Without Fear (2016) (Digital) (GetComics).cbz',
+    // Daredevil (1964) #1-21. El arco donde entra Spider-Man: el #16 es
+    // "Enter... Spider-Man!" y el #17 su continuacion. Veintiuna paginas cada
+    // uno, y las tres portadas (330, 351, 372) caen a intervalo regular.
+    parts: [
+      { id: 'daredevil-16', from: 330, to: 350 },
+      { id: 'daredevil-17', from: 351, to: 371 },
+    ],
+  },
+  {
+    file: 'Collected Editions/Daredevil Epic Collection v02 - Mike Murdock Must Die (2018) (Digital) (GetComics).cbr',
+    // Daredevil (1964) #22-41 mas Fantastic Four (1961) #73.
+    // El tomo se llama por la historia del #27, no del #25 como supuse al
+    // principio: el recuadro de la portada de la pagina 111 dice "27 APR".
+    // Y el FF #73 no esta como apendice al final sino intercalado por fecha de
+    // publicacion, en la 419, en medio de la corrida de Daredevil.
+    parts: [
+      { id: 'daredevil-27', from: 111, to: 131 },
+      { id: 'fantastic-four-73', from: 419, to: 439 },
+    ],
+  },
+  {
+    file: 'Collected Editions/Daredevil Epic Collection v13 - A Touch of Typhoid (2016) (Digital) (GetComics).cbr',
+    // Daredevil (1964) #253-270. El #270 es el ultimo que recopila: su portada
+    // esta en la 433 y la 456 es su ultima pagina de historia — lo que sigue
+    // son pin-ups y arte no usado.
+    parts: [
+      { id: 'daredevil-270', from: 433, to: 456 },
+    ],
+  },
+  {
+    file: 'Collected Editions/Daredevil Epic Collection v20 - Purgatory and Paradise (2019) (Digital) (GetComics).cbr',
+    // Daredevil (1964) #345-364. El #354 cruza con Spider-Man; portada en la
+    // 214 ("JULY '96") y el #355 arranca en la 237.
+    parts: [
+      { id: 'daredevil-354', from: 214, to: 236 },
+    ],
+  },
+  {
+    file: 'Collected Editions/Fantastic Four Epic Collection v02 - The Master Plan of Doctor Doom (2017) (Digital) (GetComics).cbz',
+    // Fantastic Four #19-32 y Annual #1-2, segun la propia portadilla del tomo.
+    // El Annual #1 abre el volumen —portada en la 5, no en el medio como
+    // supuse— y cierra en la 60 con su galeria de villanos; el #19 empieza en
+    // la 61. La portada de la 341 es el Annual #2, que no se lista.
+    parts: [
+      { id: 'fantastic-four-annual-1', from: 5, to: 60 },
+    ],
+  },
+  {
+    file: 'Collected Editions/Fantastic Four Epic Collection v12 - The Possession of Franklin Richards (2025) (Digital) (GetComics).cbz',
+    // Fantastic Four (1961) #215-231. El #218 es el del cruce con Spider-Man:
+    // portada en la 94 ("218 MAY"), y el #219 en la 112.
+    parts: [
+      { id: 'fantastic-four-218', from: 94, to: 111 },
+    ],
+  },
+  {
+    file: 'Collected Editions/Fantastic Four Epic Collection - The New Fantastic Four (2018) (Digital) (GetComics).cbr',
+    // Fantastic Four (1961) #347-361 y Annual #24. Los tres primeros son los
+    // del equipo nuevo con Spider-Man. La tabla de contenidos de la pagina 4
+    // confirma el orden: #347, #348, #349, Annual #24, #350...
+    // Cada rango cierra contra la portada del siguiente (29, 53 y 78).
+    parts: [
+      { id: 'fantastic-four-347', from: 5, to: 28 },
+      { id: 'fantastic-four-348', from: 29, to: 52 },
+      { id: 'fantastic-four-349', from: 53, to: 77 },
+    ],
+  },
+  {
+    file: 'Collected Editions/Avengers Epic Collection v01 - Earths Mightiest Heroes (2014) (Digital) (GetComics).cbr',
+    // Avengers (1963) #1-20. El #11 es "The Mighty Avengers Meet Spider-Man!":
+    // portada en la 240 y el #12 en la 262. Las paginas 239 y 261 son pin-ups,
+    // que en estos numeros iban adentro del propio ejemplar.
+    parts: [
+      { id: 'avengers-11', from: 240, to: 261 },
+    ],
+  },
+  {
+    file: 'Collected Editions/X-Men Epic Collection v02 - Lonely Are the Hunted (2016) (Digital) (GetComics).cbr',
+    // X-Men (1963) #24-45. El #27 es "Re-Enter: The Mimic!": portada en la 68
+    // ("27 DEC") y el #28 en la 89.
+    parts: [
+      { id: 'x-men-27', from: 68, to: 88 },
+    ],
+  },
+  {
+    file: 'Collected Editions/Nova Classic v01 (2013) (Digital) (Minutemen-Slayer).cbr',
+    // Nova (1976) #1-12 mas Amazing Spider-Man #171. Se bajo este tomo de 445
+    // MB en vez de la coleccion completa de Nova, que son 14,5 GB en 18 piezas
+    // para conseguir un solo numero. El #12 cruza con Spider-Man: portada en la
+    // 205 y el ASM #171 empieza en la 223.
+    parts: [
+      { id: 'nova-12', from: 205, to: 222 },
+    ],
+  },
 ]
