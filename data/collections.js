@@ -286,4 +286,37 @@ export const COLLECTIONS = [
       { id: 'nova-12', from: 205, to: 222 },
     ],
   },
+  {
+    file: 'Collected Editions/Avengers Epic Collection v13 - Seasons of the Witch (2024) (Digital) (GetComics).cbz',
+    // Avengers #227-237 mas extras, segun la portadilla del tomo.
+    //
+    // Este volumen trae un indice con numeros de pagina, en la pagina 4, y eso
+    // vuelve innecesario cazar portadas: dice #236 en la 341 y #237 en la 364.
+    // Pero son las paginas IMPRESAS del libro y el archivo va cuatro atras,
+    // asi que hay que medir el desfase antes de creerle al indice. Verificado
+    // en tres puntos: la portada del #236 esta en la 337 del archivo, la del
+    // #237 en la 360, y Hawkeye #1 —que cierra el #237— en la 383.
+    parts: [
+      { id: 'avengers-236', from: 337, to: 359 },
+      { id: 'avengers-237', from: 360, to: 382 },
+    ],
+  },
+  {
+    file: 'Collected Editions/The Human Torch and The Thing - Strange Tales - The Complete Collection (2018) (Digital) (GetComics).cbr',
+    // Strange Tales #101-134 y Annual #2: las historias del Human Torch.
+    //
+    // La eleccion de fuente importa mas que de costumbre. El #115 es donde
+    // aparece el origen de Doctor Strange, asi que el camino obvio era un
+    // Masterworks de ese personaje — y no habria servido: el arbol pide ese
+    // numero por su historia del Human Torch, que es la que trae a Spider-Man,
+    // y un Masterworks de Doctor Strange reimprime solo la otra mitad.
+    //
+    // El indice de este tomo lista los numeros en orden pero sin paginas, asi
+    // que las fronteras se leyeron de las portadas y cierran contra la
+    // siguiente: el #113 empieza en la 194 y el #116 en la 241.
+    parts: [
+      { id: 'strange-tales-annual-2', from: 175, to: 193 },
+      { id: 'strange-tales-115', from: 227, to: 240 },
+    ],
+  },
 ]
