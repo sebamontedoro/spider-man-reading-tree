@@ -319,4 +319,22 @@ export const COLLECTIONS = [
       { id: 'strange-tales-115', from: 227, to: 240 },
     ],
   },
+  {
+    file: 'Collected Editions/Spider-Man - Clone Saga Omnibus v02 (2017) (Digital) (GetComics).cbz',
+    // Spider-Man: The Jackal Files, un one-shot de 1995 sin edicion suelta.
+    //
+    // Fue el ultimo de las 146 apariciones invitadas en aparecer, y costo 3,5 GB
+    // para un solo numero: es la unica fuente. El Epic Collection de la Clone
+    // Saga parecia mas barato (977 MB) y no lo trae — su indice cierra en
+    // diciembre de 1994 y este es de agosto de 1995.
+    //
+    // El omnibus no tiene indice con paginas, asi que se ubico muestreando el
+    // tomo entero (una pagina cada quince) y afinando sobre la zona: es un
+    // numero tipo manual, con fichas de personaje, y ese formato se reconoce
+    // de un vistazo entre paginas de historieta. Cierra contra la portada de
+    // New Warriors #61 en la 327.
+    parts: [
+      { id: 'spider-man-jackal-files-1', from: 294, to: 326 },
+    ],
+  },
 ]
