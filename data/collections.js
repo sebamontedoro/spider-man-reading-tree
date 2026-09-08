@@ -337,4 +337,22 @@ export const COLLECTIONS = [
       { id: 'spider-man-jackal-files-1', from: 294, to: 326 },
     ],
   },
+  {
+    file: 'Collected Editions/Marvel Masterworks - The Spectacular Spider-Man v07 (2024) (Digital-Empire).cbz',
+    // Peter Parker, The Spectacular Spider-Man #80-91. Solo se lista el #80:
+    // del #81 en adelante hay archivos sueltos en el estante, que ganan.
+    //
+    // El #80 era uno de los dos huecos que el pack de la run dejo. Sus vecinos
+    // estaban los dos, asi que no era un error de reparto sino una falta de la
+    // fuente; el volumen siguiente al v06 que ya teniamos lo cubre.
+    //
+    // El tomo trae indice con paginas (la 7), pero ahi el #80 figura en la 1 y
+    // el #81 en la 25: son las paginas impresas, que no cuentan las portadas.
+    // Por eso el desfase crece en cada numero y el indice solo sirve para
+    // orientarse. Medido: la portada del #80 esta en la 10 del archivo y la del
+    // #81 en la 33.
+    parts: [
+      { id: 'peter-parker-spectacular-80', from: 10, to: 32 },
+    ],
+  },
 ]
