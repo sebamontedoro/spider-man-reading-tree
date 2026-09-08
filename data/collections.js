@@ -342,9 +342,14 @@ export const COLLECTIONS = [
     // Peter Parker, The Spectacular Spider-Man #80-91. Solo se lista el #80:
     // del #81 en adelante hay archivos sueltos en el estante, que ganan.
     //
-    // El #80 era uno de los dos huecos que el pack de la run dejo. Sus vecinos
-    // estaban los dos, asi que no era un error de reparto sino una falta de la
-    // fuente; el volumen siguiente al v06 que ya teniamos lo cubre.
+    // Se lista como respaldo, no como fuente: el #80 tiene archivo suelto.
+    //
+    // Este tomo se bajo por un diagnostico equivocado. El #80 y el #258 eran los
+    // dos huecos de la serie, y se concluyo que el pack de la run no los traia
+    // porque sus vecinos si estaban en el estante. Al abrir el pack resulto que
+    // traia los dos: el hueco venia del reparto, no de la fuente. "Los vecinos
+    // estan, luego la fuente no lo tiene" no es una inferencia valida — abrir
+    // el pack cuesta menos que razonar sobre el.
     //
     // El tomo trae indice con paginas (la 7), pero ahi el #80 figura en la 1 y
     // el #81 en la 25: son las paginas impresas, que no cuentan las portadas.
