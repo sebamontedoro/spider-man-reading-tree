@@ -1,16 +1,477 @@
 /**
  * Guest appearances in books Daredevil does not headline.
  *
- * Empty until curated, and curated by the rules of data/spider-man/appearances.js:
- * narrative weight, never a cameo; whole events only where his own book
- * afterwards treats them as settled fact. The Shadowland and Devil's Reign
- * tie-ins start here, if they earn it.
+ * Curated by the rules of data/spider-man/appearances.js: narrative weight,
+ * never a cameo; whole events only where his own book afterwards treats them
+ * as settled fact.
+ *
+ * How the first pass was made, 2026-09-11. Marvel Database lists 1610 issues
+ * Matt Murdock appears in; 808 are outside this tree. Each of those pages was
+ * read for where he sits in its cast — Featured (162), Supporting (265),
+ * antagonist, or a cameo, mention or flashback — and the Featured ones were
+ * judged one by one. Out went the calendars, swimsuit specials, promotional
+ * comics, the prose novels the wiki files as issues, and the digital edition
+ * of a story the tree already has in print. In came his work outside his own
+ * titles (the two graphic novels, the Dark Reign and Hunt for Wolverine
+ * one-shots and minis), the teams he led (Marvel Knights, the 2017
+ * Defenders), the chapter of his own story printed in Ghost Rider, and the
+ * Spider-Man issues that matter to him.
+ *
+ * Left out, deliberately: the Shadowland tie-ins where he is only the
+ * possessed antagonist (Power Man, Moon Knight, Spider-Man, Daughters of the
+ * Shadow) — Elektra's stays, being about the two of them; the outside
+ * chapters of Dead Man's Hand, because the wiki gives three of them and not
+ * the reading order; and the rest of his New Avengers membership after the
+ * issue he joins.
  *
  * An issue that is a lead issue in another tree keeps that tree's id —
  * Amazing Spider-Man #16 is `amazing-spider-man-16` here too.
  */
 
-export const APPEARANCES = []
+export const APPEARANCES = [
+  /* --------------------------------------------------------- 1960s-70s */
+  {
+    id: 'amazing-spider-man-16',
+    seriesName: 'The Amazing Spider-Man',
+    seriesAbbr: 'ASM',
+    wikiTitle: 'Amazing Spider-Man Vol 1',
+    number: 16,
+    coverDate: '1964-09',
+    note: 'Spider-Man and Daredevil meet for the first time, in the Ringmaster’s circus.',
+  },
+  {
+    id: 'ghost-rider-v2-20',
+    seriesName: 'Ghost Rider',
+    seriesAbbr: 'GR',
+    wikiTitle: 'Ghost Rider Vol 2',
+    number: 20,
+    coverDate: '1976-10',
+    note: 'The end of a Los Angeles story that began in Daredevil #138.',
+  },
+  {
+    id: 'peter-parker-spectacular-27',
+    seriesName: 'Peter Parker, The Spectacular Spider-Man',
+    seriesAbbr: 'PPSSM',
+    wikiTitle: 'Peter Parker, The Spectacular Spider-Man Vol 1',
+    number: 27,
+    coverDate: '1979-02',
+    note: 'Frank Miller’s first Daredevil, drawn months before he took over the book.',
+  },
+  {
+    id: 'peter-parker-spectacular-28',
+    seriesName: 'Peter Parker, The Spectacular Spider-Man',
+    seriesAbbr: 'PPSSM',
+    wikiTitle: 'Peter Parker, The Spectacular Spider-Man Vol 1',
+    number: 28,
+    coverDate: '1979-03',
+    note: 'The second half of Miller’s first Daredevil story.',
+  },
+
+  /* --------------------------------------------------------- 1980s-90s */
+  {
+    id: 'marvel-graphic-novel-24',
+    seriesName: 'Marvel Graphic Novel',
+    seriesAbbr: 'MGN',
+    wikiTitle: 'Marvel Graphic Novel Vol 1',
+    wikiPage: 'Marvel Graphic Novel Vol 1 24: Daredevil: Love and War',
+    number: 24,
+    coverDate: '1986-12',
+    note: 'Miller and Sienkiewicz, on the Kingpin and his wife.',
+  },
+  {
+    id: 'elektra-lives-again-1',
+    seriesName: 'Elektra Lives Again',
+    seriesAbbr: 'ELA',
+    wikiTitle: 'Elektra Lives Again Vol 1',
+    number: 1,
+    coverDate: '1990-03',
+    note: 'Miller’s own sequel to Elektra’s death, set outside continuity.',
+    relevance: 'optional',
+    outOfContinuity: true,
+  },
+  {
+    id: 'marvel-graphic-novel-75',
+    seriesName: 'Marvel Graphic Novel',
+    seriesAbbr: 'MGN',
+    wikiTitle: 'Marvel Graphic Novel Vol 1',
+    wikiPage: 'Marvel Graphic Novel Vol 1 75: Daredevil/Black Widow: Abattoir',
+    number: 75,
+    coverDate: '1993-07',
+    note: 'Daredevil and the Black Widow, in a graphic novel of their own.',
+  },
+  {
+    id: 'amazing-spider-man-396',
+    seriesName: 'The Amazing Spider-Man',
+    seriesAbbr: 'ASM',
+    wikiTitle: 'Amazing Spider-Man Vol 1',
+    number: 396,
+    coverDate: '1994-12',
+    note: 'Spider-Man and Daredevil, both after the Owl.',
+  },
+  {
+    id: 'peter-parker-spectacular-219',
+    seriesName: 'Peter Parker, The Spectacular Spider-Man',
+    seriesAbbr: 'PPSSM',
+    wikiTitle: 'Peter Parker, The Spectacular Spider-Man Vol 1',
+    wikiPage: 'Spectacular Spider-Man Vol 1 219',
+    number: 219,
+    coverDate: '1994-12',
+    note: 'The Owl hunt, from the other Spider-Man book.',
+  },
+
+  /* ------------------------------------------ Marvel Knights, the team */
+  {
+    id: 'marvel-knights-1',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 1,
+    coverDate: '2000-07',
+    note: 'Daredevil leads a street-level team: the Widow, Shang-Chi, Dagger and the Punisher.',
+  },
+  {
+    id: 'marvel-knights-2',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 2,
+    coverDate: '2000-08',
+  },
+  {
+    id: 'marvel-knights-3',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 3,
+    coverDate: '2000-09',
+  },
+  {
+    id: 'marvel-knights-4',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 4,
+    coverDate: '2000-10',
+  },
+  {
+    id: 'marvel-knights-5',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 5,
+    coverDate: '2000-11',
+  },
+  {
+    id: 'marvel-knights-6',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 6,
+    coverDate: '2000-12',
+  },
+  {
+    id: 'marvel-knights-7',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 7,
+    coverDate: '2001-01',
+  },
+  {
+    id: 'marvel-knights-8',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 8,
+    coverDate: '2001-02',
+  },
+  {
+    id: 'marvel-knights-9',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 9,
+    coverDate: '2001-03',
+  },
+  {
+    id: 'marvel-knights-10',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 10,
+    coverDate: '2001-04',
+  },
+  {
+    id: 'marvel-knights-11',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 11,
+    coverDate: '2001-05',
+  },
+  {
+    id: 'marvel-knights-12',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 12,
+    coverDate: '2001-06',
+  },
+  {
+    id: 'marvel-knights-13',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 13,
+    coverDate: '2001-07',
+  },
+  {
+    id: 'marvel-knights-14',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 14,
+    coverDate: '2001-08',
+  },
+  {
+    id: 'marvel-knights-15',
+    seriesName: 'Marvel Knights',
+    seriesAbbr: 'MK',
+    wikiTitle: 'Marvel Knights Vol 1',
+    number: 15,
+    coverDate: '2001-09',
+  },
+  {
+    id: 'marvel-knights-v2-1',
+    seriesName: 'Marvel Knights (vol. 2)',
+    seriesAbbr: 'MK v2',
+    wikiTitle: 'Marvel Knights Vol 2',
+    number: 1,
+    coverDate: '2002-05',
+    note: 'The team again, under a new number one.',
+  },
+  {
+    id: 'marvel-knights-v2-2',
+    seriesName: 'Marvel Knights (vol. 2)',
+    seriesAbbr: 'MK v2',
+    wikiTitle: 'Marvel Knights Vol 2',
+    number: 2,
+    coverDate: '2002-06',
+  },
+  {
+    id: 'marvel-knights-v2-3',
+    seriesName: 'Marvel Knights (vol. 2)',
+    seriesAbbr: 'MK v2',
+    wikiTitle: 'Marvel Knights Vol 2',
+    number: 3,
+    coverDate: '2002-07',
+  },
+  {
+    id: 'marvel-knights-v2-4',
+    seriesName: 'Marvel Knights (vol. 2)',
+    seriesAbbr: 'MK v2',
+    wikiTitle: 'Marvel Knights Vol 2',
+    number: 4,
+    coverDate: '2002-08',
+  },
+  {
+    id: 'marvel-knights-v2-5',
+    seriesName: 'Marvel Knights (vol. 2)',
+    seriesAbbr: 'MK v2',
+    wikiTitle: 'Marvel Knights Vol 2',
+    number: 5,
+    coverDate: '2002-09',
+  },
+  {
+    id: 'marvel-knights-v2-6',
+    seriesName: 'Marvel Knights (vol. 2)',
+    seriesAbbr: 'MK v2',
+    wikiTitle: 'Marvel Knights Vol 2',
+    number: 6,
+    coverDate: '2002-10',
+  },
+
+  /* --------------------------------------------------------- 2009-2011 */
+  {
+    id: 'dark-reign-the-list-daredevil-1',
+    seriesName: 'Dark Reign: The List – Daredevil',
+    seriesAbbr: 'DR:TL',
+    wikiTitle: 'Dark Reign: The List - Daredevil Vol 1',
+    number: 1,
+    coverDate: '2009-11',
+    note: 'Norman Osborn’s list reaches Daredevil.',
+  },
+  {
+    id: 'shadowland-elektra-1',
+    seriesName: 'Shadowland: Elektra',
+    seriesAbbr: 'SHA:E',
+    wikiTitle: 'Shadowland: Elektra Vol 1',
+    number: 1,
+    coverDate: '2010-11',
+    note: 'Elektra, against the man she loved, now at the head of the Hand.',
+  },
+  {
+    id: 'new-avengers-v2-16',
+    seriesName: 'New Avengers (vol. 2)',
+    seriesAbbr: 'NA v2',
+    wikiTitle: 'New Avengers Vol 2',
+    number: 16,
+    coverDate: '2011-11',
+    note: 'Daredevil joins the Avengers.',
+  },
+
+  /* ----------------------------------------------- The Defenders, 2017 */
+  {
+    id: 'defenders-v5-1',
+    seriesName: 'The Defenders (2017)',
+    seriesAbbr: 'DEF',
+    wikiTitle: 'Defenders Vol 5',
+    number: 1,
+    coverDate: '2017-08',
+    note: 'Daredevil, Luke Cage, Iron Fist and Jessica Jones, together again.',
+  },
+  {
+    id: 'defenders-v5-2',
+    seriesName: 'The Defenders (2017)',
+    seriesAbbr: 'DEF',
+    wikiTitle: 'Defenders Vol 5',
+    number: 2,
+    coverDate: '2017-08',
+  },
+  {
+    id: 'defenders-v5-3',
+    seriesName: 'The Defenders (2017)',
+    seriesAbbr: 'DEF',
+    wikiTitle: 'Defenders Vol 5',
+    number: 3,
+    coverDate: '2017-09',
+  },
+  {
+    id: 'defenders-v5-4',
+    seriesName: 'The Defenders (2017)',
+    seriesAbbr: 'DEF',
+    wikiTitle: 'Defenders Vol 5',
+    number: 4,
+    coverDate: '2017-10',
+  },
+  {
+    id: 'defenders-v5-5',
+    seriesName: 'The Defenders (2017)',
+    seriesAbbr: 'DEF',
+    wikiTitle: 'Defenders Vol 5',
+    number: 5,
+    coverDate: '2017-11',
+  },
+  {
+    id: 'defenders-v5-6',
+    seriesName: 'The Defenders (2017)',
+    seriesAbbr: 'DEF',
+    wikiTitle: 'Defenders Vol 5',
+    number: 6,
+    coverDate: '2017-12',
+  },
+  {
+    id: 'defenders-v5-7',
+    seriesName: 'The Defenders (2017)',
+    seriesAbbr: 'DEF',
+    wikiTitle: 'Defenders Vol 5',
+    number: 7,
+    coverDate: '2018-01',
+  },
+  {
+    id: 'defenders-v5-8',
+    seriesName: 'The Defenders (2017)',
+    seriesAbbr: 'DEF',
+    wikiTitle: 'Defenders Vol 5',
+    number: 8,
+    coverDate: '2018-02',
+  },
+  {
+    id: 'defenders-v5-9',
+    seriesName: 'The Defenders (2017)',
+    seriesAbbr: 'DEF',
+    wikiTitle: 'Defenders Vol 5',
+    number: 9,
+    coverDate: '2018-03',
+  },
+  {
+    id: 'defenders-v5-10',
+    seriesName: 'The Defenders (2017)',
+    seriesAbbr: 'DEF',
+    wikiTitle: 'Defenders Vol 5',
+    number: 10,
+    coverDate: '2018-04',
+  },
+
+  /* --------------------------------------------------------- 2018-2019 */
+  {
+    id: 'hunt-for-wolverine-weapon-lost-1',
+    seriesName: 'Hunt for Wolverine: Weapon Lost',
+    seriesAbbr: 'HFW:WL',
+    wikiTitle: 'Hunt for Wolverine: Weapon Lost Vol 1',
+    number: 1,
+    coverDate: '2018-07',
+    note: 'Daredevil leads the search for Wolverine.',
+  },
+  {
+    id: 'hunt-for-wolverine-weapon-lost-2',
+    seriesName: 'Hunt for Wolverine: Weapon Lost',
+    seriesAbbr: 'HFW:WL',
+    wikiTitle: 'Hunt for Wolverine: Weapon Lost Vol 1',
+    number: 2,
+    coverDate: '2018-08',
+  },
+  {
+    id: 'hunt-for-wolverine-weapon-lost-3',
+    seriesName: 'Hunt for Wolverine: Weapon Lost',
+    seriesAbbr: 'HFW:WL',
+    wikiTitle: 'Hunt for Wolverine: Weapon Lost Vol 1',
+    number: 3,
+    coverDate: '2018-09',
+  },
+  {
+    id: 'hunt-for-wolverine-weapon-lost-4',
+    seriesName: 'Hunt for Wolverine: Weapon Lost',
+    seriesAbbr: 'HFW:WL',
+    wikiTitle: 'Hunt for Wolverine: Weapon Lost Vol 1',
+    number: 4,
+    coverDate: '2018-10',
+  },
+  {
+    id: 'war-of-the-realms-1',
+    seriesName: 'War of the Realms',
+    seriesAbbr: 'WOTR',
+    wikiTitle: 'War of the Realms Vol 1',
+    number: 1,
+    coverDate: '2019-06',
+    note: 'Asgard’s war reaches Earth, and Daredevil is pulled into it.',
+  },
+  {
+    id: 'war-of-the-realms-2',
+    seriesName: 'War of the Realms',
+    seriesAbbr: 'WOTR',
+    wikiTitle: 'War of the Realms Vol 1',
+    number: 2,
+    coverDate: '2019-06',
+  },
+  {
+    id: 'war-of-the-realms-3',
+    seriesName: 'War of the Realms',
+    seriesAbbr: 'WOTR',
+    wikiTitle: 'War of the Realms Vol 1',
+    number: 3,
+    coverDate: '2019-07',
+  },
+  {
+    id: 'war-of-the-realms-4',
+    seriesName: 'War of the Realms',
+    seriesAbbr: 'WOTR',
+    wikiTitle: 'War of the Realms Vol 1',
+    number: 4,
+    coverDate: '2019-07',
+    note: 'Daredevil holding the Bifrost, in Heimdall’s place.',
+  },
+]
 
 /** Defaults applied to every appearance unless the entry overrides them. */
 export const APPEARANCE_DEFAULTS = {

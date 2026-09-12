@@ -130,11 +130,19 @@ in `tokens.css` under `[data-character="<key>"]`.
 ### Daredevil
 
 Started 2026-09-11: 851 generated issues across 57 series, every one verified
-against the wiki on the first crawl. The curated layers — arcs, milestones,
-paths, guests, notes — are empty, and nothing of his own is on the shelf yet
-beyond what the Spider-Man tree already brought (Devil's Reign #1-6 and four
-Epic Collections). The header of `data/daredevil/series.js` lists what is in,
-what is optional and why, and what was left out.
+against the wiki on the first crawl, plus 51 guest appearances. Curated the
+same day from the wiki's own pages rather than from memory — 53 milestones,
+63 arcs, 13 reading paths — and the header of each layer file says how:
+`milestones.js` why a {{Death}} marker is never taken on its own,
+`arcs.js` where the arc names come from (the pages' StoryArc field),
+`appearances.js` how 808 outside appearances came down to 51. Nothing of his
+own is on the shelf yet beyond what the Spider-Man tree already brought
+(Devil's Reign #1-6 and four Epic Collections).
+
+Known thin spots, on purpose: 2022 on has few milestones, because most of
+those pages have no synopsis to confirm a death against; Waid's run has no
+arcs, because the wiki barely titles it. Both are gaps in the source, not
+omissions to fill from memory.
 
 Numbering that will bite:
 
