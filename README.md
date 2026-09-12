@@ -1,8 +1,8 @@
 # Reading Trees
 
 Interactive visual reading guides to Marvel characters in print — one tree per
-character, in one app. **Spider-Man**, 1962–2026, is complete; **Daredevil** is
-in progress.
+character, in one app. **Spider-Man**, 1962–2026, and **Daredevil**, 1964–2026,
+are complete; **Venom**, 1993–2026, is in progress.
 
 Each is a chronological timeline of every issue the character headlined, plus
 the guest appearances that carry real story weight. Click any issue to see how

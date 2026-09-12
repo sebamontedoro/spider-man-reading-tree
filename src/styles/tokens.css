@@ -1,6 +1,6 @@
 /* ==========================================================================
    Design tokens — two skins per book. This header describes Spider-Man's;
-   Daredevil's pair is at the end of the file.
+   Daredevil's and Venom's pairs are at the end of the file.
 
    Spider-Man, in light: newsprint cream, the red and blue of the suit, black
    ink. The register the tree was drawn in.
@@ -102,6 +102,15 @@
   --s-dd-event:     #4b3f5c;  /* Shadowland, Devil's Reign */
   --s-elektra:      #9c1b3a;  /* Woman Without Fear */
   --s-elsewhere:    #7a7a8c;  /* other realities, crossovers with other companies */
+
+  /* Venom, one per host: the colour changes when the suit changes hands. */
+  --s-venom:        #1d1b26;  /* Eddie Brock, the nineties, and the 2003 clone */
+  --s-venom-flash:  #2f5d8a;  /* Flash Thompson, Agent Venom */
+  --s-venom-cates:  #5e2d8c;  /* Eddie again: Costa, then Cates and Knull */
+  --s-venom-2022:   #0f766e;  /* Dylan Brock, under Ewing and Ram V */
+  --s-venom-mini:   #7a6a52;  /* the later miniseries and one-shots */
+  --s-venom-event:  #8f5a0a;  /* Venomverse to Venom War */
+  --s-carnage:      #c0121f;  /* Carnage */
 
   /* How far a curated arc colour is lifted before it is painted. Nothing in
      the light skin; on the void ground, enough that Kingpin's ivory and the
@@ -205,6 +214,13 @@
     --s-dd-event:     #a898c8;
     --s-elektra:      #ff6f8e;
     --s-elsewhere:    #b3b3c6;
+    --s-venom:         #dcdaf0;
+    --s-venom-flash:   #7fb0e8;
+    --s-venom-cates:   #b88cf0;
+    --s-venom-2022:    #4fd1c5;
+    --s-venom-mini:    #cdbb98;
+    --s-venom-event:   #f2a950;
+    --s-carnage:       #ff4d5a;
 
     --arc-lift:       0.58;
   }
@@ -263,6 +279,13 @@
   --s-dd-event:     #a898c8;
   --s-elektra:      #ff6f8e;
   --s-elsewhere:    #b3b3c6;
+  --s-venom:         #dcdaf0;
+  --s-venom-flash:   #7fb0e8;
+  --s-venom-cates:   #b88cf0;
+  --s-venom-2022:    #4fd1c5;
+  --s-venom-mini:    #cdbb98;
+  --s-venom-event:   #f2a950;
+  --s-carnage:       #ff4d5a;
 
   --arc-lift:       0.58;
 }
@@ -353,6 +376,93 @@
   --shade:          #000000;
   --mast:           #1a0b0f;
   --band:           #2e1219;
+}
+
+/* --- Anti-Venom and Venom ---------------------------------------------- */
+/* The Venom tree's two skins, same roles as the pairs above. In light:
+   Anti-Venom — the cure's white on a cold ground, the black of the eyes and the
+   spider as the ink, and the masthead a black plate. In dark: Venom himself — a
+   void biased blue-black where the Spider-Man tree's is violet, bone ink, and
+   the symbiote's blue sheen for state. The action stays red in both.
+
+   Same mechanics as Daredevil's: keyed on data-character, each dark block
+   redefines every token the light one does. */
+:root[data-character="venom"] {
+  --paper:          #eeeef1;  /* the cure's white, cold where newsprint is warm */
+  --paper-deep:     #dfdee5;
+  --paper-raised:   #f8f8fa;
+  --panel:          #ffffff;
+
+  --ink:            #0c0b12;  /* the symbiote's black: eyes, spider, ink */
+  --ink-soft:       #3b3946;
+  --ink-faint:      #74717f;
+  --ink-ghost:      #aba8b6;
+  --hairline:       #d3d1db;
+
+  --red:            #cf1d24;  /* still the action */
+  --red-deep:       #96131a;
+  --blue:           #2a4f7a;
+  --blue-deep:      #1b3657;
+  --gold:           #e0a91f;
+  --accent:         #2a4f7a;
+  --on-accent:      #ffffff;
+  --shade:          #0c0b12;
+  --mast:           #0c0b12;  /* a black plate across the white */
+  --band:           #2b2935;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-character="venom"]:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --paper:          #06070b;  /* void, biased blue-black */
+    --paper-deep:     #0d0f17;
+    --paper-raised:   #131622;
+    --panel:          #181c2a;
+
+    --ink:            #eef0f7;  /* bone */
+    --ink-soft:       #b3b8cc;
+    --ink-faint:      #7a8098;
+    --ink-ghost:      #4a5066;
+    --hairline:       #262b3d;
+
+    --red:            #e8323e;
+    --red-deep:       #b71d29;
+    --blue:           #7fa4ff;
+    --blue-deep:      #5f84e0;
+    --gold:           #f0c04a;
+    --accent:         #7fa4ff;  /* the symbiote's sheen — state, never action */
+    --on-accent:      #ffffff;
+    --shade:          #000000;
+    --mast:           #0b0d16;
+    --band:           #1a1f33;
+  }
+}
+
+:root[data-character="venom"][data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper:          #06070b;  /* void, biased blue-black */
+  --paper-deep:     #0d0f17;
+  --paper-raised:   #131622;
+  --panel:          #181c2a;
+
+  --ink:            #eef0f7;  /* bone */
+  --ink-soft:       #b3b8cc;
+  --ink-faint:      #7a8098;
+  --ink-ghost:      #4a5066;
+  --hairline:       #262b3d;
+
+  --red:            #e8323e;
+  --red-deep:       #b71d29;
+  --blue:           #7fa4ff;
+  --blue-deep:      #5f84e0;
+  --gold:           #f0c04a;
+  --accent:         #7fa4ff;  /* the symbiote's sheen — state, never action */
+  --on-accent:      #ffffff;
+  --shade:          #000000;
+  --mast:           #0b0d16;
+  --band:           #1a1f33;
 }
 
 @media (prefers-reduced-motion: reduce) {

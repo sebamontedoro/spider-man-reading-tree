@@ -5,9 +5,9 @@ character in one app: every issue of every title the character headlines, the
 guest appearances that carry real story weight, and a focus graph showing how
 any issue connects to what came before and after.
 
-**Spider-Man** (1962–2026) is complete. **Daredevil** (1964–2026) has its runs,
-verified, and nothing curated yet — see
-[Characters](#characters). In the Spider-Man tree, three continuities — the
+**Spider-Man** (1962–2026) and **Daredevil** (1964–2026) are curated and on
+the shelf. **Venom** (1993–2026) has its runs, verified, and nothing curated
+yet — see [Characters](#characters). In the Spider-Man tree, three continuities — the
 main line, the 2000 Ultimate line and the 2024 one — render as separate lines
 rather than one mixed run.
 
@@ -91,16 +91,17 @@ e.g. `amazing-spider-man-31`.
 
 One app, one shelf, one reader; a tree per character, listed in
 `data/characters.js`. The tree is the first segment of the path —
-`comics.lan/spider-man/`, `comics.lan/daredevil/` — and changing it is a page
-load.
+`comics.lan/spider-man/`, `comics.lan/daredevil/`, `comics.lan/venom/` — and
+changing it is a page load.
 
 **Issue ids are global.** Daredevil #16 is a guest appearance in the Spider-Man
 tree and a lead issue in the Daredevil one, and both call it `daredevil-16`:
 one file on the shelf, one reading position, one verified date. So a series
 key means the same run in every tree. Before adding a series, check that its
 key is not already in use as a guest id in another tree — and if it is, use
-that one: the Spider-Man guests already fix `daredevil-N` as Daredevil vol. 1
-and `devils-reign-N` as the 2021 event.
+that one: the Spider-Man guests already fix `daredevil-N` as Daredevil vol. 1,
+`devils-reign-N` as the 2021 event, and `venom-lethal-protector`,
+`absolute-carnage` and `king-in-black` for the Venom tree.
 
 **Never import a tree's data statically.** Everything that builds from a tree
 does it once, at module load, from `ACTIVE.data` in `src/lib/character.js`.
@@ -176,6 +177,34 @@ Numbering that will bite:
   in `overrides.js` until the wiki is fixed.
 - The Shadowland and Devil's Reign **tie-ins are not in**: they are other
   characters' books, for `appearances.js` if he carries weight in them.
+
+### Venom
+
+Started 2026-09-12: 446 issues across 92 series — the symbiote's own books and
+Carnage's, as a branch in his colour — every one verified on the first crawl,
+nothing curated yet. The header of `data/venom/series.js` says what is in and
+why; in short:
+
+- **The tree follows the symbiote, not the man.** The 2003 series is a clone,
+  vol. 2 is Flash Thompson's, vol. 5 Dylan Brock's. Each host has its own
+  `--s-venom-*` colour, so the change of hands shows on the timeline.
+- **Events:** the main series, plus the tie-ins a symbiote headlines. Extreme
+  Carnage is told in its eight one-shots, so all eight are in. Tie-ins other
+  heroes headline wait for `appearances.js`.
+- **Symbiote Spider-Man** (2019–2024) is Peter's book, so it went into the
+  Spider-Man tree, in Venom's colour.
+
+Numbering that will bite:
+
+- **Vol. 6 is ongoing**, legacy-numbered from #250; its segment lists what is
+  on sale. **Vol. 7** is solicited for December 2026 and not in yet.
+- **Three Lethal Protectors:** `venom-lethal-protector` (1993, key fixed by the
+  Spider-Man guests), `-v2` (2022) and `venom-lethal-protector-ii` (2023,
+  printed "II").
+- **Seed of Darkness** is only a #-1, listed as an extra: its id is
+  `venom-seed-of-darkness--1`.
+- **Vol. 3** jumps from #6 to #150 (legacy numbering), as two segments; vol. 2
+  has point issues #13.1–13.4 and #27.1 as extras.
 
 ### What is derived rather than stored
 
@@ -438,7 +467,7 @@ and the shelf filters are derived from it rather than stored separately.
 - **Routes** live in the hash (`#/arc/kravens-last-hunt/series/web-of-spider-man`)
   and every key is checked on the way in; one that does not resolve is dropped.
 - **Two skins per tree**, each named by its character (Spider-Man/Venom,
-  Daredevil/Elektra) behind the same System / light / dark switch. An explicit
+  Daredevil/Elektra, Anti-Venom/Venom) behind the same System / light / dark switch. An explicit
   choice stamps `data-theme` on the root; System stamps nothing and follows
   `prefers-color-scheme`; the tree stamps `data-character`, which is what
   selects its palette. Arc colours are written once, for the light skin, and

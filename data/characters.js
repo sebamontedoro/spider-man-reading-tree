@@ -39,6 +39,16 @@ export const CHARACTERS = [
     legacyHosts: [],
     load: () => import('./daredevil/index.js'),
   },
+  {
+    key: 'venom',
+    name: 'Venom',
+    // The symbiote and its cure: Anti-Venom's white by day, Venom's black by
+    // night. In the Spider-Man tree "Venom" is the dark mirror of the suit; here
+    // it is the character himself.
+    skins: { light: 'Anti-Venom', dark: 'Venom' },
+    legacyHosts: [],
+    load: () => import('./venom/index.js'),
+  },
 ]
 
 export const DEFAULT_CHARACTER = 'spider-man'

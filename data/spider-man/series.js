@@ -653,6 +653,48 @@ export const SERIES = [
     segments: [{ from: 1, to: 8, startDate: '2024-01', endDate: '2024-08', startExact: true, endExact: true }],
   },
 
+  /* ============================================== El traje negro, otra vez
+     Retro miniseries set in the years he wore the symbiote as a costume. He
+     headlines them, so they are his tree's; the Venom tree can show them by id.
+     They take Venom's colour, which is global. The 2099 one is Miguel O'Hara's
+     future (Earth-928) and hidden with the optional material.
+     ======================================================================== */
+  {
+    key: 'symbiote-spider-man',
+    name: 'Symbiote Spider-Man', abbr: 'SYM', vol: 1,
+    wikiTitle: 'Symbiote Spider-Man Vol 1', accent: 'venom',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 5, startDate: '2019-06', endDate: '2019-10', startExact: true, endExact: true }],
+  },
+  {
+    key: 'symbiote-spider-man-alien-reality',
+    name: 'Symbiote Spider-Man: Alien Reality', abbr: 'SYM AR', vol: 1,
+    wikiTitle: 'Symbiote Spider-Man: Alien Reality Vol 1', accent: 'venom',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 5, startDate: '2020-02', endDate: '2020-09', startExact: true, endExact: true }],
+  },
+  {
+    key: 'symbiote-spider-man-king-in-black',
+    name: 'Symbiote Spider-Man: King in Black', abbr: 'SYM KIB', vol: 1,
+    wikiTitle: 'Symbiote Spider-Man: King in Black Vol 1', accent: 'venom',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 5, startDate: '2021-01', endDate: '2021-05', startExact: true, endExact: true }],
+  },
+  {
+    key: 'symbiote-spider-man-crossroads',
+    name: 'Symbiote Spider-Man: Crossroads', abbr: 'SYM X', vol: 1,
+    wikiTitle: 'Symbiote Spider-Man: Crossroads Vol 1', accent: 'venom',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 5, startDate: '2021-09', endDate: '2022-01', startExact: true, endExact: true }],
+  },
+  {
+    key: 'symbiote-spider-man-2099',
+    name: 'Symbiote Spider-Man 2099', abbr: 'SYM 2099', vol: 1,
+    wikiTitle: 'Symbiote Spider-Man 2099 Vol 1', accent: 'venom',
+    role: 'lead', relevance: 'optional', outOfContinuity: true,
+    segments: [{ from: 1, to: 5, startDate: '2024-05', endDate: '2024-09', startExact: true, endExact: true }],
+  },
+
   /* ============================================== UNA TERCERA CONTINUIDAD
      A second Ultimate line, started in 2024 and unrelated to the 2000 one
      beyond the name. Its own universe key, so the tree forks again rather than
