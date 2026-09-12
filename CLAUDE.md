@@ -137,18 +137,18 @@ same day from the wiki's own pages rather than from memory — 53 milestones,
 `arcs.js` where the arc names come from (the pages' StoryArc field),
 `appearances.js` how 808 outside appearances came down to 51.
 
-Shelved 2026-09-12: 896 of 902 issues and guests have a file, 11 of them only
+Shelved 2026-09-12: 897 of 902 issues and guests have a file, 11 of them only
 as pages of a collected edition. Everything of his is under `Daredevil/` (one
 folder per volume, annuals and miniseries apart); guest books go under
 `Invitados/` next to Spider-Man's. Every folder is pinned in `library.js`, and
 six collections are mapped in `collections.js` — Vol. 8 #1-5, Vol. 7 #11-14,
 Daredevil & Echo, Black Armor, Unleash Hell and the Seventh Circle.
 
-The six still missing: five optional one-shots nobody has posted (Daredevil/Shi,
-The Movie, 2099, Season One, Born Again 2026), and **Gang War #1**, whose
-single and TPB links sit behind a Cloudflare challenge. Nothing automated gets
-past that challenge, and nothing should try: open the link in a real browser,
-or wait for a collection.
+The five still missing are optional one-shots nobody has posted (Daredevil/Shi,
+The Movie, 2099, Season One, Born Again 2026). **Gang War #1** was the last
+one behind a Cloudflare challenge on the main server. Nothing automated gets
+past that challenge, and nothing should try: check the post's other mirrors
+(MEGA, MediaFire), or download it in a real browser, as was done for this one.
 
 The Vol. 1 run comes from one getcomics pack of scans, with digital files
 swapped in wherever a single was posted separately (the larger file wins).
