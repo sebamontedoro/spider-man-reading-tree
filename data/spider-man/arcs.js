@@ -289,11 +289,13 @@ export const ARCS = [
     name: "Maximum Carnage",
     year: 1993,
     issues: [
-      'spider-man-unlimited-1', 'amazing-spider-man-378', 'peter-parker-spectacular-201',
-      'spider-man-1990-35', 'web-of-spider-man-101', 'amazing-spider-man-379',
-      'peter-parker-spectacular-202', 'spider-man-1990-36', 'web-of-spider-man-102',
-      'amazing-spider-man-380', 'peter-parker-spectacular-203', 'spider-man-1990-37',
-      'spider-man-unlimited-2', 'web-of-spider-man-103',
+      // Parts 1-14 as numbered, which is also the order they shipped, one a
+      // week through four titles; cover months shuffle them.
+      'spider-man-unlimited-1', 'web-of-spider-man-101', 'amazing-spider-man-378',
+      'spider-man-1990-35', 'peter-parker-spectacular-201', 'web-of-spider-man-102',
+      'amazing-spider-man-379', 'spider-man-1990-36', 'peter-parker-spectacular-202',
+      'web-of-spider-man-103', 'amazing-spider-man-380', 'spider-man-1990-37',
+      'peter-parker-spectacular-203', 'spider-man-unlimited-2',
     ],
     blurb: "Fourteen parts across five titles. The decade's first true mega-crossover.",
     crossover: true,
@@ -392,8 +394,9 @@ export const ARCS = [
     name: "Web of Carnage",
     year: 1996,
     issues: [
-      'amazing-spider-man-410', 'peter-parker-spectacular-233', 'sensational-spider-man-3',
-      'spider-man-1990-67',
+      // Shipping order: all four carry an April 1996 cover.
+      'sensational-spider-man-3', 'amazing-spider-man-410', 'spider-man-1990-67',
+      'peter-parker-spectacular-233',
     ],
     blurb: "Carnage's symbiote finds a new host across four titles.",
     crossover: true,
