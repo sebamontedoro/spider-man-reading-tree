@@ -356,23 +356,8 @@
   width: 5px;
   background: var(--accent, var(--ink-faint));
 }
-.issue--origin   { --accent: var(--s-origin); }
-.issue--asm      { --accent: var(--s-asm); }
-.issue--ppssm    { --accent: var(--s-ppssm); }
-.issue--mtu      { --accent: var(--s-mtu); }
-.issue--web      { --accent: var(--s-web); }
-.issue--spec-mag { --accent: var(--s-spec-mag); }
-.issue--guest    { --accent: var(--s-guest); }
-.issue--reprint  { --accent: var(--s-reprint); }
-.issue--kids        { --accent: var(--s-kids); }
-.issue--sm90        { --accent: var(--s-sm90); }
-.issue--unlimited   { --accent: var(--s-unlimited); }
-.issue--sensational { --accent: var(--s-sensational); }
-.issue--scarlet     { --accent: var(--s-scarlet); }
-.issue--ultimate    { --accent: var(--s-ultimate); }
-.issue--superior    { --accent: var(--s-superior); }
-.issue--miles       { --accent: var(--s-miles); }
-.issue--ultimate2   { --accent: var(--s-ultimate2); }
+/* --accent is set per card, inline, from the series' --s-* token — see
+   IssueCard.jsx. A series only needs its token in tokens.css. */
 
 /* A separate continuity reads as a separate line: dashed edge, tinted ground.
    Not a decoration — it is the one visual cue that these do not share a

@@ -5,7 +5,8 @@ character in one app: every issue of every title the character headlines, the
 guest appearances that carry real story weight, and a focus graph showing how
 any issue connects to what came before and after.
 
-**Spider-Man** (1962–2026) is complete. **Daredevil** is next — see
+**Spider-Man** (1962–2026) is complete. **Daredevil** (1964–2026) has its runs,
+verified, and nothing curated yet — see
 [Characters](#characters). In the Spider-Man tree, three continuities — the
 main line, the 2000 Ultimate line and the 2024 one — render as separate lines
 rather than one mixed run.
@@ -120,8 +121,33 @@ winning. Caddy must keep proxying a legacy host, not redirect it.
 
 To add a character: a folder in `data/` with the same files as
 `data/spider-man/` plus an `index.js`, an entry in `characters.js`, then
-`npm run build:data` and `npm run verify:wiki -- --only=<its series>`. Its
-shelf folders go in the shared `library.js`.
+`npm run build:data` and `npm run verify:wiki -- --only=<its series>` — and
+the post-crawl checks under [Verified dates](#verified-dates-override-the-estimates).
+Its shelf folders go in the shared `library.js`, its era colours in
+`tokens.css` as `--s-<accent>` (light and both dark blocks), and its two skins
+in `tokens.css` under `[data-character="<key>"]`.
+
+### Daredevil
+
+Started 2026-09-11: 851 generated issues across 57 series, every one verified
+against the wiki on the first crawl. The curated layers — arcs, milestones,
+paths, guests, notes — are empty, and nothing of his own is on the shelf yet
+beyond what the Spider-Man tree already brought (Devil's Reign #1-6 and four
+Epic Collections). The header of `data/daredevil/series.js` lists what is in,
+what is optional and why, and what was left out.
+
+Numbering that will bite:
+
+- **Annual "#4B".** Marvel printed two Annual #4s (1976, 1989). The tree calls
+  the second #5 and names its page (`Daredevil Annual Vol 1 4B`). Its file will
+  parse to 4: alias it in `library.js`, or it claims the 1976 issue.
+- **Vol. 4 #1.50** is id `daredevil-v4-1.5`; the page keeps the printed name.
+- **Vol. 9 is ongoing.** Its segment lists what is on sale, not what is
+  solicited; extend `to` as issues come out.
+- **Devil's Trigger #3 and #4** share a Marvel id on the wiki; #4's is dropped
+  in `overrides.js` until the wiki is fixed.
+- The Shadowland and Devil's Reign **tie-ins are not in**: they are other
+  characters' books, for `appearances.js` if he carries weight in them.
 
 ### What is derived rather than stored
 
@@ -383,10 +409,16 @@ and the shelf filters are derived from it rather than stored separately.
   cover month, and sorting by date would shuffle it. The timeline is one click back and keeps its scroll position.
 - **Routes** live in the hash (`#/arc/kravens-last-hunt/series/web-of-spider-man`)
   and every key is checked on the way in; one that does not resolve is dropped.
-- **Two skins**, System / Spider-Man (light) / Venom (dark). An explicit choice
-  stamps `data-theme` on the root; System stamps nothing and follows
-  `prefers-color-scheme`. Arc colours are written once, for the light skin, and
+- **Two skins per tree**, each named by its character (Spider-Man/Venom,
+  Daredevil/Elektra) behind the same System / light / dark switch. An explicit
+  choice stamps `data-theme` on the root; System stamps nothing and follows
+  `prefers-color-scheme`; the tree stamps `data-character`, which is what
+  selects its palette. Arc colours are written once, for the light skin, and
   `src/lib/palette.js` lifts them at paint time via the `--arc-lift` token.
+- **A series' colour** is its `--s-<accent>` token, set on each card inline by
+  `IssueCard.jsx`. There used to be a CSS class per series; a new series without
+  one fell through to the skin's accent silently, which is how every Daredevil
+  card first came out blue.
 - `src/lib/graph.js` lays the focus graph out by hop distance in fixed columns
   rather than running a force simulation. The subgraph is 5–15 nodes; a graph
   library would cost more than it saves.

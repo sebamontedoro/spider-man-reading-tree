@@ -42,6 +42,10 @@ function IssueCard({ issue, dimmed, selected, pathIndex, onSelect, shelf = 0 }) 
     <button
       id={`issue-${issue.id}`}
       className={cls}
+      // The series colour, straight from its token: a class per series had to
+      // be added by hand for each new one, and a missing class fell through to
+      // the skin's accent without a word — every Daredevil card came out blue.
+      style={{ '--accent': `var(--s-${issue.accent})` }}
       onClick={() => onSelect(issue.id)}
       aria-pressed={selected}
       title={

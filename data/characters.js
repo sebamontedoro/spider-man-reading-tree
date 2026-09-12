@@ -31,6 +31,14 @@ export const CHARACTERS = [
     legacyHosts: ['spiderman.lan'],
     load: () => import('./spider-man/index.js'),
   },
+  {
+    key: 'daredevil',
+    name: 'Daredevil',
+    // The suit, and the one who wore it after him: Elektra's crimson on black.
+    skins: { light: 'Daredevil', dark: 'Elektra' },
+    legacyHosts: [],
+    load: () => import('./daredevil/index.js'),
+  },
 ]
 
 export const DEFAULT_CHARACTER = 'spider-man'

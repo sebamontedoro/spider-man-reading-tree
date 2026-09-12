@@ -1,5 +1,6 @@
 /* ==========================================================================
-   Design tokens — two skins for the same book.
+   Design tokens — two skins per book. This header describes Spider-Man's;
+   Daredevil's pair is at the end of the file.
 
    Spider-Man, in light: newsprint cream, the red and blue of the suit, black
    ink. The register the tree was drawn in.
@@ -88,6 +89,19 @@
   --s-superior:     #1a1a4d;  /* Superior Spider-Man */
   --s-miles:        #c41e3a;  /* Miles Morales */
   --s-ultimate2:    #6a3fa0;  /* Ultimate 2024 — a third continuity */
+
+  /* Daredevil, one per era. Global like the rest: a series keeps its colour
+     in whichever tree shows it. */
+  --s-dd:           #b10f25;  /* Daredevil, 1964 */
+  --s-dd-mk:        #5c1020;  /* the Marvel Knights volume */
+  --s-dd-waid:      #d9542b;  /* Waid, vols. 3-4 */
+  --s-dd-soule:     #2c3e5a;  /* Soule, vol. 5 */
+  --s-dd-zdarsky:   #7d1f4d;  /* Zdarsky, vols. 6-7 */
+  --s-dd-2023:      #a3421c;  /* vols. 8-9 */
+  --s-dd-mini:      #8a6d3b;  /* the miniseries and one-shots */
+  --s-dd-event:     #4b3f5c;  /* Shadowland, Devil's Reign */
+  --s-elektra:      #9c1b3a;  /* Woman Without Fear */
+  --s-elsewhere:    #7a7a8c;  /* other realities, crossovers with other companies */
 
   /* How far a curated arc colour is lifted before it is painted. Nothing in
      the light skin; on the void ground, enough that Kingpin's ivory and the
@@ -181,6 +195,16 @@
     --s-superior:     #8a8ae8;
     --s-miles:        #ff6683;
     --s-ultimate2:    #b58ff5;
+    --s-dd:           #ff5a66;
+    --s-dd-mk:        #d65a70;
+    --s-dd-waid:      #ff8a5c;
+    --s-dd-soule:     #7f9ccc;
+    --s-dd-zdarsky:   #e27aa8;
+    --s-dd-2023:      #e98a5b;
+    --s-dd-mini:      #d6b27a;
+    --s-dd-event:     #a898c8;
+    --s-elektra:      #ff6f8e;
+    --s-elsewhere:    #b3b3c6;
 
     --arc-lift:       0.58;
   }
@@ -229,8 +253,106 @@
   --s-superior:     #8a8ae8;
   --s-miles:        #ff6683;
   --s-ultimate2:    #b58ff5;
+  --s-dd:           #ff5a66;
+  --s-dd-mk:        #d65a70;
+  --s-dd-waid:      #ff8a5c;
+  --s-dd-soule:     #7f9ccc;
+  --s-dd-zdarsky:   #e27aa8;
+  --s-dd-2023:      #e98a5b;
+  --s-dd-mini:      #d6b27a;
+  --s-dd-event:     #a898c8;
+  --s-elektra:      #ff6f8e;
+  --s-elsewhere:    #b3b3c6;
 
   --arc-lift:       0.58;
+}
+
+/* --- Daredevil and Elektra ---------------------------------------------- */
+/* The Daredevil tree's two skins, same roles as the pair above. In light: the
+   suit's crimson on warm newsprint, dried-blood bands, and Hell's Kitchen's
+   night blue for links. In dark: Elektra — a crimson-black void, bone ink, the
+   steel of her sai for state. The action stays red in both, by the same rule.
+
+   Keyed on data-character, stamped by src/lib/character.js. Each dark block
+   out-specifies the light one (three selectors against two) and redefines
+   every token it does, so no light value leaks into the dark skin. The series
+   accents are not here: they are global, above. */
+:root[data-character="daredevil"] {
+  --paper:          #f3e7dc;  /* newsprint, a shade warmer */
+  --paper-deep:     #e8d5c5;
+  --paper-raised:   #fbf4ee;
+  --panel:          #fffcf8;
+
+  --ink:            #150f0f;
+  --ink-soft:       #463b39;
+  --ink-faint:      #7f6f6a;
+  --ink-ghost:      #b5a49c;
+  --hairline:       #dcc5b3;
+
+  --red:            #c8102e;  /* the suit — still the action */
+  --red-deep:       #8e0b20;
+  --blue:           #22476b;  /* Hell's Kitchen after dark: links, focus */
+  --blue-deep:      #173350;
+  --gold:           #e3a526;  /* the 1964 costume's yellow */
+  --accent:         #22476b;
+  --on-accent:      #fffcf8;
+  --shade:          #150f0f;
+  --mast:           #b10f25;
+  --band:           #5a0d1a;  /* dried blood, where Spider-Man has the suit's blue */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-character="daredevil"]:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --paper:          #0c0708;  /* void, biased crimson where Venom's is violet */
+    --paper-deep:     #150c0e;
+    --paper-raised:   #1c1114;
+    --panel:          #231519;
+
+    --ink:            #f3e8e6;  /* bone */
+    --ink-soft:       #c4b0ad;
+    --ink-faint:      #8e7773;
+    --ink-ghost:      #58443f;
+    --hairline:       #36242a;
+
+    --red:            #ee3446;
+    --red-deep:       #b91d30;
+    --blue:           #86a9d9;
+    --blue-deep:      #6485b8;
+    --gold:           #f0c04a;
+    --accent:         #8fb0d4;  /* the sai's steel — state, never action */
+    --on-accent:      #ffffff;
+    --shade:          #000000;
+    --mast:           #1a0b0f;
+    --band:           #2e1219;
+  }
+}
+
+:root[data-character="daredevil"][data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper:          #0c0708;  /* void, biased crimson where Venom's is violet */
+  --paper-deep:     #150c0e;
+  --paper-raised:   #1c1114;
+  --panel:          #231519;
+
+  --ink:            #f3e8e6;  /* bone */
+  --ink-soft:       #c4b0ad;
+  --ink-faint:      #8e7773;
+  --ink-ghost:      #58443f;
+  --hairline:       #36242a;
+
+  --red:            #ee3446;
+  --red-deep:       #b91d30;
+  --blue:           #86a9d9;
+  --blue-deep:      #6485b8;
+  --gold:           #f0c04a;
+  --accent:         #8fb0d4;  /* the sai's steel — state, never action */
+  --on-accent:      #ffffff;
+  --shade:          #000000;
+  --mast:           #1a0b0f;
+  --band:           #2e1219;
 }
 
 @media (prefers-reduced-motion: reduce) {
