@@ -1,11 +1,14 @@
-# Spider-Man Reading Tree
+# Reading Trees
 
-An interactive visual reading guide to Spider-Man in print, **1962–2026**.
+Interactive visual reading guides to Marvel characters in print — one tree per
+character, in one app. **Spider-Man**, 1962–2026, is complete; **Daredevil** is
+in progress.
 
-A chronological timeline of every issue he headlined, plus the guest
-appearances that carry real story weight. Click any issue to see how it
-connects to what came before and after, filter by series, arc, character or
-year, or follow one of the curated reading paths.
+Each is a chronological timeline of every issue the character headlined, plus
+the guest appearances that carry real story weight. Click any issue to see how
+it connects to what came before and after, filter by series, arc, character or
+year, or follow one of the curated reading paths. An issue two trees share —
+Daredevil #16 is in both — is one entry on the shelf and one reading position.
 
 Built with Vite and React. No tracking, and no runtime dependencies: the site
 is a static bundle. Point it at a folder of `.cbz`/`.cbr` files and a small
@@ -13,7 +16,7 @@ companion service lets you read those issues in the page as well — see
 [The comic reader](#the-comic-reader). Without it, everything else works
 unchanged.
 
-## What's in it
+## What's in the Spider-Man tree
 
 **2556 issues, every cover date verified · 102 story arcs · 92 characters indexed · 18 reading paths**
 
@@ -119,12 +122,13 @@ on `SPIDERMAN_PORT` instead.
 
 ## How the data works
 
-Two kinds of file. Three are machine-produced and disposable: the issue
-skeleton, generated from the run definitions in `data/series.js`, and the
-cover dates and Marvel ids crawled from Marvel Database. Everything else in
-`data/` — corrections, guest appearances, arcs, milestones, reading paths, arc
-colours, and the shelf and collection mappings the reader uses — is written by
-hand and always wins. That split means the skeleton can be regenerated or
+Each character has a folder in `data/` — its runs, corrections, guest
+appearances, arcs, milestones, reading paths and arc colours — and
+`data/characters.js` lists them. Three kinds of file are machine-produced and
+disposable: the issue skeleton, generated from each tree's run definitions,
+and the cover dates and Marvel ids crawled from Marvel Database, shared by all
+trees. Everything else, including the shelf and collection mappings the reader
+uses, is written by hand and always wins. That split means the skeleton can be regenerated or
 re-verified at any time without losing written work.
 
 Cover dates are checked against Marvel Database rather than estimated. The

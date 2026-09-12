@@ -1,18 +1,22 @@
-# Spider-Man Reading Tree
+# Reading Trees
 
-An interactive visual reading guide to Spider-Man in print, **1962–2026**: every
-issue of every title he headlines, the guest appearances that carry real story
-weight, and a focus graph showing how any issue connects to what came before
-and after. Three continuities — the main line, the 2000 Ultimate line and the
-2024 one — render as separate lines of the tree rather than one mixed run.
+Interactive visual reading guides to Marvel characters in print, one tree per
+character in one app: every issue of every title the character headlines, the
+guest appearances that carry real story weight, and a focus graph showing how
+any issue connects to what came before and after.
+
+**Spider-Man** (1962–2026) is complete. **Daredevil** is next — see
+[Characters](#characters). In the Spider-Man tree, three continuities — the
+main line, the 2000 Ultimate line and the 2024 one — render as separate lines
+rather than one mixed run.
 
 Vite + React. The site itself is static; a small companion service serves
 pages out of local .cbz/.cbr files when there is a shelf to read from, and the
 site works without it. UI and content are in English. Code comments are English
 in the older files and Spanish in the newer ones — match the file you are in.
 
-**State as of 2026-09-07: complete.** 2556 issues (2410 generated + 146 guest
-appearances), and every one of them has a file on the shelf. Do not copy counts
+**Spider-Man, as of 2026-09-07: complete.** 2556 issues (2410 generated + 146
+guest appearances), and every one of them has a file on the shelf. Do not copy counts
 like these into new prose: `STATS` in `src/lib/dataset.js` computes them, and
 hardcoded figures are what made the previous version of this file wrong.
 
@@ -28,34 +32,49 @@ npm run build          # build:data + production build
 ```
 
 The dev server proxies `/api` to the reader, so `dev` and `dev:reader` side by
-side give you both. `READER_ORIGIN=https://spiderman.lan npm run dev` points it
-at the deployed one instead.
+side give you both. `READER_ORIGIN=https://comics.lan npm run dev` points it at
+the deployed one instead. Open `/spider-man/` or `/daredevil/`; `/` goes to the
+default tree.
 
 On the live host the checkout has **no `node_modules`**: the build runs inside
 Docker. `scripts/build-dataset.mjs` still runs with a bare `node`, since it only
-imports `data/series.js`.
+imports each tree's `series.js`.
 
 ## The data layers
 
 The single most important thing to understand about this codebase.
 
+Per tree, `<char>` being `spider-man`, `daredevil`…:
+
 | Layer | File | Hand-edited? | Read by |
 |-------|------|--------------|---------|
-| Generated runs | `src/generated/issues.json` | **Never** | site |
+| Generated runs | `src/generated/<char>.json` | **Never** | site |
+| Series definitions | `data/<char>/series.js` | Yes | generator, site, **reader** |
+| Corrections & notes | `data/<char>/overrides.js` | Yes | site |
+| Guest appearances | `data/<char>/appearances.js` | Yes | site |
+| Arcs & crossovers | `data/<char>/arcs.js` | Yes | site |
+| Milestones | `data/<char>/milestones.js` | Yes | site |
+| Reading paths | `data/<char>/paths.js` | Yes | site |
+| Arc colours | `data/<char>/arc-palette.js` | Yes | site |
+
+Shared by every tree:
+
+| Layer | File | Hand-edited? | Read by |
+|-------|------|--------------|---------|
 | Verified cover dates | `data/cover-dates.json` | **Never** | site |
 | Marvel issue ids | `data/marvel-unlimited.json` | **Never** | site |
-| Series definitions | `data/series.js` | Yes | generator, site, **reader** |
-| Corrections & notes | `data/overrides.js` | Yes | site |
-| Guest appearances | `data/appearances.js` | Yes | site |
-| Arcs & crossovers | `data/arcs.js` | Yes | site |
-| Milestones | `data/milestones.js` | Yes | site |
-| Reading paths | `data/paths.js` | Yes | site |
-| Arc colours | `data/arc-palette.js` | Yes | site |
+| The trees there are | `data/characters.js` | Yes | everything |
+| Milestone types | `data/milestone-types.js` | Yes | site |
 | Shelf folders | `data/library.js` | Yes | **reader** |
 | Collected editions | `data/collections.js` | Yes | **reader** |
 
-The first three are machine-produced and disposable — `issues.json` from
-`npm run build:data`, the other two from a single `npm run verify:wiki` crawl.
+`data/<char>/index.js` gathers a tree's layers into the one module the site
+loads. The shared ones are all keyed by issue id or by folder, which is what
+lets them be shared — see [Characters](#characters).
+
+Three are machine-produced and disposable — the generated runs from
+`npm run build:data`, dates and Marvel ids from a single `npm run verify:wiki`
+crawl over every tree.
 **Editing any of them directly loses your work on the next run.** Everything
 hand-edited always wins. `src/lib/dataset.js` merges the site's layers once, at
 module load.
@@ -64,8 +83,45 @@ The file headers number these layers ("a seventh…", "a ninth…") and the
 numbers do not agree with each other. Ignore them; the table above is current.
 
 To correct one issue — a wrong date, a missing first appearance, a note — add it
-to `data/overrides.js` keyed by its id. Ids are `<series-key>-<number>`, e.g.
-`amazing-spider-man-31`.
+to that tree's `overrides.js` keyed by its id. Ids are `<series-key>-<number>`,
+e.g. `amazing-spider-man-31`.
+
+## Characters
+
+One app, one shelf, one reader; a tree per character, listed in
+`data/characters.js`. The tree is the first segment of the path —
+`comics.lan/spider-man/`, `comics.lan/daredevil/` — and changing it is a page
+load.
+
+**Issue ids are global.** Daredevil #16 is a guest appearance in the Spider-Man
+tree and a lead issue in the Daredevil one, and both call it `daredevil-16`:
+one file on the shelf, one reading position, one verified date. So a series
+key means the same run in every tree. Before adding a series, check that its
+key is not already in use as a guest id in another tree — and if it is, use
+that one: the Spider-Man guests already fix `daredevil-N` as Daredevil vol. 1
+and `devils-reign-N` as the 2021 event.
+
+**Never import a tree's data statically.** Everything that builds from a tree
+does it once, at module load, from `ACTIVE.data` in `src/lib/character.js`.
+`main.jsx` calls `boot()` — which settles the character and loads its chunk —
+and only then imports the app. A module that imports `data/<char>/…` directly
+is pinned to that character and breaks the others silently. Shared layers
+(`cover-dates.json`, `milestone-types.js`) are imported directly as before.
+
+**Browser storage is shared across trees**, for the same reason ids are:
+positions and skin live under `STORAGE` in `character.js`. The `spider-man:`
+prefix on those keys is historical — renaming it loses what is stored.
+
+**Old hostnames carry storage over.** A character's `legacyHosts`
+(`spiderman.lan`) still serve the app, which packs localStorage into the URL
+and moves to `comics.lan` — a plain redirect would drop every reading position,
+since storage is per origin. On arrival it merges per issue, the newer position
+winning. Caddy must keep proxying a legacy host, not redirect it.
+
+To add a character: a folder in `data/` with the same files as
+`data/spider-man/` plus an `index.js`, an entry in `characters.js`, then
+`npm run build:data` and `npm run verify:wiki -- --only=<its series>`. Its
+shelf folders go in the shared `library.js`.
 
 ### What is derived rather than stored
 
@@ -89,9 +145,9 @@ date. A `match` runs over the merged dataset, so it can use derived fields.
 
 ## How cover dates work
 
-`data/series.js` defines each run as segments between *anchor* dates rather than
-as a cadence to accumulate. The generator spreads issues evenly between two
-anchors.
+Each tree's `series.js` defines each run as segments between *anchor* dates
+rather than as a cadence to accumulate. The generator spreads issues evenly
+between two anchors.
 
 This is not incidental. The Amazing Spider-Man went semi-monthly in 1988, so a
 naive "+1 month per issue" model lands its 1990 issues eight months late. Marvel
@@ -132,8 +188,8 @@ anchors — #1 of a 2009 run dated 2011 is the tell. The fix also found Miles'
 own series pointing at a `Vol 2` that does not exist, which had broken all its
 Marvel Database links without anyone noticing.
 
-The crawl only reads `issues.json`, so **guest appearances never get a Marvel
-id**. Their dates were checked by hand when each was added.
+The crawl only reads the generated runs, so **guest appearances never get a
+Marvel id**. Their dates were checked by hand when each was added.
 
 Useful flags:
 
@@ -239,7 +295,7 @@ second lot are vol. 2. A folder entry can also carry:
   not index these" instead of letting them claim someone else's number.
 
 Anything in an unmapped folder falls back to matching the series name parsed
-from the filename against a table derived from `data/series.js`.
+from the filename against a table derived from every tree's `series.js`.
 
 ### Pin every folder
 
@@ -345,15 +401,18 @@ and the shelf filters are derived from it rather than stored separately.
 
 ### The live deployment
 
-Runs on dell-server (`server@192.168.1.14`) at **https://spiderman.lan**, and
+Runs on dell-server (`server@192.168.1.14`) at **https://comics.lan**, and
 the deploy directory **is** the working checkout:
 `/home/server/docker-services/spider-man`. Changes are made and committed
 there, then pushed to `origin`.
 
 No host port is published. Both containers join the `docker-services_default`
-network and Caddy reaches the site by container name — the block lives in
+network and Caddy reaches the site by container name — the blocks live in
 `~/docker-services/caddy/conf/Caddyfile` (`reverse_proxy
-spider-man-reading-tree:80`). Inside the site container, nginx proxies `/api/`
+spider-man-reading-tree:80`), one for `comics.lan` and one for the legacy
+`spiderman.lan`. Any `*.lan` name already resolves to the server (a dnsmasq
+wildcard in Pi-hole), so a new name only needs its Caddy block. The containers
+and the repo keep their Spider-Man names. Inside the site container, nginx proxies `/api/`
 to `spider-man-reader:8787`, resolving it lazily so the site starts without it.
 The shelf is `/mnt/hdd/media/books/comics`, mounted read-only.
 
@@ -363,8 +422,8 @@ The two images bake in different files, and nothing rebuilds them for you:
 
 | You changed | Rebuild |
 |-------------|---------|
-| `series.js`, `library.js`, `collections.js`, `reader/` | `spider-man-reader` |
-| `series.js` or any other `data/` layer, `src/` | `spider-man` |
+| any `series.js`, `library.js`, `collections.js`, `characters.js`, `reader/` | `spider-man-reader` |
+| anything in `data/`, `src/` | `spider-man` |
 | Only files on the shelf | nothing — the next scan picks them up |
 
 ```bash
@@ -372,8 +431,7 @@ docker compose build spider-man-reader && docker compose up -d spider-man-reader
 docker compose build spider-man && docker compose up -d spider-man
 ```
 
-The reader image copies `series.js`, `library.js` and `collections.js` at build
-time. Pinning a folder and not rebuilding it changes nothing live, and gives no
+The reader image copies `data/` at build time. Pinning a folder and not rebuilding it changes nothing live, and gives no
 error. To check what the running reader has:
 `docker exec spider-man-reader cat /app/data/library.js | diff - data/library.js`.
 
