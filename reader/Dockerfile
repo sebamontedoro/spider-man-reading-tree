@@ -1,12 +1,13 @@
 # The comic reader service.
 #
 # Built from the repository root, not from reader/, because the indexer reads
-# data/series.js and data/library.js — the same hand-curated layers the site
-# uses, so the two can never disagree about what a series is called.
+# every tree's series.js and data/library.js — the same hand-curated layers the
+# site uses, so the two can never disagree about what a series is called.
 #
-# No npm install: the service uses only Node builtins plus bsdtar. That is a
-# deliberate constraint rather than an accident — a page server that ships no
-# third-party code is one that never needs a dependency audit.
+# No npm install: the service uses only Node builtins plus the bsdtar and vips
+# binaries. That is a deliberate constraint rather than an accident — a page
+# server that ships no third-party code is one that never needs a dependency
+# audit.
 FROM node:22-alpine
 
 # libarchive reads RAR3 and RAR5 and is free software, which p7zip's RAR
@@ -20,7 +21,10 @@ RUN apk add --no-cache libarchive-tools vips-tools
 WORKDIR /app
 
 COPY reader/ ./reader/
-COPY data/series.js data/library.js data/collections.js ./data/
+# The whole of data/: the indexer reads every tree's series.js, found through
+# data/characters.js. Copying three files by name was fine with one tree and
+# wrong the moment there were two.
+COPY data/ ./data/
 
 # Extracted rar pages live here. Created before dropping privileges so that a
 # fresh named volume inherits the ownership and the service can write to it.

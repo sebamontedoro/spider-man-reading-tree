@@ -1,7 +1,9 @@
 /**
- * Merges the data layers into one queryable dataset, once, at module load.
+ * Merges the active character's data layers into one queryable dataset, once,
+ * at module load — which is why the character is settled before this module is
+ * imported (see src/lib/character.js).
  *
- *   1. src/generated/issues.json   the expanded runs    (never hand-edited)
+ *   1. src/generated/<char>.json   the expanded runs    (never hand-edited)
  *   2. data/cover-dates.json       real dates from the wiki  (wins over 1)
  *   3. data/marvel-unlimited.json  Marvel issue ids, for direct read links
  *   4. data/overrides.js           corrections + notes  (wins over 2 and 3)
@@ -15,14 +17,15 @@
  * skeleton without ever losing written work.
  */
 
-import generated from '../generated/issues.json'
-import coverDates from '../../data/cover-dates.json'
-import marvelUnlimited from '../../data/marvel-unlimited.json'
-import { OVERRIDES } from '../../data/overrides.js'
-import { APPEARANCES, APPEARANCE_DEFAULTS } from '../../data/appearances.js'
-import { ARCS } from '../../data/arcs.js'
-import { MILESTONES, MILESTONES_BY_ISSUE, MILESTONE_TYPES } from '../../data/milestones.js'
-import { SERIES } from '../../data/series.js'
+// Shared by every tree: both are keyed by issue id, and ids are global.
+import coverDates from '../../data/cover-dates.json' with { type: 'json' }
+import marvelUnlimited from '../../data/marvel-unlimited.json' with { type: 'json' }
+import { MILESTONE_TYPES } from '../../data/milestone-types.js'
+import { ACTIVE } from './character.js'
+
+const {
+  GENERATED: generated, OVERRIDES, APPEARANCES, APPEARANCE_DEFAULTS, ARCS, MILESTONES_BY_ISSUE, SERIES,
+} = ACTIVE.data
 
 /* -- 1 + 2 + 3 + 4: build the issue list ---------------------------------- */
 

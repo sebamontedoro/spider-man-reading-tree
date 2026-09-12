@@ -15,7 +15,10 @@
 
 import { useSyncExternalStore } from 'react'
 
-const KEY = 'spider-man:reading:v1'
+import { STORAGE } from './character.js'
+
+// Shared by every tree, since issue ids are global — see src/lib/character.js.
+const KEY = STORAGE.reading
 
 /** A comic is "read" once you reach the last page, not when you open it. */
 /** Not on the shelf at all — no local file matches this issue. */

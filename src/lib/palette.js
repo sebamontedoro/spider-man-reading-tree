@@ -15,7 +15,9 @@
 
 import { useEffect, useState } from 'react'
 
-import { ARC_PALETTE } from '../../data/arc-palette.js'
+import { ACTIVE } from './character.js'
+
+const { ARC_PALETTE } = ACTIVE.data
 
 /** #rrggbb → {h, s, l}, all 0..1. */
 function toHsl(hex) {

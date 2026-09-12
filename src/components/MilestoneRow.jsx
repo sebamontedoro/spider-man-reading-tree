@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { MILESTONE_TYPES } from '../../data/milestones.js'
+import { MILESTONE_TYPES } from '../../data/milestone-types.js'
 
 /**
  * A story beat, given a full-width row of its own.

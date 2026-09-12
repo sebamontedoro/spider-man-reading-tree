@@ -26,8 +26,13 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { CHARACTERS } from '../data/characters.js'
+
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const ISSUES = resolve(ROOT, 'src/generated/issues.json')
+// Every tree's generated runs, crawled together into one pair of files: both
+// are keyed by issue id, and ids are global, so a run two trees share is
+// fetched once.
+const GENERATED = CHARACTERS.map((c) => resolve(ROOT, `src/generated/${c.key}.json`))
 const OUT = resolve(ROOT, 'data/cover-dates.json')
 const OUT_MU = resolve(ROOT, 'data/marvel-unlimited.json')
 
@@ -110,7 +115,11 @@ async function fetchBatch(titles) {
 
 /* -- run ------------------------------------------------------------------ */
 
-const issues = JSON.parse(readFileSync(ISSUES, 'utf8'))
+const issues = [...new Map(
+  GENERATED.filter(existsSync)
+    .flatMap((f) => JSON.parse(readFileSync(f, 'utf8')))
+    .map((i) => [i.id, i]),
+).values()]
 const existing = existsSync(OUT) ? JSON.parse(readFileSync(OUT, 'utf8')) : {}
 const existingMU = existsSync(OUT_MU) ? JSON.parse(readFileSync(OUT_MU, 'utf8')) : {}
 

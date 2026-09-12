@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * Expands data/series.js into src/generated/issues.json.
+ * Expands each character's data/<char>/series.js into src/generated/<char>.json.
  *
- * This file is the ONLY thing that writes issues.json. The output is disposable
- * and regenerated from scratch every run — never hand-edit it. All curation
- * lives in data/ (overrides, appearances, arcs, paths) and is merged at runtime
- * by src/lib/dataset.js.
+ * This file is the ONLY thing that writes those files. The output is
+ * disposable and regenerated from scratch every run — never hand-edit it. All
+ * curation lives in data/<char>/ (overrides, appearances, arcs, paths) and is
+ * merged at runtime by src/lib/dataset.js.
  *
  *   npm run build:data
  */
@@ -13,10 +13,9 @@
 import { writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { SERIES } from '../data/series.js'
+import { CHARACTERS } from '../data/characters.js'
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const OUT = resolve(ROOT, 'src/generated/issues.json')
 
 const RANGE_START = '1962-01'
 const RANGE_END = '2026-12'
@@ -65,50 +64,97 @@ const interpolateAnnual = (startYm, endYm, count) => {
   )
 }
 
-/* -- expansion ------------------------------------------------------------ */
+/**
+ * One character's runs, expanded, validated and written. Series keys are
+ * global — see data/characters.js — so a duplicate id is an error within a tree
+ * and would be one across trees too; it is checked per tree because each tree
+ * is written on its own.
+ */
+function build(character, SERIES, OUT) {
+  /* -- expansion ------------------------------------------------------------ */
 
-const issues = []
+  const issues = []
 
-for (const series of SERIES) {
-  for (const seg of series.segments) {
-    const count = seg.to - seg.from + 1
-    const annual = seg.cadence === 'annual' || series.isAnnual
-    const months = annual
-      ? interpolateAnnual(seg.startDate, seg.endDate, count)
-      : interpolate(seg.startDate, seg.endDate, count)
+  for (const series of SERIES) {
+    for (const seg of series.segments) {
+      const count = seg.to - seg.from + 1
+      const annual = seg.cadence === 'annual' || series.isAnnual
+      const months = annual
+        ? interpolateAnnual(seg.startDate, seg.endDate, count)
+        : interpolate(seg.startDate, seg.endDate, count)
 
-    for (let i = 0; i < count; i++) {
-      const number = seg.from + i
-      const coverDate = fromMonthIndex(months[i])
-      const dateExact =
-        seg.exact === true ||
-        (i === 0 && seg.startExact === true) ||
-        (i === count - 1 && seg.endExact === true)
+      for (let i = 0; i < count; i++) {
+        const number = seg.from + i
+        const coverDate = fromMonthIndex(months[i])
+        const dateExact =
+          seg.exact === true ||
+          (i === 0 && seg.startExact === true) ||
+          (i === count - 1 && seg.endExact === true)
 
+        issues.push({
+          id: `${series.key}-${number}`,
+          series: series.key,
+          seriesName: series.name,
+          seriesAbbr: series.abbr,
+          // A renamed series is filed under a different wiki page mid-run, so the
+          // segment's title wins over the series default when present.
+          wikiTitle: seg.wikiTitle || series.wikiTitle,
+          // …and where even that does not derive the right page, the segment can
+          // name it outright. Marvel Database files the 1996–2001 Spider-Man
+          // annuals by year rather than by number, so "Vol 1 31" is not a page at
+          // all — the issue is at "Vol 1 1998", and only the wiki's own
+          // LegacyNumber field ties the two together.
+          ...(seg.wikiPages?.[number] ? { wikiPage: seg.wikiPages[number] } : {}),
+          number,
+          coverDate,
+          yearOnly: Boolean(annual),
+          dateExact,
+          accent: series.accent,
+          // Defaults to the main continuity; only a parallel line declares its own.
+          universe: series.universe || 'earth-616',
+          role: series.role,
+          relevance: series.relevance,
+          isAnnual: Boolean(annual),
+          isReprint: Boolean(series.isReprint),
+          outOfContinuity: Boolean(series.outOfContinuity),
+          arcs: [],
+          connections: [],
+          firstAppearances: [],
+          note: '',
+          generated: true,
+        })
+      }
+    }
+
+    /**
+     * Issues that are not a step in the run's numbering.
+     *
+     * A segment is a contiguous range of whole numbers, which is the right model
+     * for a monthly book and no model at all for the two things Marvel does to
+     * one: the "Flashback" month of 1997, when every title shipped a #-1 set
+     * before its own first issue, and the point-one fill-ins of the 2010s, where
+     * #654.1 sits between #654 and #655. Both are single issues at an arbitrary
+     * number, so they are listed rather than generated.
+     */
+    for (const extra of series.extras || []) {
       issues.push({
-        id: `${series.key}-${number}`,
+        id: `${series.key}-${extra.number}`,
         series: series.key,
         seriesName: series.name,
         seriesAbbr: series.abbr,
-        // A renamed series is filed under a different wiki page mid-run, so the
-        // segment's title wins over the series default when present.
-        wikiTitle: seg.wikiTitle || series.wikiTitle,
-        // …and where even that does not derive the right page, the segment can
-        // name it outright. Marvel Database files the 1996–2001 Spider-Man
-        // annuals by year rather than by number, so "Vol 1 31" is not a page at
-        // all — the issue is at "Vol 1 1998", and only the wiki's own
-        // LegacyNumber field ties the two together.
-        ...(seg.wikiPages?.[number] ? { wikiPage: seg.wikiPages[number] } : {}),
-        number,
-        coverDate,
-        yearOnly: Boolean(annual),
-        dateExact,
+        wikiTitle: extra.wikiTitle || series.wikiTitle,
+        ...(extra.wikiPage ? { wikiPage: extra.wikiPage } : {}),
+        number: extra.number,
+        coverDate: extra.coverDate,
+        yearOnly: false,
+        dateExact: extra.exact === true,
         accent: series.accent,
-        // Defaults to the main continuity; only a parallel line declares its own.
         universe: series.universe || 'earth-616',
         role: series.role,
-        relevance: series.relevance,
-        isAnnual: Boolean(annual),
+        // A fill-in is worth reading but is not the spine of the run, so an
+        // extra may step down from the series default.
+        relevance: extra.relevance || series.relevance,
+        isAnnual: false,
         isReprint: Boolean(series.isReprint),
         outOfContinuity: Boolean(series.outOfContinuity),
         arcs: [],
@@ -120,127 +166,93 @@ for (const series of SERIES) {
     }
   }
 
-  /**
-   * Issues that are not a step in the run's numbering.
-   *
-   * A segment is a contiguous range of whole numbers, which is the right model
-   * for a monthly book and no model at all for the two things Marvel does to
-   * one: the "Flashback" month of 1997, when every title shipped a #-1 set
-   * before its own first issue, and the point-one fill-ins of the 2010s, where
-   * #654.1 sits between #654 and #655. Both are single issues at an arbitrary
-   * number, so they are listed rather than generated.
-   */
-  for (const extra of series.extras || []) {
-    issues.push({
-      id: `${series.key}-${extra.number}`,
-      series: series.key,
-      seriesName: series.name,
-      seriesAbbr: series.abbr,
-      wikiTitle: extra.wikiTitle || series.wikiTitle,
-      ...(extra.wikiPage ? { wikiPage: extra.wikiPage } : {}),
-      number: extra.number,
-      coverDate: extra.coverDate,
-      yearOnly: false,
-      dateExact: extra.exact === true,
-      accent: series.accent,
-      universe: series.universe || 'earth-616',
-      role: series.role,
-      // A fill-in is worth reading but is not the spine of the run, so an
-      // extra may step down from the series default.
-      relevance: extra.relevance || series.relevance,
-      isAnnual: false,
-      isReprint: Boolean(series.isReprint),
-      outOfContinuity: Boolean(series.outOfContinuity),
-      arcs: [],
-      connections: [],
-      firstAppearances: [],
-      note: '',
-      generated: true,
-    })
-  }
-}
+  /* -- ordering ------------------------------------------------------------- */
 
-/* -- ordering ------------------------------------------------------------- */
+  // Sort chronologically, then by series, then by number, so the timeline order
+  // is deterministic. sortKey lets the UI order without re-deriving this.
+  const seriesRank = Object.fromEntries(SERIES.map((s, i) => [s.key, i]))
 
-// Sort chronologically, then by series, then by number, so the timeline order
-// is deterministic. sortKey lets the UI order without re-deriving this.
-const seriesRank = Object.fromEntries(SERIES.map((s, i) => [s.key, i]))
+  issues.sort(
+    (a, b) =>
+      toMonthIndex(a.coverDate) - toMonthIndex(b.coverDate) ||
+      seriesRank[a.series] - seriesRank[b.series] ||
+      a.number - b.number,
+  )
 
-issues.sort(
-  (a, b) =>
-    toMonthIndex(a.coverDate) - toMonthIndex(b.coverDate) ||
-    seriesRank[a.series] - seriesRank[b.series] ||
-    a.number - b.number,
-)
+  issues.forEach((iss, i) => {
+    iss.sortKey = i
+  })
 
-issues.forEach((iss, i) => {
-  iss.sortKey = i
-})
+  /* -- validation ----------------------------------------------------------- */
 
-/* -- validation ----------------------------------------------------------- */
+  const errors = []
+  const seen = new Set()
 
-const errors = []
-const seen = new Set()
+  for (const iss of issues) {
+    if (seen.has(iss.id)) errors.push(`duplicate id: ${iss.id}`)
+    seen.add(iss.id)
 
-for (const iss of issues) {
-  if (seen.has(iss.id)) errors.push(`duplicate id: ${iss.id}`)
-  seen.add(iss.id)
-
-  const idx = toMonthIndex(iss.coverDate)
-  if (idx < toMonthIndex(RANGE_START) || idx > toMonthIndex(RANGE_END)) {
-    errors.push(`${iss.id}: cover date ${iss.coverDate} falls outside ${RANGE_START}..${RANGE_END}`)
-  }
-}
-
-// Non-decreasing issue numbers within a series is a cheap sanity check on dates.
-for (const series of SERIES) {
-  const run = issues.filter((i) => i.series === series.key)
-  for (let i = 1; i < run.length; i++) {
-    if (toMonthIndex(run[i].coverDate) < toMonthIndex(run[i - 1].coverDate)) {
-      errors.push(`${series.key}: #${run[i].number} is dated before #${run[i - 1].number}`)
+    const idx = toMonthIndex(iss.coverDate)
+    if (idx < toMonthIndex(RANGE_START) || idx > toMonthIndex(RANGE_END)) {
+      errors.push(`${iss.id}: cover date ${iss.coverDate} falls outside ${RANGE_START}..${RANGE_END}`)
     }
   }
-}
 
-if (errors.length) {
-  console.error('\n  Dataset validation failed:\n')
-  for (const e of errors.slice(0, 40)) console.error(`   · ${e}`)
-  if (errors.length > 40) console.error(`   … and ${errors.length - 40} more`)
-  console.error('')
-  process.exit(1)
-}
+  // Non-decreasing issue numbers within a series is a cheap sanity check on dates.
+  for (const series of SERIES) {
+    const run = issues.filter((i) => i.series === series.key)
+    for (let i = 1; i < run.length; i++) {
+      if (toMonthIndex(run[i].coverDate) < toMonthIndex(run[i - 1].coverDate)) {
+        errors.push(`${series.key}: #${run[i].number} is dated before #${run[i - 1].number}`)
+      }
+    }
+  }
 
-/* -- write ---------------------------------------------------------------- */
+  if (errors.length) {
+    console.error('\n  Dataset validation failed:\n')
+    for (const e of errors.slice(0, 40)) console.error(`   · ${e}`)
+    if (errors.length > 40) console.error(`   … and ${errors.length - 40} more`)
+    console.error('')
+    process.exit(1)
+  }
 
-mkdirSync(dirname(OUT), { recursive: true })
-writeFileSync(OUT, JSON.stringify(issues, null, 0) + '\n')
+  /* -- write ---------------------------------------------------------------- */
 
-/* -- report --------------------------------------------------------------- */
+  mkdirSync(dirname(OUT), { recursive: true })
+  writeFileSync(OUT, JSON.stringify(issues, null, 0) + '\n')
 
-const pad = (s, n) => String(s).padEnd(n)
-console.log(`\n  Spider-Man reading tree — dataset\n`)
-console.log(`  ${pad('SERIES', 40)}${pad('ISSUES', 8)}${pad('FROM', 10)}TO`)
-console.log(`  ${'-'.repeat(68)}`)
+  /* -- report --------------------------------------------------------------- */
 
-for (const series of SERIES) {
-  const run = issues.filter((i) => i.series === series.key)
-  if (!run.length) continue
+  const pad = (s, n) => String(s).padEnd(n)
+  console.log(`\n  ${character.name} reading tree — dataset\n`)
+  console.log(`  ${pad('SERIES', 40)}${pad('ISSUES', 8)}${pad('FROM', 10)}TO`)
+  console.log(`  ${'-'.repeat(68)}`)
+
+  for (const series of SERIES) {
+    const run = issues.filter((i) => i.series === series.key)
+    if (!run.length) continue
+    console.log(
+      `  ${pad(series.name.slice(0, 38), 40)}${pad(run.length, 8)}` +
+        `${pad(run[0].coverDate, 10)}${run[run.length - 1].coverDate}`,
+    )
+  }
+
+  const byRelevance = issues.reduce((acc, i) => {
+    acc[i.relevance] = (acc[i.relevance] || 0) + 1
+    return acc
+  }, {})
+
+  console.log(`  ${'-'.repeat(68)}`)
+  console.log(`  ${pad('TOTAL', 40)}${issues.length}`)
   console.log(
-    `  ${pad(series.name.slice(0, 38), 40)}${pad(run.length, 8)}` +
-      `${pad(run[0].coverDate, 10)}${run[run.length - 1].coverDate}`,
+    `\n  by relevance   ` +
+      Object.entries(byRelevance).map(([k, v]) => `${k} ${v}`).join('   '),
   )
+  console.log(`  exact dates    ${issues.filter((i) => i.dateExact).length} of ${issues.length}`)
+  console.log(`\n  → ${OUT}\n`)
 }
 
-const byRelevance = issues.reduce((acc, i) => {
-  acc[i.relevance] = (acc[i.relevance] || 0) + 1
-  return acc
-}, {})
-
-console.log(`  ${'-'.repeat(68)}`)
-console.log(`  ${pad('TOTAL', 40)}${issues.length}`)
-console.log(
-  `\n  by relevance   ` +
-    Object.entries(byRelevance).map(([k, v]) => `${k} ${v}`).join('   '),
-)
-console.log(`  exact dates    ${issues.filter((i) => i.dateExact).length} of ${issues.length}`)
-console.log(`\n  → ${OUT}\n`)
+for (const character of CHARACTERS) {
+  const { SERIES } = await import(`../data/${character.key}/series.js`)
+  build(character, SERIES, resolve(ROOT, `src/generated/${character.key}.json`))
+}

@@ -3,9 +3,11 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { linksFor } from '../lib/links.js'
 import { progressFor, setRead, useProgress } from '../lib/progress.js'
 import { useMediaQuery, PHONE } from '../lib/useMediaQuery.js'
-import { ARCS_BY_KEY } from '../../data/arcs.js'
-import { MILESTONE_TYPES } from '../../data/milestones.js'
+import { ACTIVE } from '../lib/character.js'
+import { MILESTONE_TYPES } from '../../data/milestone-types.js'
 import FocusGraph from './FocusGraph.jsx'
+
+const { ARCS_BY_KEY } = ACTIVE.data
 
 const MONTHS = ['', 'January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December']

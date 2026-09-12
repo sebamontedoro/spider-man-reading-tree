@@ -73,6 +73,35 @@
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
 }
 
+/* The other trees. Quiet until pointed at: the tree you are in is the
+   masthead's subject, and the switch is an aside to it. */
+.masthead__trees {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-1);
+  font-size: var(--t-meta);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.masthead__trees a {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.72;
+  border-bottom: 2px solid transparent;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.masthead__trees a:hover,
+.masthead__trees a:focus-visible { opacity: 1; }
+
+.masthead__trees a[aria-current] {
+  opacity: 1;
+  border-bottom-color: currentColor;
+}
+
 /* -- filter bar ---------------------------------------------------------- */
 
 .filterbar {
@@ -888,6 +917,7 @@
   .masthead__range { text-align: left; }
   .masthead__years { font-size: 15px; display: inline; margin-right: var(--sp-2); }
   .masthead__stats { font-size: 11px; }
+  .masthead__trees { justify-content: flex-start; }
 
   .filterbar--compact {
     flex-direction: row;

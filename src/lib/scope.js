@@ -22,8 +22,9 @@
 
 import { ISSUES, ISSUE_BY_ID } from './dataset.js'
 import { resolvePath } from './filters.js'
-import { ARCS, ARCS_BY_KEY } from '../../data/arcs.js'
-import { PATHS } from '../../data/paths.js'
+import { ACTIVE } from './character.js'
+
+const { ARCS, ARCS_BY_KEY, PATHS } = ACTIVE.data
 
 const seriesOf = (ids) => {
   const out = new Set()

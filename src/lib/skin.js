@@ -18,16 +18,20 @@
 
 import { useSyncExternalStore } from 'react'
 
-const KEY = 'spider-man:skin:v1'
+import { ACTIVE, STORAGE } from './character.js'
+
+const KEY = STORAGE.skin
 
 export const SYSTEM = 'system'
 export const LIGHT = 'light'
 export const DARK = 'dark'
 
+// Each tree names its own two palettes; the choice between light and dark is
+// shared, so a reader who likes the dark one gets it in every tree.
 export const SKINS = [
   { key: SYSTEM, label: 'System' },
-  { key: LIGHT, label: 'Spider-Man' },
-  { key: DARK, label: 'Venom' },
+  { key: LIGHT, label: ACTIVE.meta?.skins?.light || 'Light' },
+  { key: DARK, label: ACTIVE.meta?.skins?.dark || 'Dark' },
 ]
 
 const read = () => {

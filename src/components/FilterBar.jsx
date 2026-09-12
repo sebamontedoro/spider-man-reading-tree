@@ -7,9 +7,10 @@ import { arcDuo, duoBackground, useArcLift } from '../lib/palette.js'
 import { useMediaQuery, PHONE } from '../lib/useMediaQuery.js'
 import Picker from './Picker.jsx'
 import SkinToggle from './SkinToggle.jsx'
-import { ARCS_SORTED, ARCS_BY_KEY } from '../../data/arcs.js'
-import { PATHS, PATHS_BY_KEY } from '../../data/paths.js'
-import { MILESTONE_TYPES } from '../../data/milestones.js'
+import { ACTIVE } from '../lib/character.js'
+import { MILESTONE_TYPES } from '../../data/milestone-types.js'
+
+const { ARCS_SORTED, ARCS_BY_KEY, PATHS, PATHS_BY_KEY } = ACTIVE.data
 
 const RELEVANCE = [
   { key: 'core', label: 'Core' },

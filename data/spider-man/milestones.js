@@ -33,44 +33,6 @@
  * its deaths and its structural changes, both of which verified cleanly.
  */
 
-export const MILESTONE_TYPES = {
-  debut: {
-    key: 'debut',
-    label: 'Debut',
-    glyph: '★',
-    accent: 'var(--blue)',
-    description: 'First appearance of a character who mattered afterwards',
-  },
-  death: {
-    key: 'death',
-    label: 'Death',
-    glyph: '✝',
-    accent: 'var(--red-deep)',
-    description: 'A character dies',
-  },
-  event: {
-    key: 'event',
-    label: 'Event',
-    glyph: '◈',
-    accent: 'var(--s-mtu)',
-    description: 'A crossover or line-wide event reaches Spider-Man',
-  },
-  'status-quo': {
-    key: 'status-quo',
-    label: 'Status quo',
-    glyph: '⟳',
-    accent: 'var(--s-spec-mag)',
-    description: 'The premise of the book changes for good',
-  },
-  universe: {
-    key: 'universe',
-    label: 'New continuity',
-    glyph: '⑂',
-    accent: 'var(--s-ultimate)',
-    description: 'A separate continuity begins — the tree forks here',
-  },
-}
-
 export const MILESTONES = [
   /* ============================================================== 1960s */
   {

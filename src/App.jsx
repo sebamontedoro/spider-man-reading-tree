@@ -2,8 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { ISSUES, ISSUE_BY_ID, TIMELINE, STATS, YEAR_RANGE } from './lib/dataset.js'
 import { DEFAULT_FILTERS, applyFilters, resolvePath, isFilterActive } from './lib/filters.js'
-import { PATHS_BY_KEY } from '../data/paths.js'
-import { ARCS_BY_KEY } from '../data/arcs.js'
+import { ACTIVE, ALL_CHARACTERS } from './lib/character.js'
 
 import {
   hasSelection, describe, readingOrder, toRoute, fromRoute, arcAccent,
@@ -19,6 +18,8 @@ import DetailPanel from './components/DetailPanel.jsx'
 import Reader from './components/Reader.jsx'
 
 import './styles/app.css'
+
+const { PATHS_BY_KEY, ARCS_BY_KEY } = ACTIVE.data
 
 export default function App() {
   // A route in the address bar is a selection someone shared or came back to,
@@ -176,10 +177,25 @@ export default function App() {
       <header className="masthead halftone-red">
         <div className="masthead__inner">
           <h1 className="masthead__title">
-            Spider&#8209;Man
+            {/* Non-breaking hyphens: "Spider-" alone on a line reads as a typo. */}
+            {ACTIVE.meta.name.replace(/-/g, '\u2011')}
             <span className="masthead__subtitle">Reading Tree</span>
           </h1>
           <div className="masthead__range">
+            {ALL_CHARACTERS.length > 1 && (
+              // A link, not a toggle: each tree is its own page load — see
+              // src/lib/character.js — and its own address to come back to.
+              // Inside the range block rather than beside it, so it adds a line
+              // to a block that already stacks instead of a row to the masthead.
+              <nav className="masthead__trees" aria-label="Reading trees">
+                {ALL_CHARACTERS.map((c) => (
+                  <a key={c.key} href={`/${c.key}/`}
+                     aria-current={c.key === ACTIVE.key ? 'page' : undefined}>
+                    {c.name.replace(/-/g, '\u2011')}
+                  </a>
+                ))}
+              </nav>
+            )}
             <span className="masthead__years">
               {YEAR_RANGE[0]}&ndash;{YEAR_RANGE[1]}
             </span>

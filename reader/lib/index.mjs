@@ -14,9 +14,15 @@ import { createHash } from 'node:crypto'
 import { readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
 
+import { CHARACTERS } from '../../data/characters.js'
 import { COLLECTIONS } from '../../data/collections.js'
 import { LIBRARY_FOLDERS } from '../../data/library.js'
-import { SERIES } from '../../data/series.js'
+
+// The shelf is shared by every tree, so a filename may name a series of any of
+// them. Each tree's series.js is found by convention, next to its other layers.
+const SERIES = (await Promise.all(
+  CHARACTERS.map((c) => import(`../../data/${c.key}/series.js`).then((m) => m.SERIES)),
+)).flat()
 
 const ARCHIVE_EXT = new Set(['.cbz', '.cbr', '.cb7', '.zip', '.rar'])
 
@@ -42,9 +48,9 @@ const normalise = (title) =>
     .trim()
 
 /**
- * Series name → candidate keys, derived from data/series.js so that dropping a
- * folder of, say, Web of Spider-Man onto the shelf resolves without anyone
- * editing a mapping first. Names collide by design — "amazing spider man"
+ * Series name → candidate keys, derived from every tree's series.js so that
+ * dropping a folder of, say, Web of Spider-Man onto the shelf resolves without
+ * anyone editing a mapping first. Names collide by design — "amazing spider man"
  * belongs to six volumes — so every value is a list in dataset order, and the
  * browser picks the volume whose numbering actually contains the issue.
  */

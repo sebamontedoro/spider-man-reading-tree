@@ -14,8 +14,9 @@
 
 import { ISSUE_BY_ID, SERIES_LIST, CHARACTERS } from './dataset.js'
 import { resolvePath } from './filters.js'
-import { ARCS_BY_KEY } from '../../data/arcs.js'
-import { PATHS_BY_KEY } from '../../data/paths.js'
+import { ACTIVE } from './character.js'
+
+const { ARCS_BY_KEY, PATHS_BY_KEY } = ACTIVE.data
 
 const DIMENSIONS = ['arc', 'series', 'path', 'character']
 
