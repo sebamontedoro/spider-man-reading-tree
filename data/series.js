@@ -554,20 +554,27 @@ export const SERIES = [
     // La clave lleva el anio, como spider-man-1990, porque el nombre solo no
     // alcanza: la serie de Miles se llama igual.
     key: 'ultimate-comics-spider-man-2009',
+    //
+    // El wiki la archiva como "Ultimate Spider-Man Vol 2", tapa de 2009 incluida.
+    // "Ultimate Comics Spider-Man Vol 1" es la de Miles de 2011: con ese titulo
+    // la verificacion resolvia sin error y le copiaba a esta las fechas y los ids
+    // de Marvel de aquella.
     name: 'Ultimate Comics: Spider-Man (2009)', abbr: 'UCSM09', vol: 1,
-    wikiTitle: 'Ultimate Comics Spider-Man Vol 1', accent: 'ultimate',
+    wikiTitle: 'Ultimate Spider-Man Vol 2', accent: 'ultimate',
     universe: 'ultimate',
     role: 'lead', relevance: 'core',
     note: 'Peter Parker\u2019s last two years in the parallel line, ending in his death.',
     segments: [
-      { from: 1,   to: 15,  startDate: '2009-12', endDate: '2011-01', startExact: true, endExact: true },
-      { from: 150, to: 160, startDate: '2011-02', endDate: '2011-08', startExact: true, endExact: true },
+      { from: 1,   to: 15,  startDate: '2009-10', endDate: '2010-12', startExact: true, endExact: true },
+      { from: 150, to: 160, startDate: '2011-01', endDate: '2011-08', startExact: true, endExact: true },
     ],
   },
   {
     key: 'ultimate-comics-spider-man',
     name: 'Ultimate Comics Spider-Man', abbr: 'UCSM', vol: 1,
-    wikiTitle: 'Ultimate Comics Spider-Man Vol 2', accent: 'miles',
+    // Vol 1, aunque sea la segunda serie con este nombre: la de 2009 el wiki la
+    // archiva bajo otro titulo. "Vol 2" no existe.
+    wikiTitle: 'Ultimate Comics Spider-Man Vol 1', accent: 'miles',
     universe: 'ultimate',
     role: 'lead', relevance: 'core',
     note: 'A new Spider-Man in the parallel line: Miles Morales.',

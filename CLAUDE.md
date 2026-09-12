@@ -107,9 +107,18 @@ between batches. Anything unresolved keeps its estimate and shows a leading `~`
 in the UI.
 
 **After adding a series, crawl it:** `npm run verify:wiki -- --only=<key>`.
-Nothing does it for you. Ultimate Comics: Spider-Man (2009) went in after the
-last crawl: 22 of its 26 dates are still estimates, and none of the 26 has a
-Marvel id.
+Nothing does it for you — Ultimate Comics: Spider-Man (2009) sat unverified
+for five days because it went in after the last crawl.
+
+**A wrong `wikiTitle` that names another real series fails silently.** That
+same series carried `Ultimate Comics Spider-Man Vol 1`, which is Miles' 2011
+book; the wiki files the 2009 one as `Ultimate Spider-Man Vol 2`. The crawl
+resolved every page, reported no errors, and copied Miles' dates and Marvel ids
+onto Peter's issues. A missing page is loud; a wrong one is not. After a crawl,
+check that the verified dates grow with the issue number and land near the
+anchors — #1 of a 2009 run dated 2011 is the tell. The fix also found Miles'
+own series pointing at a `Vol 2` that does not exist, which had broken all its
+Marvel Database links without anyone noticing.
 
 The crawl only reads `issues.json`, so **guest appearances never get a Marvel
 id**. Their dates were checked by hand when each was added.
@@ -343,8 +352,8 @@ is information too: a quiet dot beside the date means there is a digital
 edition, and the detail panel says so when there is not.
 
 Do not read a missing id as "unavailable anywhere": it means Marvel has no
-digital catalogue entry — or, for guests and for series added after the last
-crawl, that nobody looked.
+digital catalogue entry — or, for guests and for any series added since its
+last crawl, that nobody looked.
 
 ## Scope
 
