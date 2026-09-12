@@ -23,6 +23,10 @@
 .masthead {
   border-bottom: var(--rule-heavy) solid var(--ink);
   color: #fff;
+  /* Above the year rail: a tree with more years than the window is tall pushes
+     the rail up over this corner, where the tree switcher sits. */
+  position: relative;
+  z-index: 6;
 }
 
 .masthead__inner {
@@ -200,6 +204,10 @@
   flex-direction: column;
   gap: 1px;
   z-index: 5;
+  /* Sixty-odd years outgrow a laptop screen; past that the rail scrolls. */
+  max-height: calc(100vh - 2 * var(--sp-3));
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 .timeline__jump a {
   font-family: var(--font-mono);
