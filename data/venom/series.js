@@ -17,14 +17,21 @@
  * its own colour so the change of host shows on the timeline.
  *
  * EVENTS. The main series of an event is in, and so is a tie-in when a
- * symbiote headlines it. Extreme Carnage is told in its one-shots — Alpha, six
+ * symbiote headlines it — Queen in Black's Venom Unchained, say, but not its
+ * Thor or Hela one-shots. Extreme Carnage is told in its one-shots — Alpha, six
  * tie-ins, Omega — so all eight are the event. Tie-ins headlined by other
  * heroes (Absolute Carnage's Avengers or Miles Morales, Venom War's Deadpool
  * or Wolverine) are for data/venom/appearances.js, one by one.
  *
+ * THE FAMILY. Carnage's branch also holds the books his spawn headline, Toxin
+ * and Scream, and Eddie Brock's run in the Carnage symbiote after Venom War.
+ * Series whose titles start with neither name were found through the
+ * symbiotes' appearance categories, not by prefix.
+ *
  * Out of continuity, and therefore `optional`, is whatever the wiki sets in
  * another reality, checked on each first issue's featured characters: Edge of
- * Venomverse (both), War Stories, Death of the Venomverse, The End (Earth-23203),
+ * Venomverse (both), War Stories, Death of the Venomverse, Extreme Venomverse,
+ * The End (Earth-23203),
  * 2099, and the Sony film prelude. Venomverse and Venomverse Reborn feature
  * the Earth-616 Eddie and stay in.
  *
@@ -36,7 +43,8 @@
  *   Carnage (Eternity, 1987)   another publisher's character.
  *   Symbiote Spider-Man (2019-2024)   Peter Parker headlines them: they are in
  *                              the Spider-Man tree.
- *   Venom vol. 7 (2026)        solicited, not yet on sale.
+ *   Venom vol. 7 (2026)        solicited, not yet on sale. Queen in Black and
+ *                              Venom Unchained list what is out; extend `to`.
  */
 
 
@@ -625,6 +633,37 @@ export const SERIES = [
     // Ongoing: lists what is on sale. Extend `to` as issues come out.
     segments: [{ from: 250, to: 261, startDate: '2025-12', endDate: '2026-11', startExact: true, endExact: true }],
   },
+  {
+    key: 'amazing-spider-man-venom-death-spiral',
+    name: 'Amazing Spider-Man/Venom: Death Spiral', abbr: 'DS', vol: 1,
+    wikiTitle: 'Amazing Spider-Man/Venom: Death Spiral Vol 1', accent: 'venom-event',
+    role: 'lead', relevance: 'core',
+    note: 'Opens a nine-part crossover with Amazing Spider-Man.',
+    segments: [{ from: 1, to: 1, startDate: '2026-04', endDate: '2026-04', startExact: true, endExact: true }],
+  },
+  {
+    key: 'amazing-spider-man-venom-death-spiral-body-count',
+    name: 'Death Spiral: Body Count', abbr: 'DS BC', vol: 1,
+    wikiTitle: 'Amazing Spider-Man/Venom: Death Spiral Body Count Vol 1', accent: 'venom-event',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 1, startDate: '2026-07', endDate: '2026-07', startExact: true, endExact: true }],
+  },
+  {
+    key: 'queen-in-black',
+    name: 'Queen in Black', abbr: 'QIB', vol: 1,
+    wikiTitle: 'Queen in Black Vol 1', accent: 'venom-event',
+    role: 'lead', relevance: 'core',
+    // Ongoing: lists what is on sale. Extend `to` as issues come out.
+    segments: [{ from: 1, to: 3, startDate: '2026-09', endDate: '2026-10', startExact: true, endExact: true }],
+  },
+  {
+    key: 'queen-in-black-venom-unchained',
+    name: 'Queen in Black: Venom Unchained', abbr: 'QIB VU', vol: 1,
+    wikiTitle: 'Queen in Black: Venom Unchained Vol 1', accent: 'venom-event',
+    role: 'lead', relevance: 'notable',
+    // Ongoing: lists what is on sale. Extend `to` as issues come out.
+    segments: [{ from: 1, to: 2, startDate: '2026-09', endDate: '2026-10', startExact: true, endExact: true }],
+  },
   /* ============================================================== Carnage
      Cletus Kasady and the red symbiote, Venom’s child: his own branch, in his
      own colour. */
@@ -716,14 +755,51 @@ export const SERIES = [
     segments: [{ from: 1, to: 1, startDate: '2023-08', endDate: '2023-08', startExact: true, endExact: true }],
   },
   {
+    key: 'toxin',
+    name: 'Toxin', abbr: 'TOX', vol: 1,
+    wikiTitle: 'Toxin Vol 1', accent: 'carnage',
+    role: 'lead', relevance: 'notable',
+    note: 'Carnage’s own spawn, and the cop who wears it.',
+    segments: [{ from: 1, to: 6, startDate: '2005-06', endDate: '2005-11', startExact: true, endExact: true }],
+  },
+  {
+    key: 'scream-curse-of-carnage',
+    name: 'Scream: Curse of Carnage', abbr: 'SCR', vol: 1,
+    wikiTitle: 'Scream: Curse of Carnage Vol 1', accent: 'carnage',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 8, startDate: '2020-01', endDate: '2020-08', startExact: true, endExact: true }],
+  },
+  {
+    key: 'web-of-carnage',
+    name: 'Web of Carnage', abbr: 'WOC', vol: 1,
+    wikiTitle: 'Web of Carnage Vol 1', accent: 'carnage',
+    role: 'lead', relevance: 'notable',
+    segments: [{ from: 1, to: 1, startDate: '2023-09', endDate: '2023-09', startExact: true, endExact: true }],
+  },
+  {
     key: 'carnage-v4',
     name: 'Carnage (vol. 4)', abbr: 'CAR v4', vol: 4,
     wikiTitle: 'Carnage Vol 4', accent: 'carnage',
     role: 'lead', relevance: 'core',
     segments: [{ from: 1, to: 8, startDate: '2024-01', endDate: '2024-08', startExact: true, endExact: true }],
   },
+  {
+    key: 'eddie-brock-carnage',
+    name: 'Eddie Brock: Carnage', abbr: 'EBC', vol: 1,
+    wikiTitle: 'Eddie Brock: Carnage Vol 1', accent: 'carnage',
+    role: 'lead', relevance: 'core',
+    note: 'After the war, Eddie in Carnage’s red.',
+    segments: [{ from: 1, to: 10, startDate: '2025-04', endDate: '2026-01', startExact: true, endExact: true }],
+  },
   /* ============================================================ Elsewhere
      Other realities and the screen: hidden with the rest of the optional material. */
+  {
+    key: 'extreme-venomverse',
+    name: 'Extreme Venomverse', abbr: 'XVV', vol: 1,
+    wikiTitle: 'Extreme Venomverse Vol 1', accent: 'elsewhere',
+    role: 'lead', relevance: 'optional', outOfContinuity: true,
+    segments: [{ from: 1, to: 5, startDate: '2023-07', endDate: '2023-09', startExact: true, endExact: true }],
+  },
   {
     key: 'venom-2099',
     name: 'Venom 2099', abbr: '2099', vol: 1,

@@ -6,8 +6,8 @@ guest appearances that carry real story weight, and a focus graph showing how
 any issue connects to what came before and after.
 
 **Spider-Man** (1962–2026) and **Daredevil** (1964–2026) are curated and on
-the shelf. **Venom** (1993–2026) has its runs, verified, and nothing curated
-yet — see [Characters](#characters). In the Spider-Man tree, three continuities — the
+the shelf. **Venom** (1993–2026) is curated; its shelf is next — see
+[Characters](#characters). In the Spider-Man tree, three continuities — the
 main line, the 2000 Ultimate line and the 2024 one — render as separate lines
 rather than one mixed run.
 
@@ -180,10 +180,11 @@ Numbering that will bite:
 
 ### Venom
 
-Started 2026-09-12: 446 issues across 92 series — the symbiote's own books and
-Carnage's, as a branch in his colour — every one verified on the first crawl,
-nothing curated yet. The header of `data/venom/series.js` says what is in and
-why; in short:
+Started 2026-09-12: 483 issues across 101 series — the symbiote's own books
+and Carnage's, as a branch in his colour — every one verified, and curated the
+same day from the wiki's pages: 37 milestones, 55 arcs, 11 reading paths, 95
+guest issues. Each layer's header says how. The header of
+`data/venom/series.js` says what is in and why; in short:
 
 - **The tree follows the symbiote, not the man.** The 2003 series is a clone,
   vol. 2 is Flash Thompson's, vol. 5 Dylan Brock's. Each host has its own
@@ -193,6 +194,16 @@ why; in short:
   heroes headline wait for `appearances.js`.
 - **Symbiote Spider-Man** (2019–2024) is Peter's book, so it went into the
   Spider-Man tree, in Venom's colour.
+- **Search by appearance, not by title.** Eddie Brock: Carnage, Queen in
+  Black and Death Spiral start with neither name; a prefix search of the wiki
+  missed all three, and the symbiotes' appearance categories found them.
+- **The guest layer is large on purpose.** Venom and Carnage lived in the
+  Spider-Man books for years — the costume, both debuts, Maximum Carnage,
+  Anti-Venom, Agent Venom, Flash's death — and nearly all of it is already on
+  the shelf as Spider-Man lead issues.
+- **`overrides.js` does not reach guests**: `src/lib/dataset.js` merges it
+  over the generated runs only. A guest that must be a key issue (Amazing
+  Spider-Man #300 here) carries `keyIssue: true` in its own appearance entry.
 
 Numbering that will bite:
 
@@ -463,7 +474,13 @@ and the shelf filters are derived from it rather than stored separately.
 - **A selection replaces the timeline** (`SelectionView`) with its issues in
   reading order: an arc's or path's declared order, otherwise chronological.
   Crossover order matters — Kraven's Last Hunt crosses three titles inside one
-  cover month, and sorting by date would shuffle it. The timeline is one click back and keeps its scroll position.
+  cover month, and sorting by date would shuffle it. The release dates on the
+  wiki pages settle most of it: a weekly crossover ships its parts in order,
+  and Maximum Carnage and Web of Carnage were fixed that way on 2026-09-12.
+  Not all of it — the story can run against the shipping (Amazing Spider-Man
+  #252 shipped before Secret Wars #8 and is read after it). A check that day
+  found 19 more Spider-Man arcs out of shipping order, the Clone Saga among
+  them; each needs reading, not re-sorting. The timeline is one click back and keeps its scroll position.
 - **Routes** live in the hash (`#/arc/kravens-last-hunt/series/web-of-spider-man`)
   and every key is checked on the way in; one that does not resolve is dropped.
 - **Two skins per tree**, each named by its character (Spider-Man/Venom,
