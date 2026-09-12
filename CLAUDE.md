@@ -106,6 +106,18 @@ someone else's wiki. The API takes 50 page titles per request; keep the delay
 between batches. Anything unresolved keeps its estimate and shows a leading `~`
 in the UI.
 
+Every date in the tree is now verified. The last two were Amazing Spider-Man
+Annual #10 and #13, which carry only a year on the cover — the wiki's `Month`
+is empty because there is no month to find. An annual is displayed by its year
+alone, so `overrides.js` marks them exact and gives each a month purely for
+placement, taken from the on-sale date and the sibling annuals. A year-only
+annual turning up as "estimated" means exactly this and nothing else.
+
+The wiki writes months both ways, "October" and "Oct"; `parseMonth` reads
+both. Before it did, four issues had carried a verified year and an
+interpolated month since the first crawl — Ultimate Spider-Man #128 three
+months off.
+
 **After adding a series, crawl it:** `npm run verify:wiki -- --only=<key>`.
 Nothing does it for you — Ultimate Comics: Spider-Man (2009) sat unverified
 for five days because it went in after the last crawl.

@@ -63,11 +63,19 @@ const field = (text, name) => {
 /**
  * Marvel used "Late September" and similar for semi-monthly shipping, so strip
  * the qualifier before looking the month up.
+ *
+ * The wiki also abbreviates, inconsistently: "Oct", "Mar", "Jan" sit beside
+ * "October" in the same field. Reading only full names left those issues with
+ * a verified year and an interpolated month — Ultimate Spider-Man #128 placed in
+ * April when its cover says January.
  */
 const parseMonth = (raw) => {
   if (!raw) return null
-  const cleaned = raw.toLowerCase().replace(/^(late|early|mid)\s+/, '').trim()
-  return MONTHS[cleaned] || null
+  const cleaned = raw.toLowerCase().replace(/^(late|early|mid)\s+/, '').replace(/\.$/, '').trim()
+  if (MONTHS[cleaned]) return MONTHS[cleaned]
+  if (cleaned.length < 3) return null
+  const full = Object.keys(MONTHS).find((m) => m.startsWith(cleaned))
+  return full ? MONTHS[full] : null
 }
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))

@@ -15,7 +15,7 @@ unchanged.
 
 ## What's in it
 
-**2556 issues · 2550 with verified cover dates · 102 story arcs · 92 characters indexed · 18 reading paths**
+**2556 issues, every cover date verified · 102 story arcs · 92 characters indexed · 18 reading paths**
 
 Every issue links out to where you can read or look it up, and the guide tells
 you which ones have a digital edition — 2170 of them do.

@@ -313,6 +313,29 @@ export const OVERRIDES = {
     dateExact: true,
   },
 
+  /* ---------------------------------------- annuals with no cover month
+     Two 1970s annuals carry only a year on the cover, and the wiki leaves the
+     month empty: there is no month to verify. The year is verified, and an
+     annual is shown by its year alone, so the date on screen is exact.
+
+     The month below only decides where it sits on the timeline. It comes from
+     the on-sale date the wiki gives and from how the neighbouring annuals are
+     dated. The gap between on-sale and cover month is irregular for annuals —
+     one to seven months — so each copies its closest siblings rather than
+     applying a fixed lag. */
+  'amazing-spider-man-annual-10': {
+    // On sale June 22, 1976 — the same day as #11 a year later, which is
+    // cover-dated August.
+    coverDate: '1976-08',
+    dateExact: true,
+  },
+  'amazing-spider-man-annual-13': {
+    // On sale August 14, 1979. #14 to #16 went on sale between late August
+    // and mid-September, and all three are cover-dated October.
+    coverDate: '1979-10',
+    dateExact: true,
+  },
+
   /* ------------------------------ numbers that are not steps in the run */
   'amazing-spider-man--1': {
     note: 'A #-1, and not a mistake: for one month in 1997 every Marvel title shipped one, set before its own first issue. Sits between #424 and #425 and looks backwards.',
