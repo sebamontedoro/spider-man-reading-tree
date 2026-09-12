@@ -13,6 +13,15 @@ export const OVERRIDES = {
   'daredevil-annual-2': { relevance: 'optional', isReprint: true, note: 'A reprint annual.' },
   'daredevil-annual-3': { relevance: 'optional', isReprint: true, note: 'A reprint annual.' },
 
+  /* ------------------------------------------- key issues that are losses */
+  // Key issues are derived from status-quo milestones; these four are deaths
+  // or origins instead, and the book is built around them all the same. Set
+  // by hand, which wins over the derivation — see src/lib/dataset.js.
+  'daredevil-1':   { keyIssue: true },
+  'daredevil-181': { keyIssue: true },
+  'daredevil-v2-5': { keyIssue: true },
+  'shadowland-1':  { keyIssue: true },
+
   /* ----------------------------------------------- numbers the id misreads */
   'daredevil-annual-5': {
     note: 'Printed as a second Annual #4, in 1989. Numbered #5 here because two issues cannot share an id.',
