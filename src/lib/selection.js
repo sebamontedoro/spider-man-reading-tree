@@ -12,7 +12,7 @@
  * chronological, which is what the tree is sorted by already.
  */
 
-import { ISSUE_BY_ID, SERIES_LIST, CHARACTERS } from './dataset.js'
+import { ISSUES, ISSUE_BY_ID, SERIES_LIST, CHARACTERS } from './dataset.js'
 import { resolvePath } from './filters.js'
 import { ACTIVE } from './character.js'
 
@@ -72,7 +72,9 @@ export function fromRoute(hash) {
  *  when chronological order is the right one. */
 export function readingOrder(filters, pathKey) {
   if (pathKey) {
-    const ids = resolvePath(PATHS_BY_KEY[pathKey], [...ISSUE_BY_ID.values()], ARCS_BY_KEY)
+    // ISSUES, not ISSUE_BY_ID: the map is built before the final sort, so it
+    // holds the generator's estimated order with every guest appearance last.
+    const ids = resolvePath(PATHS_BY_KEY[pathKey], ISSUES, ARCS_BY_KEY)
     return new Map(ids.map((id, i) => [id, i + 1]))
   }
   if (filters.arc) {
