@@ -1,47 +1,91 @@
 # Spider-Man Reading Tree
 
-An interactive visual reading guide to Spider-Man's first three decades in print,
-1962–1990. A chronological timeline of every issue he headlined, plus the guest
-appearances that carry real story weight, with a focus graph showing how any
-issue connects to what came before and after.
+An interactive visual reading guide to Spider-Man in print, **1962–2026**: every
+issue of every title he headlines, the guest appearances that carry real story
+weight, and a focus graph showing how any issue connects to what came before
+and after. Three continuities — the main line, the 2000 Ultimate line and the
+2024 one — render as separate lines of the tree rather than one mixed run.
 
 Vite + React. The site itself is static; a small companion service serves
 pages out of local .cbz/.cbr files when there is a shelf to read from, and the
-site works without it. UI and content are in English.
+site works without it. UI and content are in English. Code comments are English
+in the older files and Spanish in the newer ones — match the file you are in.
+
+**State as of 2026-09-07: complete.** 2556 issues (2410 generated + 146 guest
+appearances), and every one of them has a file on the shelf. Do not copy counts
+like these into new prose: `STATS` in `src/lib/dataset.js` computes them, and
+hardcoded figures are what made the previous version of this file wrong.
 
 ## Running it
 
 ```bash
 npm install
 npm run dev            # http://localhost:5173
+npm run dev:reader     # the reader service over ./comics, on :8787
 npm run build:data     # regenerate the dataset skeleton
 npm run verify:wiki    # refresh dates and Marvel ids from the wiki (network)
 npm run build          # build:data + production build
 ```
 
+The dev server proxies `/api` to the reader, so `dev` and `dev:reader` side by
+side give you both. `READER_ORIGIN=https://spiderman.lan npm run dev` points it
+at the deployed one instead.
+
+On the live host the checkout has **no `node_modules`**: the build runs inside
+Docker. `scripts/build-dataset.mjs` still runs with a bare `node`, since it only
+imports `data/series.js`.
+
 ## The data layers
 
-The single most important thing to understand about this codebase:
+The single most important thing to understand about this codebase.
 
-| # | Layer | File | Hand-edited? |
-|---|-------|------|--------------|
-| 1 | Generated runs | `src/generated/issues.json` | **Never** |
-| 2 | Verified cover dates | `data/cover-dates.json` | **Never** |
-| 3 | Marvel issue ids | `data/marvel-unlimited.json` | **Never** |
-| 4 | Corrections & notes | `data/overrides.js` | Yes |
-| 5 | Guest appearances | `data/appearances.js` | Yes |
-| 6 | Arcs & crossovers | `data/arcs.js` | Yes |
-| 7 | Comic shelf folders | `data/library.js` | Yes |
+| Layer | File | Hand-edited? | Read by |
+|-------|------|--------------|---------|
+| Generated runs | `src/generated/issues.json` | **Never** | site |
+| Verified cover dates | `data/cover-dates.json` | **Never** | site |
+| Marvel issue ids | `data/marvel-unlimited.json` | **Never** | site |
+| Series definitions | `data/series.js` | Yes | generator, site, **reader** |
+| Corrections & notes | `data/overrides.js` | Yes | site |
+| Guest appearances | `data/appearances.js` | Yes | site |
+| Arcs & crossovers | `data/arcs.js` | Yes | site |
+| Milestones | `data/milestones.js` | Yes | site |
+| Reading paths | `data/paths.js` | Yes | site |
+| Arc colours | `data/arc-palette.js` | Yes | site |
+| Shelf folders | `data/library.js` | Yes | **reader** |
+| Collected editions | `data/collections.js` | Yes | **reader** |
 
-Layers 1–3 are machine-produced and disposable — 1 from `npm run build:data`,
-2 and 3 from a single `npm run verify:wiki` crawl. **Editing either directly
-loses your work on the next run.** Layers 4 to 7 are hand-curated and always
-win. `src/lib/dataset.js` merges 1–6 at load time; layer 7 is read by the comic
-reader instead, and is the only one that describes files rather than issues.
+The first three are machine-produced and disposable — `issues.json` from
+`npm run build:data`, the other two from a single `npm run verify:wiki` crawl.
+**Editing any of them directly loses your work on the next run.** Everything
+hand-edited always wins. `src/lib/dataset.js` merges the site's layers once, at
+module load.
+
+The file headers number these layers ("a seventh…", "a ninth…") and the
+numbers do not agree with each other. Ignore them; the table above is current.
 
 To correct one issue — a wrong date, a missing first appearance, a note — add it
 to `data/overrides.js` keyed by its id. Ids are `<series-key>-<number>`, e.g.
 `amazing-spider-man-31`.
+
+### What is derived rather than stored
+
+Two fields drifted badly while they were set by hand — both were written
+carefully for the first three decades and thinly after — so `dataset.js` now
+derives them from the milestones:
+
+- **`firstAppearances`** is filled from every `debut` milestone that carries a
+  `character`. The milestone's `label` is written to read in a timeline row and
+  does **not** index anything; `character` does, and takes a list when one
+  arrival introduces two.
+- **`keyIssue`** is set on any issue with a `status-quo` or `universe`
+  milestone. A hand-set flag in `overrides.js` still wins. The Essentials path
+  and the Key issues filter both read it.
+
+### Reading paths
+
+`data/paths.js` builds each path from any combination of a `match` predicate,
+arc keys (expanded to those arcs' issues) and explicit ids, then sorts by cover
+date. A `match` runs over the merged dataset, so it can use derived fields.
 
 ## How cover dates work
 
@@ -58,198 +102,263 @@ Team-Up started bimonthly and drifted three months by #75. Anchors fix both.
 `npm run verify:wiki` looks every issue up on Marvel Database and writes both
 the real cover dates and Marvel's catalogue ids. Both come out of one crawl —
 they live on the same page, and fetching twice would be gratuitous load on
-someone else's wiki. The wiki API takes 50 page titles per request, so the whole dataset
-costs about twenty calls.
+someone else's wiki. The API takes 50 page titles per request; keep the delay
+between batches. Anything unresolved keeps its estimate and shows a leading `~`
+in the UI.
 
-**1106 of 1109 issues now carry a verified date.** The three that do not are
-annuals the wiki dates by year alone; there we keep the generated month and
-trust the year. Anything unresolved simply keeps its estimate and stays marked
-with a leading `~` in the UI.
+**After adding a series, crawl it:** `npm run verify:wiki -- --only=<key>`.
+Nothing does it for you. Ultimate Comics: Spider-Man (2009) went in after the
+last crawl: 22 of its 26 dates are still estimates, and none of the 26 has a
+Marvel id.
 
-The anchors in `data/series.js` still matter — they are what the tree falls back
-on for any issue the wiki cannot resolve, and they were worth getting right:
-before verification, the anchored estimates were exact for 96% of Amazing
-Spider-Man and 90% of Spectacular, but only 2% of Marvel Tales, where one issue
-was off by five years.
+The crawl only reads `issues.json`, so **guest appearances never get a Marvel
+id**. Their dates were checked by hand when each was added.
 
 Useful flags:
 
 ```bash
 npm run verify:wiki -- --missing                   # only unverified issues
-npm run verify:wiki -- --only=marvel-tales         # one series
+npm run verify:wiki -- --only=amazing-spider-man   # one or more series, comma-separated
 ```
 
 If a series comes back entirely unresolved, its `wikiTitle` is wrong. Marvel
-Database renames runs mid-stream — both `peter-parker-spectacular` and
+Database renames runs mid-stream — `peter-parker-spectacular` and
 `spectacular-spider-man-annual` need a per-segment `wikiTitle` for exactly this
-reason.
+reason — and spells some titles its own way (`Ultimate Marvel Team Up Vol 1`,
+no hyphen).
 
 ### Numbers that are not steps in the run
 
 A segment is a contiguous range of whole numbers. That is the right model for a
-monthly book and no model at all for the two things Marvel does to one, so a
+monthly book and no model at all for the things Marvel does to one, so a
 series may also carry `extras` — single issues listed outright:
 
 - **`#-1`.** For one month in 1997 every title shipped one, slotted between two
   ordinary issues and set before its own first.
 - **Point-one issues.** `#654.1` sits between #654 and #655, not after it.
   Numeric sort puts them in the right place for free.
-
-Both default to `relevance: 'notable'`: they are worth reading and are not the
-spine of the run.
+- **One-shots under an old title.** Spectacular #1000 is a 2011 one-shot of a
+  run that ended in 1998, and lands in 2011 under that series.
 
 `#700.1`–`#700.5` all carry a February 2014 cover date. That is right — they
 shipped across three weeks of December 2013 as one run-on — so five issues
 sharing a month is not a fault to go fixing.
 
+Several runs switch to legacy numbering mid-volume (ASM vol. 4 goes #32 →
+#789, Zdarsky's Spectacular #6 → #297, Ultimate Comics 2009 #15 → #150). That is
+two segments of one series, not two series.
+
 ### When the number does not derive the page at all
 
 A segment may also carry `wikiPages`, a map from issue number to the page's
-full title, for the issues where no `wikiTitle` would produce it. That is not a
-hypothetical: Marvel stopped numbering the Spider-Man annuals in 1996 and the
-wiki files them by year, so annual **#31 lives at
-`Amazing Spider-Man Annual Vol 1 1998`** and there is no `Vol 1 31` page to
-find. The 2008 revival then restarts at `Vol 2 1` before jumping to the legacy
-number from `Vol 2 36` on.
+full title, for the issues where no `wikiTitle` would produce it. Marvel
+stopped numbering the Spider-Man annuals in 1996 and the wiki files them by
+year, so annual **#31 lives at `Amazing Spider-Man Annual Vol 1 1998`**. The
+2008 revival then restarts at `Vol 2 1` before jumping to the legacy number
+from `Vol 2 36` on.
 
 The only thing tying the two numberings together is the wiki's own
-**`LegacyNumber`** field on each issue page. Read that rather than inferring a
-sequence — #29 and #30 have redirects from their legacy numbers, but #31–#34
-do not, so a run of redirects tells you nothing about the rest. `wikiPage`
-flows through the generator to both `verify:wiki` and the outbound link, so an
-issue named this way is verified and linked like any other.
+**`LegacyNumber`** field. Read that rather than inferring a sequence from
+redirects — some legacy numbers have one and some do not.
+
+### Continuities
+
+`universe` on a series defaults to `earth-616`. The Ultimate books carry
+`ultimate` (2000–2015) and the 2024 relaunch `ultimate-6160`: same character,
+no shared history, so each forks the tree instead of folding into the main
+line. Miles Morales appears in both — his Ultimate books carry `ultimate`, his
+books after 2015 do not.
 
 ## The comic reader
 
-Issues with a local file behind them can be read in the page. `data/` still
-holds no artwork and no file paths — the shelf is discovered at runtime.
+Issues with a local file behind them can be read in the page. `data/` holds no
+artwork and no file paths — the shelf is discovered at runtime.
 
 ### Why there is a service at all
 
 A third of the shelf is `.cbr`, which is RAR, and the archives run 30–50 MB
 each. Unpacking those in the browser means shipping a WASM extractor and
 downloading a whole archive to show its first page. `reader/server.mjs` opens
-one page instead, in about 15 ms, and works the same for both containers.
+one page instead, in about 15 ms.
 
 It has **no npm dependencies** — Node builtins plus `bsdtar` — which is worth
 keeping. Two details earn their place:
 
-- **`.cbz` is read in process.** `reader/lib/zip.mjs` is a small
-  random-access zip reader: central directory, then a seek straight to the one
-  entry wanted. Verified against all 445 zip archives on the shelf.
+- **`.cbz` is read in process.** `reader/lib/zip.mjs` is a small random-access
+  zip reader: central directory, then a seek straight to the one entry wanted.
 - **`.cbr` is unpacked once, whole,** into a disposable page cache, then served
   from disk (0.5 s cold, 3 ms after). `bsdtar` and not `7z`: Debian and Alpine
-  both ship p7zip *without* the RAR decoder, because its licence is not free,
-  and it fails every entry with "Unsupported Method" after listing the archive
-  quite happily.
+  both ship p7zip *without* the RAR decoder, and it fails every entry with
+  "Unsupported Method" after listing the archive quite happily.
 
 The cache is a named volume, and it has to be one. Bind-mounting a host
 directory gives root ownership to a container that runs as `node`, and every
-`.cbr` then fails one request at a time; the service warns about that at
-startup rather than letting it be discovered a page at a time.
+`.cbr` then fails one request at a time.
+
+The shelf is rescanned when a request arrives more than five minutes after the
+last scan (`SCAN_TTL_MS`), so new files show up without a restart.
 
 ### The service knows nothing about issues
 
 `/api/library` returns, per archive, the issue ids it *could* be — in priority
-order — and the browser picks the first that names a real issue, because the
-browser is where the dataset lives. So extending the tree needs no redeploy of
-the service, and adding comics needs no rebuild of the site.
+order — and the browser (`src/lib/shelf.js`) picks the first that names a real
+issue. The reader builds ids by concatenation, `${key}-${number}`, and never
+validates them.
 
 `data/library.js` maps a folder to the series keys its files may belong to.
 Order is priority, which is what lets one folder hold two series: the 1963
 directory contains both #1–441 and the post-renumbering #500–700, and only the
-second lot are vol. 2. Anything in an unmapped folder falls back to matching on
-the series name parsed out of the filename, against a table derived from
-`data/series.js` — so a folder of Web of Spider-Man would resolve with no
-configuration at all.
+second lot are vol. 2. A folder entry can also carry:
 
-**All 748 files on the shelf match an issue.**
+- `aliases` — pin a filename, or a parsed number, to specific ids. For files
+  whose name is wrong about what they hold (ASM `000` is really #-1).
+- `titles` — route by a substring of the parsed title, for folders that shelve
+  a run and its annuals together. `titles: { annual: [] }` says "the tree does
+  not index these" instead of letting them claim someone else's number.
 
-One of them only because it is aliased. `Amazing Spider-Man 000 (1997)` is the
-Flashback issue **#-1** — the scene release is named `-001` and whoever
-organised the folder renamed it; same inode, same release tag, and there is no
-Amazing Spider-Man #0 for it to be. A folder in `data/library.js` can pin a
-parsed number to specific issue ids for exactly this, which beats renaming
-someone's files.
+Anything in an unmapped folder falls back to matching the series name parsed
+from the filename against a table derived from `data/series.js`.
+
+### Pin every folder
+
+The fallback returns **every** series whose name matches, and that bites
+constantly: six volumes are called "Amazing Spider-Man", three books are
+"Spider-Man", three are "Superior Spider-Man". Unpinned, the browser takes the
+first id that exists, so one file can satisfy the #1 of several volumes and
+coverage reports an issue as present when it is not. **When adding a folder,
+add it to `library.js`**, even if the fallback seems to resolve it.
+
+Guest-appearance folders (`Invitados/…`) never resolve on their own:
+`appearances.js` is not something the reader imports, so the fallback knows
+nothing about those series. An unpinned guest folder is indexed and matches no
+id at all — on the disk and invisible to the tree.
+
+The obvious id can belong to another series: `secret-wars-N` is the **1984**
+Secret Wars; the 2015 event is `secret-wars-2015-N`.
+
+### Collected editions
+
+`data/collections.js` maps page ranges of one file to issue ids — the only way
+some issues exist on the shelf (ASM vol. 4 #1–32 only exist inside the
+*Worldwide* volumes). Pages are 1-based over the archive's images in order,
+front matter included, and were read off the book itself; they cannot be
+derived.
+
+A part is a **fallback**: `shelf.js` claims whole files first and lets
+collections fill only what is left. So listing every issue a volume contains is
+right even when most already have their own file.
 
 Filenames are parsed by reading only up to the first bracket. Sixty-one files
 on the shelf have an unclosed one and five carry a bare `c2c` after the last
 group, and stripping balanced groups instead loses the issue number in all of
-them.
+them. `reader/lib/index.mjs` documents the rest of the parse.
 
 ### Reading position
 
 `src/lib/progress.js` keeps the last page per issue in localStorage — per
-browser, never leaving the machine. Read/unread on the cards and the two shelf
-filters are derived from it rather than stored separately.
+browser, never leaving the machine. The shelf/part-read/read marks on the cards
+and the shelf filters are derived from it rather than stored separately.
+
+## The interface
+
+- **Four dimensions** — series, arc, reading path, first appearance — combine
+  as an intersection. `src/lib/scope.js` gives each option the set of series it
+  covers, and a picker only offers what still crosses what is already chosen,
+  so an empty combination is unreachable rather than designed for.
+- **A selection replaces the timeline** (`SelectionView`) with its issues in
+  reading order: an arc's or path's declared order, otherwise chronological.
+  Crossover order matters — Kraven's Last Hunt crosses three titles inside one
+  cover month, and sorting by date would shuffle it. The timeline is one click back and keeps its scroll position.
+- **Routes** live in the hash (`#/arc/kravens-last-hunt/series/web-of-spider-man`)
+  and every key is checked on the way in; one that does not resolve is dropped.
+- **Two skins**, System / Spider-Man (light) / Venom (dark). An explicit choice
+  stamps `data-theme` on the root; System stamps nothing and follows
+  `prefers-color-scheme`. Arc colours are written once, for the light skin, and
+  `src/lib/palette.js` lifts them at paint time via the `--arc-lift` token.
+- `src/lib/graph.js` lays the focus graph out by hop distance in fixed columns
+  rather than running a force simulation. The subgraph is 5–15 nodes; a graph
+  library would cost more than it saves.
+- `YearBand` mounts its cards only when near the viewport.
+- Halftone texture is restricted to backgrounds and year headers, never behind
+  dense text.
+- Fonts are referenced by family name (SF Pro); nothing is bundled — the full
+  set is 137 MB. If this is ever published, subset the variable `SF-Pro.ttf`
+  and add real `@font-face` rules to `src/styles/global.css`.
 
 ## Deploying
 
 ### The live deployment
 
-Running at **http://dell-server:8082**, deployed with:
+Runs on dell-server (`server@192.168.1.14`) at **https://spiderman.lan**, and
+the deploy directory **is** the working checkout:
+`/home/server/docker-services/spider-man`. Changes are made and committed
+there, then pushed to `origin`.
+
+No host port is published. Both containers join the `docker-services_default`
+network and Caddy reaches the site by container name — the block lives in
+`~/docker-services/caddy/conf/Caddyfile` (`reverse_proxy
+spider-man-reading-tree:80`). Inside the site container, nginx proxies `/api/`
+to `spider-man-reader:8787`, resolving it lazily so the site starts without it.
+The shelf is `/mnt/hdd/media/books/comics`, mounted read-only.
+
+### What needs rebuilding
+
+The two images bake in different files, and nothing rebuilds them for you:
+
+| You changed | Rebuild |
+|-------------|---------|
+| `series.js`, `library.js`, `collections.js`, `reader/` | `spider-man-reader` |
+| `series.js` or any other `data/` layer, `src/` | `spider-man` |
+| Only files on the shelf | nothing — the next scan picks them up |
 
 ```bash
-./scripts/deploy.sh server@dell-server \
-  --dir /home/server/docker-services/spider-man \
-  --port 8082
+docker compose build spider-man-reader && docker compose up -d spider-man-reader
+docker compose build spider-man && docker compose up -d spider-man
 ```
 
-The shelf defaults to `/mnt/hdd/media/books/comics` on that host — 748
-archives, hardlinked to the torrent directory, so it costs no extra disk. Point
-it elsewhere with `--comics <path>`, or pass `--comics ""` to deploy the site
-without the reader. A missing directory is not an error: the script says so and
-deploys the site alone.
-
-Three things about that host are not the script's defaults and are worth
-remembering: the SSH user is `server` (not the local username), services live
-under `/home/server/docker-services/<name>/` by convention rather than in
-`/opt`, and port 8080 is already taken by qbittorrent. The host also runs Caddy
-as a reverse proxy on 80/443, routing `*.lan` names to `192.168.1.14:<port>`,
-so this can be given a hostname by adding one block to its Caddyfile.
+The reader image copies `series.js`, `library.js` and `collections.js` at build
+time. Pinning a folder and not rebuilding it changes nothing live, and gives no
+error. To check what the running reader has:
+`docker exec spider-man-reader cat /app/data/library.js | diff - data/library.js`.
 
 ### The script
 
-`scripts/deploy.sh user@host` deploys over SSH. The remote clones or updates the
-repo, builds the image and runs docker compose; nothing is copied from the
-developer machine, so what runs is exactly what is on the branch.
+`scripts/deploy.sh user@host` deploys to another host over SSH: the remote
+clones or updates the repo, builds and runs docker compose, so what runs is
+exactly what is on the branch — push first. Pass `--comics ""` to deploy the
+site without the reader. It refuses to touch a deploy directory that is not a
+checkout of this repository; that guard is deliberate — do not remove it to
+make a deploy "just work".
 
-The script refuses to touch the deploy directory if it exists and is either not
-a git checkout or a checkout of a different repository. That guard is
-deliberate — do not remove it to make a deploy "just work".
-
-The image is multi-stage: `node:22-alpine` builds, `nginx:alpine` serves. There
-is no Node in the running container. `docker/nginx.conf` caches fingerprinted
-assets for a year and explicitly refuses to cache `index.html`, without which a
-deploy strands clients on stale bundles.
+The site image is multi-stage: `node:22-alpine` builds, `nginx:alpine` serves.
+`docker/nginx.conf` caches fingerprinted assets for a year and explicitly
+refuses to cache `index.html`, without which a deploy strands clients on stale
+bundles.
 
 ## Digital availability
 
 `data/marvel-unlimited.json` maps issue ids to Marvel's own catalogue id, which
-is what turns the Marvel link from a fuzzy site search into a direct one. Its
-absence is information too, and the UI shows it: a quiet dot beside the date
-means there is a digital edition, and the detail panel says so when there is
-not.
-
-706 of 1085 generated issues have one. That headline figure is misleading on
-its own — it is dragged down by the 301 reprint and out-of-continuity issues,
-none of which have a digital edition. Across the material actually worth
-reading it is **700 of 793**, and Amazing Spider-Man is complete.
+turns the Marvel link from a fuzzy site search into a direct one. Its absence
+is information too: a quiet dot beside the date means there is a digital
+edition, and the detail panel says so when there is not.
 
 Do not read a missing id as "unavailable anywhere": it means Marvel has no
-digital catalogue entry, not that no edition exists.
+digital catalogue entry — or, for guests and for series added after the last
+crawl, that nobody looked.
 
 ## Scope
 
-Included: every issue of the titles Spider-Man headlines (Amazing Fantasy #15,
-Amazing Spider-Man, Peter Parker/Spectacular, Marvel Team-Up, Web of Spider-Man,
-their annuals), plus curated guest appearances with narrative weight.
+Included: every issue of the titles Spider-Man headlines, including the Clone
+Saga miniseries, the team-up titles and both Ultimate continuities, plus curated
+guest appearances with narrative weight. `appearances.js` holds singles by
+decade, then complete events by event; the test for an event is whether his
+own book afterwards treats it as settled fact.
 
-`relevance: 'optional'` covers reprints (Marvel Tales) and out-of-continuity
-material (Spidey Super Stories). Hidden by default — it triples the node count
-without adding a story.
+`relevance: 'optional'` covers out-of-continuity material (Spidey Super
+Stories) and is hidden by default.
 
-Deliberately excluded: single-panel cameos, and anything after 1990.
+Deliberately excluded: single-panel cameos, and reprints. Marvel Tales was in
+the tree and was dropped — it republished stories the tree already holds.
 
 ## Covers and copyright
 
@@ -258,36 +367,19 @@ cover images are hosted or hot-linked. Each issue links out to Marvel Database,
 League of Comic Geeks, Marvel.com and Comic Vine, where the artwork lives.
 
 Only Marvel Database gets a direct URL — its page titles are exactly
-`<Series Title> Vol N <number>`, which is why every series carries a `wikiTitle`,
-and why a renamed run needs a per-segment `wikiTitle` (see
-`peter-parker-spectacular`, which becomes `Spectacular Spider-Man Vol 1` at
-#134). The other three key their URLs on internal numeric ids, so they get site
-search URLs instead.
+`<Series Title> Vol N <number>`, which is why every series carries a
+`wikiTitle`. The other three key their URLs on internal numeric ids, so they get
+site search URLs instead.
 
-Notes in `data/` are original one-line framings. Do not paste synopses from other
-sources into them.
-
-## Layout notes
-
-- `src/lib/graph.js` lays the focus graph out by hop distance in fixed columns
-  rather than running a force simulation. The subgraph is 5–15 nodes; a graph
-  library would cost more than it saves.
-- `YearBand` mounts its cards only when near the viewport. All ~1100 at once is
-  survivable but makes filtering sluggish.
-- Halftone texture is restricted to backgrounds and year headers, never behind
-  dense text.
-- Fonts are referenced by family name — SF Pro is installed system-wide at
-  `~/.local/share/fonts/SF-Pro/`. Nothing is bundled; the full set is 137 MB. If
-  this is ever published, subset the variable `SF-Pro.ttf` (21 MB) and add real
-  `@font-face` rules to `src/styles/global.css`.
+Notes in `data/` are original one-line framings. Do not paste synopses from
+other sources into them.
 
 ## Not built (yet)
-
-Read/unread tracking was explicitly left out of the first pass. What exists now
-is only what the reader could not do without — a resume position per issue, in
-localStorage — and everything on top of it is derived from that.
 
 The reader is one page at a time: no two-page spreads, and no downscaling for
 phones. Pages are served at their scan resolution (often 2175×3075, ~1.4 MB)
 because zoom needs it, which is fine on a LAN and would not be over the
 internet.
+
+Not every point issue is listed. Avenging Spider-Man #15.1 is a known gap; it
+needs only an `extras` entry in `series.js`, plus a file on the shelf.
