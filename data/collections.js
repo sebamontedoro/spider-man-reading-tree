@@ -360,4 +360,69 @@ export const COLLECTIONS = [
       { id: 'peter-parker-spectacular-80', from: 10, to: 32 },
     ],
   },
+
+  // ------------------------------------------------------------ Daredevil
+  // Cinco tomos que existen en el estante por un solo motivo: los numeros
+  // sueltos que recopilan estan, en getcomics, detras de un desafio de
+  // Cloudflare que ningun espejo evita. Son respaldo, como todo tomo: el dia
+  // que llegue el suelto, gana el suelto.
+  //
+  // Los cortes se leyeron sobre hojas de contacto armadas en el mismo orden en
+  // que el lector sirve las paginas (comprobado contra /api/comic, identico en
+  // los cinco). Estos tomos marcan cada capitulo con una portada enmarcada y
+  // el numero impreso, y meten tapas alternativas entre capitulos: esas quedan
+  // afuera de los rangos.
+  {
+    file: 'Collected Editions/Daredevil by Saladin Ahmed v01 - Hell Breaks Loose (2024) (TPB).cbz',
+    // Daredevil (vol. 8) #1-5. El #1 es doble; desde la 127, tapas alternativas.
+    parts: [
+      { id: 'daredevil-v8-1', from: 4,   to: 42 },
+      { id: 'daredevil-v8-2', from: 43,  to: 64 },
+      { id: 'daredevil-v8-3', from: 65,  to: 84 },
+      { id: 'daredevil-v8-4', from: 85,  to: 105 },
+      { id: 'daredevil-v8-5', from: 106, to: 126 },
+    ],
+  },
+  {
+    file: 'Collected Editions/Daredevil & Echo (2023) (TPB).cbz',
+    // La 33 es una alternativa del #1 (Declan Shalvey), entre el #1 y el #2.
+    parts: [
+      { id: 'daredevil-echo-1', from: 4,  to: 32 },
+      { id: 'daredevil-echo-2', from: 34, to: 53 },
+      { id: 'daredevil-echo-3', from: 54, to: 73 },
+      { id: 'daredevil-echo-4', from: 74, to: 94 },
+    ],
+  },
+  {
+    file: 'Collected Editions/Daredevil - Black Armor (2024) (TPB).cbz',
+    parts: [
+      { id: 'daredevil-black-armor-1', from: 4,  to: 33 },
+      { id: 'daredevil-black-armor-2', from: 34, to: 54 },
+      { id: 'daredevil-black-armor-3', from: 55, to: 75 },
+      { id: 'daredevil-black-armor-4', from: 76, to: 95 },
+    ],
+  },
+  {
+    file: 'Collected Editions/Daredevil & Elektra by Chip Zdarsky v03 - The Red Fist Saga Part Three (2023) (TPB).cbz',
+    // Daredevil (vol. 7) #11-14, con el numero en un circulo en cada portada de
+    // capitulo. La 34 es una alternativa del #11; el #14 es el cierre doble.
+    parts: [
+      { id: 'daredevil-v7-11', from: 5,  to: 33 },
+      { id: 'daredevil-v7-12', from: 35, to: 56 },
+      { id: 'daredevil-v7-13', from: 57, to: 77 },
+      { id: 'daredevil-v7-14', from: 78, to: 107 },
+    ],
+  },
+  {
+    file: 'Collected Editions/Daredevil - Unleash Hell - Red Band (2025) (TPB).cbz',
+    // Dos alternativas del #1 metidas entre capitulos (Stephanie Hans en la 50,
+    // Joelle Jones en la 71). El #5 cierra con END en la 111.
+    parts: [
+      { id: 'daredevil-unleash-hell-1', from: 5,  to: 28 },
+      { id: 'daredevil-unleash-hell-2', from: 29, to: 49 },
+      { id: 'daredevil-unleash-hell-3', from: 51, to: 70 },
+      { id: 'daredevil-unleash-hell-4', from: 72, to: 91 },
+      { id: 'daredevil-unleash-hell-5', from: 92, to: 111 },
+    ],
+  },
 ]
