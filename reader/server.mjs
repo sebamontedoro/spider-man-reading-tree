@@ -13,6 +13,8 @@
  *                                      issue ids it could be, best guess first
  *   GET /api/comic/:key                page count and page names for one comic
  *   GET /api/comic/:key/page/:n        one page, as its original image bytes
+ *   GET /api/comic/:key/page/:n?w=1440 the same page resized to that width, for
+ *                                      screens that would throw most of it away
  *
  * `:key` is a hash of the archive's path in the manifest, never a path from
  * the request — the service will not open a file it did not index.
@@ -28,6 +30,7 @@ import { constants as FS } from 'node:fs'
 
 import { scanLibrary } from './lib/index.mjs'
 import { evictCache, listPages, readPage, MIME } from './lib/archive.mjs'
+import { isWidth, resizer, sizedPage, widths } from './lib/resize.mjs'
 
 const COMICS_DIR = process.env.COMICS_DIR || '/comics'
 const CACHE_DIR = process.env.CACHE_DIR || '/cache'
@@ -100,6 +103,7 @@ async function route(req, res, url) {
     return sendJson(res, 200, {
       ok: true,
       root: COMICS_DIR,
+      resize: await resizer(),
       archives: m.count,
       matchable: m.matchable,
       scannedAt: m.scannedAt,
@@ -128,6 +132,9 @@ async function route(req, res, url) {
         bytes: comic.bytes,
         count: pages.names.length,
         names: pages.names,
+        // What ?w= accepts. The client picks from this rather than knowing the
+        // list itself, so a service without libvips simply offers nothing.
+        widths: await widths(),
       }, { 'Cache-Control': 'public, max-age=3600' })
     }
 
@@ -139,18 +146,29 @@ async function route(req, res, url) {
       const pages = await getPages(comic)
       if (n > pages.names.length) return notFound(res, `comic has ${pages.names.length} pages`)
 
+      // A width off the list is refused rather than rounded: rounding would
+      // cache one page under as many URLs as there are window sizes.
+      const w = url.searchParams.has('w') ? Number(url.searchParams.get('w')) : null
+      if (w !== null && !isWidth(w)) {
+        return sendJson(res, 400, { error: 'w must be one of the widths the comic lists' })
+      }
+
       const name = pages.names[n - 1]
       const type = MIME[path.extname(name).toLowerCase()] || 'application/octet-stream'
-      const etag = `"${comic.key}-${n}-${comic.bytes}"`
+      const etag = `"${comic.key}-${n}-${comic.bytes}${w ? `-w${w}` : ''}"`
 
       if (req.headers['if-none-match'] === etag) {
         res.writeHead(304, { ETag: etag, 'Cache-Control': 'public, max-age=86400' })
         return res.end()
       }
 
-      const bytes = await readPage(path.join(COMICS_DIR, comic.file), pages, n - 1, CACHE_DIR)
-      return send(res, 200, bytes, {
-        'Content-Type': type,
+      const original = () => readPage(path.join(COMICS_DIR, comic.file), pages, n - 1, CACHE_DIR)
+      const page = w && (await resizer())
+        ? await sizedPage({ cacheRoot: CACHE_DIR, comicKey: comic.key, n, width: w, original, type })
+        : { bytes: await original(), type }
+
+      return send(res, 200, page.bytes, {
+        'Content-Type': page.type,
         ETag: etag,
         'Cache-Control': 'public, max-age=86400',
       })

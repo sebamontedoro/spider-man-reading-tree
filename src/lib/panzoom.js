@@ -28,7 +28,7 @@ const boxOf = (el) => {
   return { width: r?.width || 0, height: r?.height || 0 }
 }
 
-const fitScale = (mode, nat, box) => {
+export const fitScale = (mode, nat, box) => {
   if (!nat?.w || !nat.h || !box.width || !box.height) return 1
   const byWidth = box.width / nat.w
   return mode === FIT_WIDTH ? byWidth : Math.min(byWidth, box.height / nat.h)

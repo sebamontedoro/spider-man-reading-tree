@@ -11,7 +11,11 @@ FROM node:22-alpine
 
 # libarchive reads RAR3 and RAR5 and is free software, which p7zip's RAR
 # decoder is not; a third of the shelf is .cbr, so this is not optional.
-RUN apk add --no-cache libarchive-tools
+#
+# libvips resizes pages for screens that cannot use a full scan — see
+# reader/lib/resize.mjs. This one is optional: without it the service offers
+# no widths and serves every page at its original size. About 80 MB of image.
+RUN apk add --no-cache libarchive-tools vips-tools
 
 WORKDIR /app
 

@@ -67,6 +67,9 @@ in a reader with zoom, pan, page turns and a resume position.
 - Pages arrive one at a time, so a 40 MB archive opens in about 15 ms rather
   than after a 40 MB download. `.cbz` is read in process; `.cbr` is unpacked
   once by `bsdtar` into a disposable cache.
+- Pages are sized to the screen: a phone gets a copy about 40% the weight of
+  the scan, and the full scan arrives the moment you zoom past it. That needs
+  libvips in the service; without it every page is served whole.
 - Zoom with the toolbar, `+`/`-`, ctrl-scroll or a two-finger pinch. Turn pages
   with the arrows, the buttons, or a swipe. `0` fits the page, `w` fits the
   width, `f` goes full screen, `Esc` closes.

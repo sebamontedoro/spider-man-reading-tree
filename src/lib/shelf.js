@@ -98,5 +98,9 @@ export const fetchComic = (key) =>
     r.ok ? r.json() : Promise.reject(new Error(`could not open the comic (HTTP ${r.status})`)),
   )
 
-/** The URL of one page, 1-based. Cached hard by the browser — see the ETag. */
-export const pageUrl = (key, n) => `${API}/comic/${key}/page/${n}`
+/**
+ * The URL of one page, 1-based, at its original size or at one of the widths
+ * the comic's listing offers. Cached hard by the browser — see the ETag.
+ */
+export const pageUrl = (key, n, width = null) =>
+  `${API}/comic/${key}/page/${n}${width ? `?w=${width}` : ''}`

@@ -202,7 +202,8 @@ each. Unpacking those in the browser means shipping a WASM extractor and
 downloading a whole archive to show its first page. `reader/server.mjs` opens
 one page instead, in about 15 ms.
 
-It has **no npm dependencies** — Node builtins plus `bsdtar` — which is worth
+It has **no npm dependencies** — Node builtins plus the `bsdtar` and `vips`
+binaries — which is worth
 keeping. Two details earn their place:
 
 - **`.cbz` is read in process.** `reader/lib/zip.mjs` is a small random-access
@@ -273,6 +274,40 @@ Filenames are parsed by reading only up to the first bracket. Sixty-one files
 on the shelf have an unclosed one and five carry a bare `c2c` after the last
 group, and stripping balanced groups instead loses the issue number in all of
 them. `reader/lib/index.mjs` documents the rest of the parse.
+
+### Pages sized to the screen
+
+A scanned page is typically 2000×3000 and ~1.8 MB. A phone at fit-width shows a
+third of those pixels and paid for all of them — on the wire and again
+decoded, three pages ahead. So a page can be asked for at a width
+(`/page/:n?w=1440`): `reader/lib/resize.mjs` resizes it with libvips, over
+stdin/stdout, and keeps the result in the cache volume, one directory per comic
+and width so the existing eviction covers it. Measured on ASM #298 on a phone:
+819 KB instead of 1.9 MB for the first page, 186 ms cold and 10 ms after.
+
+- **The service owns the list of widths** (720, 1080, 1440, 1920) and returns
+  it as `widths` in `/api/comic/:key`. An empty list — no libvips — means the
+  client asks for originals. Any other `w` is a 400, not rounded, or every
+  window size would become its own cache entry.
+- **The client picks once per comic**: the narrowest width covering the page as
+  it will be drawn, in device pixels. Past 1.15 device pixels per image pixel
+  it fetches the original and swaps it in; while zoomed, new pages come
+  straight in whole.
+- **Layout is always in sized-page pixels** (`layoutSize` in `Reader.jsx`),
+  whichever copy is loaded. Pan-zoom works in image pixels and keeps a hand zoom
+  across page turns; if that space followed the bitmap, the same zoom would
+  mean a different magnification on every other page. The original is drawn
+  into the same box, so the swap moves nothing.
+- **Under a fit, judge sharpness from the fit, not the view.** The view is one
+  render late: on opening it is still the pan-zoom's starting scale of 1, which
+  on a phone reads as zoomed in, and the first version downloaded every
+  original only to throw it away. The page looked right the whole time; only
+  the list of requests showed it. Check that list after touching this.
+- A resize only wins if it is at least 10% lighter. Scans narrower than the
+  width would otherwise be re-encoded — losing quality to save 1%.
+
+The zoom readout is a multiple of the whole page on screen, not the bitmap
+scale — the latter now depends on which copy is loaded.
 
 ### Reading position
 
@@ -397,10 +432,7 @@ other sources into them.
 
 ## Not built (yet)
 
-The reader is one page at a time: no two-page spreads, and no downscaling for
-phones. Pages are served at their scan resolution (often 2175×3075, ~1.4 MB)
-because zoom needs it, which is fine on a LAN and would not be over the
-internet.
+The reader is one page at a time: no two-page spreads.
 
 Not every point issue is listed. Avenging Spider-Man #15.1 is a known gap; it
 needs only an `extras` entry in `series.js`, plus a file on the shelf.
