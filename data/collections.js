@@ -425,4 +425,19 @@ export const COLLECTIONS = [
       { id: 'daredevil-unleash-hell-5', from: 92, to: 111 },
     ],
   },
+  {
+    file: 'Collected Editions/Daredevil-Punisher - Seventh Circle (2016) (Infinite Comic TPB).cbr',
+    // Daredevil/Punisher #1-4, la edicion impresa que el arbol lista, no existe
+    // suelta en getcomics; este tomo recopila la version digital Infinite, en
+    // 552 pantallas apaisadas. Segun el wiki cada impreso reimprime dos
+    // capitulos Infinite (el #1 los capitulos 1 y 2, y asi), y cada capitulo
+    // cierra con un "TO BE CONTINUED" que marca el corte: 135, 271, 406; el
+    // ultimo con "THE END" en la 549. Se lee en pantallas, no en paginas.
+    parts: [
+      { id: 'daredevil-punisher-1', from: 1,   to: 135 },
+      { id: 'daredevil-punisher-2', from: 136, to: 271 },
+      { id: 'daredevil-punisher-3', from: 272, to: 406 },
+      { id: 'daredevil-punisher-4', from: 407, to: 549 },
+    ],
+  },
 ]
