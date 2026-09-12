@@ -135,9 +135,26 @@ same day from the wiki's own pages rather than from memory — 53 milestones,
 63 arcs, 13 reading paths — and the header of each layer file says how:
 `milestones.js` why a {{Death}} marker is never taken on its own,
 `arcs.js` where the arc names come from (the pages' StoryArc field),
-`appearances.js` how 808 outside appearances came down to 51. Nothing of his
-own is on the shelf yet beyond what the Spider-Man tree already brought
-(Devil's Reign #1-6 and four Epic Collections).
+`appearances.js` how 808 outside appearances came down to 51.
+
+Shelved 2026-09-12: 896 of 902 issues and guests have a file, 11 of them only
+as pages of a collected edition. Everything of his is under `Daredevil/` (one
+folder per volume, annuals and miniseries apart); guest books go under
+`Invitados/` next to Spider-Man's. Every folder is pinned in `library.js`, and
+six collections are mapped in `collections.js` — Vol. 8 #1-5, Vol. 7 #11-14,
+Daredevil & Echo, Black Armor, Unleash Hell and the Seventh Circle.
+
+The six still missing: five optional one-shots nobody has posted (Daredevil/Shi,
+The Movie, 2099, Season One, Born Again 2026), and **Gang War #1**, whose
+single and TPB links sit behind a Cloudflare challenge. Nothing automated gets
+past that challenge, and nothing should try: open the link in a real browser,
+or wait for a collection.
+
+The Vol. 1 run comes from one getcomics pack of scans, with digital files
+swapped in wherever a single was posted separately (the larger file wins).
+The **Seventh Circle** TPB is the *Infinite Comic* edition: 552 screens, not
+four printed issues. Print #N is Infinite chapters 2N-1 and 2N, per the wiki's
+ReprintOf field, and that is how its page ranges were cut.
 
 Known thin spots, on purpose: 2022 on has few milestones, because most of
 those pages have no synopsis to confirm a death against; Waid's run has no
@@ -147,8 +164,9 @@ omissions to fill from memory.
 Numbering that will bite:
 
 - **Annual "#4B".** Marvel printed two Annual #4s (1976, 1989). The tree calls
-  the second #5 and names its page (`Daredevil Annual Vol 1 4B`). Its file will
-  parse to 4: alias it in `library.js`, or it claims the 1976 issue.
+  the second #5 and names its page (`Daredevil Annual Vol 1 4B`). The pack
+  names it Annual 004 (1989); it was shelved as `Annual 005`, because a file
+  that parses to 4 claims the 1976 issue.
 - **Vol. 4 #1.50** is id `daredevil-v4-1.5`; the page keeps the printed name.
 - **Vol. 9 is ongoing.** Its segment lists what is on sale, not what is
   solicited; extend `to` as issues come out.
